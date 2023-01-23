@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <title>REST API</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<style>
+div {
+ word-wrap: break-word;`
+}
+</style>
+
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+<script type="text/javascript">
+
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+     document.getElementById("home").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "restapi/home", true);
+  xhttp.send();
+}
+
+function authenticate() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+     document.getElementById("authenticate").innerHTML =
+      JSON.parse(this.responseText)['accessToken']
+     }
+  }
+  xhttp.open("POST", "authserv/login", true); //, 'usrda', 'D@taPa5p0R7');
+  xhttp.setRequestHeader("Authorization", "Basic " + btoa('usrda:D@taPa5p0R7'))
+  xhttp.send();
+}
+
+function executeRemote() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+     document.getElementById("version").innerHTML = this.responseText
+//      JSON.parse(this.responseText)['payload'][0]
+     }
+  }
+  xhttp.open("POST", "restapi/dataProtection", true)
+  xhttp.send(
+    JSON.stringify({
+    metainfo:{
+      requestType:"query",
+      jsonType:"request",
+      environment:"DEMO",
+      sendingTopic:"TALISTEN",
+      receivingTopic:"return64356",
+      timeout:172800,
+      authorization:{
+        accessToken:document.getElementById("authenticate").innerHTML
+      },
+      targetFunction:"DA"
+    },
+    payload:"{\"query\":\"@dp version\"}",
+    signature:"10866a4f92a88b1bfbf53889741a899684b018b6e0b02a8c05ed413ece16e2ea"
+  }))
+}
+
+</script>
+
+<div id="home">
+  <button type="button" onclick="loadDoc()">Home</button>
+</div>
+<div id="authenticate">
+  <button type="button" onclick="authenticate()">Login</button>
+</div>
+<div id="version">
+  <button type="button" onclick="executeRemote()">Version</button>
+</div>
+  </body>
+</html>

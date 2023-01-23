@@ -1,0 +1,49 @@
+{
+  "sequence": [
+    {
+      "name": "Status",
+      "descr": "Health check query for the REST API agent",
+      "method": "loadDoc",
+      "image": "/app/images/status.gif",
+      "auto": "true"
+    },
+    {
+      "name": "Login",
+      "descr": "Authenticate in order to receive new access token. ",
+      "method": "authenticate",
+      "image": "/app/images/login.jpeg",
+      "username": "usrda",
+      "password": "D@taPa5p0R7",
+      "auto": "true"
+    },
+    {
+      "name": "Version",
+      "descr": "Show version of running controller.",
+      "method": "executeRemote",
+      "image": "/app/images/version-git.png",
+      "auto": "true",
+      "remote": "{\"query\":\"@dp version\"}",
+      "field": "DataPassportsVersion"
+     },
+    {
+      "name": "Sign",
+      "descr": "Sign a Datapassports policy file.",
+      "method": "executeRemote",
+      "image": "/app/images/signing.png",
+      "auto": "true",
+      "remote": "{\"query\":\"@dp sign token='DemoTest1' file='conf/TASync.xml'\"}",
+      "field": ""
+    },
+    {
+      "name": "Start",
+      "descr": "Start a Datapassports policy.",
+      "method": "executeRemote",
+      "image": "/app/images/starting-001.png",
+      "auto": "true",
+      "remote": "{\"query\":\"@dp start token='DemoTest1' file='conf/TASync.xml.signed'\"}",
+      "field": "message"
+    }
+
+
+  ]
+}
