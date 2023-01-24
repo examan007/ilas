@@ -9,13 +9,13 @@ const LinkContainer = styled('span', {
 });
 
 const RepoReadmeLink: React.VFC = () => (
-  <InteractiveLink href="https://github.com/rafgraph/spa-github-pages#readme">
+  <InteractiveLink href="https://www.illuminatiglaserandstyle.com">
     repo readme
   </InteractiveLink>
 );
 
 export const Home: React.VFC = () => (
   <div>
-     <img src="images/image.jpg" alt="iLaS business card."/>
+     <img src="images/business-card.png" alt="iLaS business card."/>
   </div>
 );
