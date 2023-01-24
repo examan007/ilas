@@ -16,6 +16,6 @@ const RepoReadmeLink: React.VFC = () => (
 
 export const Home: React.VFC = () => (
   <div>
-     <img src="images/image.jpg" alt="iLaS business card.">
+     <img src="images/image.jpg" alt="iLaS business card."/>
   </div>
 );
