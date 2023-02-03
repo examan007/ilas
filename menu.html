@@ -8,6 +8,38 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
   <link rel="stylesheet" href="https://bulma.io/vendor/fontawesome-free-5.15.2-web/css/all.min.css">
 
+  <style>
+    *, *:before, *:after {
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    body, html {
+      height: 80%;
+    }
+
+  </style>
+  <script>
+    $(function($){
+      // bulma
+      // dropdown
+      $(".dropdown .button").click(function (){
+          var dropdown = $(this).parents('.dropdown');
+          dropdown.toggleClass('is-active');
+          dropdown.focusout(function() {
+              window.setTimeout(function() {dropdown.removeClass('is-active');}, 100);
+          });
+      });
+      // bulma end
+    });
+
+  </script>
 </head>
 
 <body>
