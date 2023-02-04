@@ -198,12 +198,14 @@
           $('.sidebar').removeClass('close');
         }
       }
+
+         $(window).load(function () {
+          console.log('page is loaded');
+          $('.sidebar').toggleClass('close');
+         });
     });
 
-   jQuery(window).load(function () {
-    console.log('page is loaded');
-    $('.sidebar').toggleClass('close');
-   });
+
   </script>
 </body>
 
