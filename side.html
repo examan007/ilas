@@ -22,7 +22,7 @@
   </style>
 </head>
 
-<body>
+<body onload = "welcomeFunction()">
 <div class="wrapper">
   <div class="sidebar">
     <div class="logo-details">
@@ -199,12 +199,12 @@
         }
       }
 
-         $(window).load(function () {
-          console.log('page is loaded');
-          $('.sidebar').toggleClass('close');
-         });
     });
 
+      function welcomeFunction() {
+          console.log('page is loaded');
+          $('.sidebar').toggleClass('close');
+      }
 
   </script>
 </body>
