@@ -185,9 +185,7 @@
 
         if(document.body.clientWidth > 400){
             console.log("click to close")
-            $.each($('.sidebar'), function(index, val) {
-                console.log(val);
-            });
+
                var classobj = $('.sidebar').attr("class");
                console.log(classobj);
                console.log(JSON.stringify($('.sidebar')))
@@ -209,7 +207,10 @@
     });
 
       function welcomeFunction() {
-          console.log('page is loaded show class');
+          console.log('page is loaded show class and values');
+          $.each($('.sidebar'), function(index, val) {
+              console.log(val);
+          });
           var classobj = $('.sidebar').attr("class");
           console.log(classobj);
 
