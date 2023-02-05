@@ -190,6 +190,7 @@
       function resizeScreen() {
         if(document.body.clientWidth < 400){
           $('.sidebar').addClass('close');
+          toggleSidebar()
         }else{
           $('.sidebar').removeClass('close');
         }
@@ -210,7 +211,7 @@
     });
 
       function welcomeFunction() {
-          console.log('page is loaded toggleSidebar initial resize');
+          console.log('page is loaded toggleSidebar resize');
           $.each($('.sidebar'), function(index, val) {
               console.log(val);
           });
