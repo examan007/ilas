@@ -187,6 +187,13 @@
         $('.sidebar').toggleClass('small-screen');
       }
     }
+      function resizeScreen() {
+        if(document.body.clientWidth < 400){
+          $('.sidebar').addClass('close');
+        }else{
+          $('.sidebar').removeClass('close');
+        }
+      }
 
     $(function () {
       /* console.log("width: "+ document.body.clientWidth); */
@@ -199,13 +206,6 @@
         toggleSidebar()
       });
 
-      function resizeScreen() {
-        if(document.body.clientWidth < 400){
-          $('.sidebar').addClass('close');
-        }else{
-          $('.sidebar').removeClass('close');
-        }
-      }
 
     });
 
