@@ -191,7 +191,7 @@
     $(function () {
       /* console.log("width: "+ document.body.clientWidth); */
 
-      resizeScreen();
+//      resizeScreen();
       $(window).resize(function(){
         resizeScreen();
       });
@@ -210,7 +210,7 @@
     });
 
       function welcomeFunction() {
-          console.log('page is loaded toggleSidebar initial close');
+          console.log('page is loaded toggleSidebar initial close no resize');
           $.each($('.sidebar'), function(index, val) {
               console.log(val);
           });
