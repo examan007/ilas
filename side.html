@@ -209,8 +209,11 @@
     });
 
       function welcomeFunction() {
-          console.log('page is loaded toggle close');
-                $('.bx-menu').click()
+          console.log('page is loaded show class');
+          var classobj = $('.sidebar').attr("class");
+          console.log(classobj);
+
+          $('.bx-menu').click()
       }
 
   </script>
