@@ -186,7 +186,7 @@
         if(document.body.clientWidth > 400){
             console.log("click to close")
             $.each($('.sidebar'), function(index, val) {
-                console.log(val.category);
+                console.log(JSON.stringify(val));
             });
             console.log(JSON.stringify($('.sidebar')))
           $('.sidebar').toggleClass('close');
