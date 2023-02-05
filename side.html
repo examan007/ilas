@@ -211,14 +211,14 @@
     });
 
       function welcomeFunction() {
-          console.log('page is loaded toggleSidebar resize');
+          console.log('page is loaded toggleSidebar resize toggle');
           $.each($('.sidebar'), function(index, val) {
               console.log(val);
           });
           var classobj = $('.sidebar').attr("class");
           console.log(classobj);
           resizeScreen();
-          //toggleSidebar()
+          toggleSidebar()
       }
 
   </script>
