@@ -181,8 +181,7 @@
       $(window).resize(function(){
         resizeScreen();
       });
-      $('.bx-menu').click(function(){
-
+      function toggleSidebar() {
         if(document.body.clientWidth > 400){
             console.log("click to close")
 
@@ -194,6 +193,9 @@
           console.log("small-screen")
           $('.sidebar').toggleClass('small-screen');
         }
+      }
+      $('.bx-menu').click(function(){
+        toggleSidebar()
       });
 
       function resizeScreen() {
@@ -214,7 +216,7 @@
           var classobj = $('.sidebar').attr("class");
           console.log(classobj);
 
-          $('.bx-menu').click()
+          toggleSidebar()
       }
 
   </script>
