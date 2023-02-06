@@ -1,18 +1,3 @@
-    let arrow = document.querySelectorAll(".arrow");
-    for (var i = 0; i < arrow.length; i++) {
-      arrow[i].addEventListener("click", (e) => {
-        let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
-        arrowParent.classList.toggle("showMenu");
-      });
-    }
-    let sidebar = document.querySelector(".sidebar");
-    let sidebarBtn = document.querySelector(".bx-menu");
-    console.log(sidebarBtn);
-//    $('.sidebar').toggleClass('close');
-
-    /* sidebarBtn.addEventListener("click", () => {
-      sidebar.classList.toggle("close");
-    }); */
    function toggleSidebar() {
       if(document.body.clientWidth > 400){
           console.log("click to close")
@@ -25,6 +10,10 @@
         console.log("small-screen")
         $('.sidebar').toggleClass('small-screen');
       }
+        var sidebarwidth = $('.sidebar').width()
+        console.log("resize before setting width sbw=[" + sidebarwidth + "]")
+        $('#menu-space').width = sidebarwidth
+        console.log("resize after setting width.")
     }
       function resizeScreen() {
         if(document.body.clientWidth < 400){
@@ -33,6 +22,8 @@
         }else{
           $('.sidebar').removeClass('close');
         }
+
+        console.log("resize before setting width.")
       }
 
     $(function () {
@@ -46,8 +37,13 @@
         toggleSidebar()
       });
 
-
     });
+
+    function menuClick(obj) {
+        console.log('Getting menu item.')
+        console.log('obj.class=[' + obj.class + ']')
+
+    }
 
       function welcomeFunction() {
           console.log('page is loaded icons');
@@ -60,5 +56,5 @@
           toggleSidebar()
           document.body.style.cursor = "default";
           console.log("cursor style is " + document.body.style.cursor)
-      }
+    }
 
