@@ -214,6 +214,7 @@
   font-size: 12px;
 }
 .home-section{
+  margin: auto;
   position: relative;
   background: #E4E9F7;
   min-height: 100%;
