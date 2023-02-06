@@ -4,14 +4,14 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="icon" type=”image/jpg” href="/favicon/iLaS.jpg">
+  <link rel="icon" type=”image/jpg” href="favicon/iLaS.jpg">
   <title>iLaS</title>
   <meta name="description" content="The illuminating Laser and Style portal.">
   <meta name="address" content="iLAS Illuminating Laser and Style. 1295 Highbury Ave., London, Ontario">
   <meta name="keywords" content="laser hair removal, skin rejuvenation, hair styling, eyelash">
 
   <!--<title> Drop Down Sidebar Menu | CodingLab </title>-->
-  <link rel="stylesheet" href="side.css">
+  <link rel="stylesheet" href="css/side.css">
   <!-- Boxiocns CDN Link -->
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
@@ -19,26 +19,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
+  <script src="js/side.js"></script>
 
-  <style>
-    img {
-      top: 0;
-      max-width: 100%;
-      height: auto;
-    }
-    .home-span {
-      top: 0;
-    }
-    body {
-      background-color:#000002;
-    }
-    .home-section {
-      background-color:#000002;
-    }
-    .hair-removal-section {
-        display:none
-    }
-  </style>
 </head>
 
 <body onload = "welcomeFunction()">
@@ -78,11 +60,11 @@
         <div class="icon-link">
           <a href="#">
             <i class='bx bx-calendar'></i>
-            <span class="link_name">Appoitment</span>
+            <span class="link_name">Appointment</span>
           </a>
         </div>
         <ul class="sub-menu">
-          <li><a class="link_name" href="#">Appoitment</a></li>
+          <li><a class="link_name" href="#">Appointment</a></li>
         </ul>
       </li>
       <li>
@@ -123,93 +105,21 @@
       </li>
       <li>
         <div class="profile-details">
-          <div class="profile-content">
-
-          </div>
-          <div class="name-job">
+          <div class="imgbox">
             <div class="profile_name">Neolation</div>
             <div class="job"></div>
           </div>
-          <i class='bx bx-log-out'></i>
         </div>
       </li>
     </ul>
   </div>
-  <section class="home-section center-fit">
+  <section class="home">
     <div class="imgbox">
       <img class="center-fit" src="images/business-card.png" alt="iLaS business card."/>
     </div>
   </section>
-  <section class="hair-removal-section">
-    <div id="hair-rmoval" class="imgbox">
-      <iframe src="docs/Hair-Removal-Brochure_MRK00872-rev002ww_lowres_230111_164824_230124_124808.pdf" width="100%" height="500"></iframe>
-    </div>
-  </section>
 </div>
-<script>
-    let arrow = document.querySelectorAll(".arrow");
-    for (var i = 0; i < arrow.length; i++) {
-      arrow[i].addEventListener("click", (e) => {
-        let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
-        arrowParent.classList.toggle("showMenu");
-      });
-    }
-    let sidebar = document.querySelector(".sidebar");
-    let sidebarBtn = document.querySelector(".bx-menu");
-    console.log(sidebarBtn);
-//    $('.sidebar').toggleClass('close');
 
-    /* sidebarBtn.addEventListener("click", () => {
-      sidebar.classList.toggle("close");
-    }); */
-   function toggleSidebar() {
-      if(document.body.clientWidth > 400){
-          console.log("click to close")
-
-             var classobj = $('.sidebar').attr("class");
-             console.log(classobj);
-             console.log(JSON.stringify($('.sidebar')))
-        $('.sidebar').toggleClass('close');
-      }else{
-        console.log("small-screen")
-        $('.sidebar').toggleClass('small-screen');
-      }
-    }
-      function resizeScreen() {
-        if(document.body.clientWidth < 400){
-          $('.sidebar').addClass('close');
-          toggleSidebar()
-        }else{
-          $('.sidebar').removeClass('close');
-        }
-      }
-
-    $(function () {
-      /* console.log("width: "+ document.body.clientWidth); */
-
-//      resizeScreen();
-      $(window).resize(function(){
-        resizeScreen();
-      });
-      $('.bx-menu').click(function(){
-        toggleSidebar()
-      });
-
-
-    });
-
-      function welcomeFunction() {
-          console.log('page is loaded icons');
-          $.each($('.sidebar'), function(index, val) {
-              console.log(val);
-          });
-          var classobj = $('.sidebar').attr("class");
-          console.log(classobj);
-          resizeScreen();
-          toggleSidebar()
-      }
-
-  </script>
 </body>
 
 </html>

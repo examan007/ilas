@@ -255,3 +255,24 @@
     z-index: 100;
   }
 }
+img {
+  top: 0;
+  max-width: 100%;
+  height: auto;
+}
+.home-span {
+  top: 0;
+}
+body {
+    cursor: default;
+  background-color:#000002;
+}
+.hair-removal-section {
+    display:none
+}
+.imgbox {
+    margin: auto;
+}
+.sidebar {
+    position: fixed;
+}
