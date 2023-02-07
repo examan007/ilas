@@ -13,20 +13,21 @@
     </style>
 
     <!-- favicon -->
-    <link rel="icon" type=”image/jpg” href="/favicon/iLaS.jpg">
-    <link rel="alternate icon" type=”image/jpg” href="/favicon/iLaS.jpg">
-    <link rel="apple-touch-icon" type=”image/jpg” href="/favicon/iLaS.jpg">
-    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="icon" type=”image/jpg” href="favicon/iLaS.jpg">
+    <link rel="alternate icon" type=”image/jpg” href="favicon/iLaS.jpg">
+    <link rel="apple-touch-icon" type=”image/jpg” href="favicon/iLaS.jpg">
+    <link rel="manifest" href="favicon/site.webmanifest">
     <meta name="theme-color" content="#000000">
-    <link href="/app/css/setup.css" rel="stylesheet">
+    <link href="html/css/setup.css" rel="stylesheet">
 
 
     <script type="text/javascript">
       (function(l) {
         if (l.protocol === 'http:' ) {
           window.location.replace("https://www.illuminatinglaserandstyle.com");
-	  return
-	}
+          return
+	    }
+        console.log("pathname=[" + l.pathname + "]")
         if (l.search[1] === '/' ) {
           var decoded = l.search.slice(1).split('&').map(function(s) { 
             return s.replace(/~and~/g, '&')
