@@ -1,19 +1,21 @@
+   var LastMargin = 78
+
    function toggleSidebar() {
       if(document.body.clientWidth > 400){
-          console.log("click to close")
-
-             var classobj = $('.sidebar').attr("class");
-             console.log(classobj);
-             console.log(JSON.stringify($('.sidebar')))
+         console.log("click to close")
+         var classobj = $('.sidebar').attr("class");
+         console.log(classobj);
+         console.log(JSON.stringify($('.sidebar')))
         $('.sidebar').toggleClass('close');
       }else{
         console.log("small-screen")
         $('.sidebar').toggleClass('small-screen');
       }
-        var sidebarwidth = $('.sidebar').width()
-        sidebarwidth += 54
+        var sidebarwidth = LastMargin
+        LastMargin = $('.sidebar').width()
+        //sidebarwidth += 54
         console.log("resize before setting width sbw=[" + sidebarwidth + "]")
- //       $('#menu-space').width(sidebarwidth)
+       $('section').css("margin-left", "" + sidebarwidth + "px")
         console.log("resize after setting width.")
     }
       function resizeScreen() {
@@ -23,7 +25,6 @@
         }else{
           $('.sidebar').removeClass('close');
         }
-
         console.log("resize before setting width.")
       }
 
