@@ -4,3 +4,9 @@ section {
 #menu-space {
     width: 132px;
 }
+.brochure {
+    background-color:#FFFFFF;
+    border: none;
+    display: grid;
+    height: 100%;
+}
