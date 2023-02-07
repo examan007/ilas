@@ -41,8 +41,8 @@
           <li><a class="link_name" href="#">Home</a></li>
         </ul>
       </li>
-      <li onclick="menuClick()">
-        <div class="icon-link">
+      <li>
+        <div class="icon-link" onclick="menuClick(this)">
           <a href="#">
             <i class='bx bx-meteor'></i>
             <span class="link_name">Services</span>
@@ -50,14 +50,14 @@
           <i class='bx bxs-chevron-down arrow'></i>
         </div>
         <ul class="sub-menu">
-          <li><a class="link_name" href="#">Services</a></li>
-          <li><a href="#">Hair Removal</a></li>
-          <li><a href="#">Skin Rejuvenation</a></li>
-          <li><a href="#">Vascual Lesions</a></li>
-          <li><a href="#">Acne Treatment</a></li>`
+          <li onclick="menuClick(this)"><a class="link_name" href="#"><span>Services</span></a></li>
+          <li onclick="menuClick(this)"><a href="#"><span>Hair Removal</span></a></li>
+          <li onclick="menuClick(this)"><a href="#"><span>Skin Rejuvenation</span></a></li>
+          <li onclick="menuClick(this)"><a href="#"><span>Vascual Lesions</span></a></li>
+          <li onclick="menuClick(this)"><a href="#"><span>Acne Treatment</span></a></li>`
         </ul>
       </li>
-      <li onclick="menuClick()">
+      <li onclick="menuClick(this)">
         <div class="icon-link">
           <a href="#">
             <i class='bx bx-calendar'></i>
@@ -68,7 +68,7 @@
           <li><a class="link_name" href="#">Booking</a></li>
         </ul>
       </li>
-      <li onclick="menuClick()">
+      <li onclick="menuClick(this)">
         <a href="#">
           <i class='bx bx-dollar'></i>
           <span class="link_name">Prices</span>
@@ -77,7 +77,7 @@
           <li><a class="link_name" href="#">Prices</a></li>
         </ul>
       </li>
-      <li onclick="menuClick()">
+      <li onclick="menuClick(this)">
         <a href="#">
           <i class='bx bx-line-chart'></i>
           <span class="link_name">Training</span>
@@ -86,7 +86,7 @@
           <li><a class="link_name" href="#">Training</a></li>
         </ul>
       </li>
-      <li onclick="menuClick()">
+      <li onclick="menuClick(this)">
         <a href="#">
           <i class='bx bx-history'></i>
           <span class="link_name">History</span>
@@ -95,7 +95,7 @@
           <li><a class="link_name" href="#">History</a></li>
         </ul>
       </li>
-      <li onclick="menuClick()">
+      <li onclick="menuClick(this)">
         <a href="#">
           <i class='bx bx-cog'></i>
           <span class="link_name">Settings</span>
@@ -104,7 +104,7 @@
           <li><a class="link_name" href="#">Settings</a></li>
         </ul>
       </li>
-      <li onclick="menuClick()">
+      <li onclick="menuClick(this)">
         <div class="profile-details">
           <div class="imgbox">
             <div class="profile_name">Neolation</div>
@@ -117,14 +117,22 @@
     <div id="menu-space">
       <br>nbsp;<br>
     </div>
-    <section id="home">
+    <section id="Home" style="display:block">
       <div class="imgbox">
         <img src="images/business-card.png" alt="iLaS business card."/>
       </div>
     </section>
-    <section id="hair-removal">
+    <section id="Services" style="display:none;height:200px">
       <div class="imgbox">
         <img src="images/business-card.png" alt="iLaS business card."/>
+      </div>
+    </section>
+    <section id="Hair_Removal" style="display:none">
+      <div class="imgbox">
+        <img src="docs/Hair-removal-001.png" alt="Hair removal."/>
+      </div>
+      <div class="imgbox">
+        <img src="docs/Hair-removal-002.png" alt="Hair removal."/>
       </div>
     </section>
 </div>

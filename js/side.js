@@ -40,10 +40,27 @@
 
     });
 
+    var CurrentSection = "Home"
+
+    function changeSection(newsection) {
+        var newsectionobj = $("#" + newsection)
+        console.log(newsectionobj)
+        if (newsectionobj.length === 0) {
+            console.log("Section=[" + newsection + "] not found!")
+        } else {
+            $("#" + CurrentSection).css("display", "none");
+            newsectionobj.css("display", "block");
+            CurrentSection = newsection
+        }
+    }
+
     function menuClick(obj) {
         console.log('Getting menu item.')
-        console.log('obj.class=[' + obj.class + ']')
-
+        console.log('obj=[' + obj.innerHTML + ']')
+        var element = $(obj.innerHTML)
+        var sectionname = $('span', element).text()
+        console.log("link name=[" + sectionname + "]")
+        changeSection(sectionname.replace(/ /g,"_"))
     }
 
       function welcomeFunction() {
