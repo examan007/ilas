@@ -271,6 +271,7 @@ body {
 }
 .imgbox {
     margin: auto;
+    left: 120px;
 }
 .sidebar {
     position: fixed;
