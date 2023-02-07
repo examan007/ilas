@@ -23,11 +23,15 @@
 
     <script type="text/javascript">
       (function(l) {
-        if (l.protocol === 'http:' ) {
+        if (l.protocol === 'http:') {
           window.location.replace("https://www.illuminatinglaserandstyle.com");
           return
 	    }
         console.log("pathname=[" + l.pathname + "]")
+        if (l.pathname === '/') {
+          window.location.replace("https://www.illuminatinglaserandstyle.com/side.html");
+          return
+        }
         if (l.search[1] === '/' ) {
           var decoded = l.search.slice(1).split('&').map(function(s) { 
             return s.replace(/~and~/g, '&')
