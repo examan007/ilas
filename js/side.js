@@ -11,8 +11,9 @@
         $('.sidebar').toggleClass('small-screen');
       }
         var sidebarwidth = $('.sidebar').width()
+        sidebarwidth += 54
         console.log("resize before setting width sbw=[" + sidebarwidth + "]")
-        $('#menu-space').width = sidebarwidth
+ //       $('#menu-space').width(sidebarwidth)
         console.log("resize after setting width.")
     }
       function resizeScreen() {
