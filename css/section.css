@@ -1,5 +1,6 @@
 section {
     margin: auto;
+    margin-left: 78px;
 }
 #menu-space {
     width: 132px;
@@ -7,6 +8,4 @@ section {
 .brochure {
     background-color:#FFFFFF;
     border: none;
-    display: grid;
-    height: 100%;
 }
