@@ -53,7 +53,7 @@
           <li onclick="menuClick(this)"><a class="link_name" href="#"><span>Services</span></a></li>
           <li onclick="menuClick(this)"><a href="#"><span>Hair Removal</span></a></li>
           <li onclick="menuClick(this)"><a href="#"><span>Skin Rejuvenation</span></a></li>
-          <li onclick="menuClick(this)"><a href="#"><span>Vascual Lesions</span></a></li>
+          <li onclick="menuClick(this)"><a href="#"><span>Vascular Lesions</span></a></li>
           <li onclick="menuClick(this)"><a href="#"><span>Acne Treatment</span></a></li>`
         </ul>
       </li>
@@ -132,9 +132,38 @@
         <img src="docs/Hair-Removal-002.png" alt="Hair removal."/>
       </div>
     </section>
+    <section id="Skin_Rejuvenation" style="display:none;left-margin:132px">
+      <div class="brochure">
+        <img src="docs/Skin-Rejuvenation-001.png" alt="Skin rejuvenation."/>
+      </div>
+      <div class="brochure">
+        <img src="docs/Skin-Rejuvenation-002.png" alt="Skin rejuvenation."/>
+      </div>
+    </section>
+    <section id="Vascular_Lesions" style="display:none;left-margin:132px">
+      <div class="brochure">
+        <img src="docs/Vascular-Lesions-001.png" alt="Vascular lesions."/>
+      </div>
+      <div class="brochure">
+        <img src="docs/Vascular-Lesions-002.png" alt="Vascular lesions."/>
+      </div>
+    </section>
+    <section id="Acne_Treatment" style="display:none;left-margin:132px">
+      <div class="brochure">
+        <img src="docs/Acne-Treatment-001.png" alt="Acne treatment."/>
+      </div>
+      <div class="brochure">
+        <img src="docs/Acne-Treatment-002.png" alt="Acne treatment."/>
+      </div>
+    </section>
+    <section id="Prices" style="display:none;left-margin:132px">
+      <div class="brochure">
+        <img src="docs/Price-List.png" alt="Price list."/>
+      </div>
+    </section>
 </div>
 <script>
-      let arrow = document.querySelectorAll(".arrow");
+    let arrow = document.querySelectorAll(".arrow");
     for (var i = 0; i < arrow.length; i++) {
       arrow[i].addEventListener("click", (e) => {
         let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
