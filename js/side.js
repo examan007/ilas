@@ -1,5 +1,5 @@
-   var LastMargin = 78
 
+   var InitialMargin = 260
    function toggleSidebar() {
       if(document.body.clientWidth > 400){
          console.log("click to close")
@@ -11,9 +11,14 @@
         console.log("small-screen")
         $('.sidebar').toggleClass('small-screen');
       }
-        var sidebarwidth = LastMargin
-        LastMargin = $('.sidebar').width()
-        //sidebarwidth += 54
+        var sidebarwidth = $('.sidebar').width() + InitialMargin
+        InitialMargin = 0
+        if (sidebarwidth >= 260) {
+            sidebarwidth = 78
+        } else {
+            sidebarwidth = 260
+        }
+
         console.log("resize before setting width sbw=[" + sidebarwidth + "]")
        $('section').css("margin-left", "" + sidebarwidth + "px")
         console.log("resize after setting width.")
