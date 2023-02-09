@@ -116,7 +116,20 @@
   </div>
     <section id="Home" style="display:block">
       <div class="imgbox">
-        <img src="images/business-card.png" alt="iLaS business card."/>
+        <img src="images/business-card-001.png" alt="iLaS business card."/>
+      </div>
+      <div class="brochure">
+        <h1>Codi Hayes</h1>
+        <h2>Esthetic laser professional</h2>
+        <h2>& hair stylist</h2>
+        <a href="side.html"><img src="images/phone-icon.jpg">(226) 224-6635</a>
+      </div>
+      <div class="brochure" style="display:none;">
+        <img id="myImgId" src="images/business-card-002.png" alt="iLaS business card."/>
+        <script>
+        var myImg = document.getElementById("myImgId");
+        myImg.onmousedown = GetCoordinates;
+        </script>
       </div>
     </section>
     <section id="Services" style="display:none;height:200px">

@@ -1,11 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.imgbox {
+    background-color:#000002;
+    border: none;
+    text-align:center;
+
+}
+.center-fit {
+    max-width: 100%;
+    max-height: 100vh;
+    margin: auto;
+}
 section {
     float: right;
     margin-left: 78px;
+    width: 100%;
 }
 #menu-space {
     width: 132px;
 }
+.brochure h2 {
+    font-size: 20px;
+}
+.brochure h2 {
+    color: #7e7ea0;
+      min-height: 1.25em;
+      line-height: 1.25;
+}
 .brochure {
     background-color:#FFFFFF;
     border: none;
+    display: grid;
+    text-align:center;
+          min-height: 1.25em;
+          line-height: 1.25;
 }
