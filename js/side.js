@@ -1,7 +1,7 @@
 
    var InitialMargin = 260
    function toggleSidebar() {
-      if(document.body.clientWidth > 400){
+      if (1) { //document.body.clientWidth > 400){
          console.log("click to close")
          var classobj = $('.sidebar').attr("class");
          console.log(classobj);
@@ -24,7 +24,7 @@
         console.log("resize after setting width.")
     }
       function resizeScreen() {
-        if(document.body.clientWidth < 400){
+        if (0) { //document.body.clientWidth < 400){
           $('.sidebar').addClass('close');
           toggleSidebar()
         }else{
