@@ -37,6 +37,7 @@ section {
     line-height: 1.25;
 }
 .brochure a {
+    margin: auto;
     min-height: 1.25em;
     line-height: 1.25;
 }
