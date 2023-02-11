@@ -49,6 +49,9 @@
     var CurrentSection = "Home"
 
     function changeSection(newsection) {
+        if ( newsection === "Services" ) {
+            newsection = "Home"
+        }
         var newsectionobj = $("#" + newsection)
         console.log(newsectionobj)
         if (newsectionobj.length === 0) {
@@ -57,6 +60,9 @@
             $("#" + CurrentSection).css("display", "none");
             newsectionobj.css("display", "block");
             CurrentSection = newsection
+            resizeScreen();
+            $('.sidebar').addClass('close')
+            $('section').css("margin-left", "" + 78 + "px")
         }
     }
 
