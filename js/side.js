@@ -24,9 +24,9 @@
         console.log("resize after setting width.")
     }
       function resizeScreen() {
-        if (0) { //document.body.clientWidth < 400){
+        if (1) { //document.body.clientWidth < 400){
           $('.sidebar').addClass('close');
-          toggleSidebar()
+          //toggleSidebar()
         }else{
           $('.sidebar').removeClass('close');
         }
@@ -83,7 +83,7 @@
           var classobj = $('.sidebar').attr("class");
           console.log(classobj);
           resizeScreen();
-          toggleSidebar()
+//          toggleSidebar()
           document.body.style.cursor = "default";
           console.log("cursor style is " + document.body.style.cursor)
     }
