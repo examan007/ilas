@@ -54,3 +54,6 @@ section {
 a:-webkit-any-link {
     text-decoration: none;
 }
+.prices {
+    float: left;
+}
