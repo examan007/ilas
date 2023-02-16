@@ -36,7 +36,7 @@
     },
     {
       "name": "Start",
-      "descr": "Start a Datapassports policy.",
+      "descr": "Start a Datapassports policy..",
       "method": "executeRemote",
       "image": "images/starting-001.png",
       "auto": "true",
