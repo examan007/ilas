@@ -288,7 +288,7 @@ var makeSequence = function(thissequence) {
              setRunningStatus(node)
           }
           var xhttp = executeAJAX(processAJAX)
-          xhttp.withCredentials = true;
+          //xhttp.withCredentials = true;
           xhttp.open("GET", "https://illuminatinglaserandstyle.com/html/data/sequence.json",
            true, { rejectUnauthorized: false });
           xhttp.send();
