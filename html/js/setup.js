@@ -1,4 +1,5 @@
 
+
 var makeSequence = function(thissequence) {
 
     function thislogger(message) {
@@ -6,6 +7,7 @@ var makeSequence = function(thissequence) {
             GlobalLogger(message)
         }
     } // Debug off
+//    var APPSRVR = "http://192.168.2.10"
     var ThisSequence = null
     var MaxSequence = 0
     var AccessToken = null
@@ -286,7 +288,7 @@ var makeSequence = function(thissequence) {
              setRunningStatus(node)
           }
           var xhttp = executeAJAX(processAJAX)
-          xhttp.open("GET", "/app/data/sequence.json", true);
+          xhttp.open("GET", "https://illuminatinglaserandstyle.com/html/data/sequence.json", true);
           xhttp.send();
         },
 
@@ -303,7 +305,7 @@ var makeSequence = function(thissequence) {
           var xhttp = executeAJAX(processAJAX)
           setRunningStatus(node)
           findNode(node, 'element_details', function (element) { element.innerHTML = "" })
-          xhttp.open("GET", "/restapi/home", true);
+          xhttp.open("GET", "" + APPSRVR + "/home", true);
           xhttp.send();
         },
 
@@ -323,7 +325,7 @@ var makeSequence = function(thissequence) {
           var xhttp = executeAJAX(processAJAX)
           setRunningStatus(node)
           //findNode(node, 'element_details', function (element) { element.innerHTML = "" })
-          xhttp.open("POST", "/authserv/login", true);
+          xhttp.open("POST", "" + APPSRVR + "/authenticate", true);
           xhttp.setRequestHeader("Authorization", "Basic " + btoa(element.username + ":" + element.password))
           xhttp.send()
         },
@@ -355,7 +357,7 @@ var makeSequence = function(thissequence) {
           }
           var xhttp = executeAJAX(processAJAX)
           setRunningStatus(node)
-          xhttp.open("POST", "/restapi/dataProtection", true)
+          xhttp.open("POST", "restapi/dataProtection", true)
           var requeststr = JSON.stringify({
                                      metainfo:{
                                        requestType:"query",
