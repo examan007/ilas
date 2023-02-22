@@ -300,7 +300,11 @@ var makeSequence = function(thissequence) {
             return
           }
           function processAJAX(response) {
-             findNode(node, 'element_content', response.status)
+            var response_status = response.status
+            if (typeof response_status === 'undefined') {
+                response_status = ""
+            }
+             findNode(node, 'element_content', response_status)
              completeResponse(node, response)
              setCompleteStatus(node, name)
           }
@@ -320,7 +324,12 @@ var makeSequence = function(thissequence) {
           function processAJAX(response) {
             AccessToken = response['accessToken']
             var displaystr = "" + AccessToken
-            findNode(node, 'element_content', displaystr.substring(0, 32))
+            if (typeof AccessToken === 'undefined') {
+                displaystr = ""
+            } else {
+                displaystr = AccessToken.substring(0, 32)
+            }
+            findNode(node, 'element_content', displaystr)
             completeResponse(node, response)
             setCompleteStatus(node, name)
           }
@@ -343,16 +352,20 @@ var makeSequence = function(thissequence) {
           var element = getElement(name, 0)
           function processAJAX(response) {
             var displaystr = "" + JSON.stringify(response)
+           var content = displaystr.substring(0, 80)
+           if (typeof content === 'undefined') {
+                content = ""
+           }
             if ( typeof response.payload === 'undefined') {
                findNode(node, 'element_status', 'Failed')
-               findNode(node, 'element_content', displaystr.substring(0, 80))
+               findNode(node, 'element_content', content)
             } else {
                 if ( typeof response.payload[0] === 'undefined') {
                    displaystr = "" + JSON.stringify(response['status'])
                 } else {
                    displaystr = "" + JSON.stringify(response['payload'][0][element.field])
                 }
-               findNode(node, 'element_content', displaystr.substring(0, 80))
+               findNode(node, 'element_content', content)
                setCompleteStatus(node, name)
             }
             completeResponse(node, response)
