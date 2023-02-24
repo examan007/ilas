@@ -237,7 +237,7 @@ var makeSequence = function(thissequence) {
                  }
                  return ret
             }
-            amethod(parseResponse(this.responseText))
+            amethod(parseResponse(this.responseText), this)
           } else {
              thislogger(this)
           }
@@ -311,7 +311,9 @@ var makeSequence = function(thissequence) {
           var xhttp = executeAJAX(processAJAX)
           setRunningStatus(node)
           findNode(node, 'element_details', function (element) { element.innerHTML = "" })
-          xhttp.open("GET", "" + APPSRVR + "/home", true);
+          xhttp.withCredentials = false;
+          xhttp.open("GET", getAPPSRVR() + "/home",
+                      true, { rejectUnauthorized: false });
           xhttp.send();
         },
 
@@ -321,10 +323,11 @@ var makeSequence = function(thissequence) {
             return
           }
           var element = getElement('Login', 0)
-          function processAJAX(response) {
-            AccessToken = response['accessToken']
-            var displaystr = "" + AccessToken
-            if (typeof AccessToken === 'undefined') {
+          function processAJAX(response, xhttp) {
+            //AccessToken = response.response['accessToken']
+            //const AccessToken = xhttp.getResponseHeader('X-Access-Token')
+            var displaystr = ""
+            if (AccessToken === null) {
                 displaystr = ""
             } else {
                 displaystr = AccessToken.substring(0, 32)
@@ -336,7 +339,8 @@ var makeSequence = function(thissequence) {
           var xhttp = executeAJAX(processAJAX)
           setRunningStatus(node)
           //findNode(node, 'element_details', function (element) { element.innerHTML = "" })
-          xhttp.open("POST", "" + APPSRVR + "/authenticate", true);
+          xhttp.open("POST", getAPPSRVR() + "/api",
+                      true, { rejectUnauthorized: false });
           xhttp.setRequestHeader("Authorization", "Basic " + btoa(element.username + ":" + element.password))
           xhttp.send()
         },
@@ -372,7 +376,8 @@ var makeSequence = function(thissequence) {
           }
           var xhttp = executeAJAX(processAJAX)
           setRunningStatus(node)
-          xhttp.open("POST", "restapi/dataProtection", true)
+          xhttp.open("POST", "restapi/dataProtection",
+                      true, { rejectUnauthorized: false });
           var requeststr = JSON.stringify({
                                      metainfo:{
                                        requestType:"query",
