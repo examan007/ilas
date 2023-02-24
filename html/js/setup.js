@@ -223,7 +223,6 @@ var makeSequence = function(thissequence) {
     function executeAJAX(amethod) {
 
       var xhttp = new XMLHttpRequest()
-      xhttp.withCredentials = false
       xhttp.onreadystatechange = function() {
          if (this.readyState == 4 && this.status == 200) {
             function parseResponse(response) {
@@ -313,8 +312,8 @@ var makeSequence = function(thissequence) {
           setRunningStatus(node)
           findNode(node, 'element_details', function (element) { element.innerHTML = "" })
           xhttp.withCredentials = false;
-          xhttp.open("GET", "https://192.168.2.10/home",
-           true, { rejectUnauthorized: false });
+          xhttp.open("GET", "http://192.168.2.10/home",
+           true, { rejectUnauthorized: false, mode: 'no-cors' });
           xhttp.send();
         },
 
