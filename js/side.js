@@ -86,6 +86,20 @@
 //          toggleSidebar()
           document.body.style.cursor = "default";
           console.log("cursor style is " + document.body.style.cursor)
+
+          const currentUrl = window.location.href;
+          console.log(currentUrl);
+
+          const hashValue = window.location.hash.slice(1)
+          if ( typeof(hashValue) === 'undefined' ) {
+              changeSection('Home')
+          } else
+          if (hashValue.length <= 0) {
+              changeSection('Home')
+          } else {
+              console.log(hashValue)
+              changeSection(hashValue)
+          }
     }
 
 function FindPosition(oElement)
