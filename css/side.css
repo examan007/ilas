@@ -250,7 +250,7 @@
 
   .sidebar.close.small-screen ~ .home-section{
     width: 100%;
-    left: 0;
+    left: 0;r
     z-index: 100;
   }
 }
@@ -263,8 +263,9 @@ img {
   top: 0;
 }
 body {
-    cursor: default;
+  cursor: default;
   background-color:#FFFFFF;
+  height: 100%;
 }
 .hair-removal-section {
     display:none
