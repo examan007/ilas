@@ -73,6 +73,9 @@
         var sectionname = $('span', element).text()
         console.log("link name=[" + sectionname + "]")
         changeSection(sectionname.replace(/ /g,"_"))
+        if (sectionname === 'Booking') {
+            $('#login').toggle()
+        }
     }
 
       function welcomeFunction() {

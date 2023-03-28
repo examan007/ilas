@@ -22,6 +22,18 @@
   <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
   <script src="js/side.js"></script>
 
+  <style>
+      #login {
+      display: none;
+      position: absolute;
+      top: 0;
+      z-index: 30;
+      height: 100%;
+      width: 100%;
+      margin: auto;
+      background-color: rgba(255, 255, 255, 0.5);
+      }
+    </style>
 </head>
 
 <body onload = "welcomeFunction()">
@@ -196,6 +208,7 @@
         <img src="docs/Price-List-002.png" alt="Price list."/>
       </div>
     </section>
+    <object id="login"  type="text/html" data="https://neonow.neolation.com/login-new.html"></object>
 </div>
 <script>
     let arrow = document.querySelectorAll(".arrow");
