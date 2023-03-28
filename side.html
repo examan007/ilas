@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="icon" type=”image/jpg” href="favicon/iLaS.jpg">
+  <link rel="icon" type=”image/png” href="favicon/ilas.png">
   <title>iLaS</title>
   <meta name="description" content="The illuminating Laser and Style portal.">
   <meta name="address" content="iLAS Illuminating Laser and Style. 1295 Highbury Ave., London, Ontario">
@@ -24,14 +24,26 @@
 
   <style>
       #login {
-      display: none;
-      position: absolute;
-      top: 0;
-      z-index: 30;
-      height: 100%;
-      width: 100%;
-      margin: auto;
-      background-color: rgba(255, 255, 255, 0.5);
+        display: none;
+        position: absolute;
+        top: 0;
+        z-index: 30;
+        height: 100%;
+        width: 100%;
+        margin: auto;
+        background-color: rgba(255, 255, 255, 0.25);
+      }
+      #Booking {
+        height: 100vh;
+        overflow: hidden;
+        background-image: url('images/business-card-sml.png');
+        background-repeat: repeat;
+       }
+      .bgbox {
+        width: 50%;
+        border: 0;
+        padding: 0;
+        margin: 0;
       }
     </style>
 </head>
@@ -82,7 +94,7 @@
       </li>
       <li onclick="menuClick(this)">
         <a href="#Prices">
-          <i class='bx bx-dollar'></i>
+          <i class='bx bx-dollar'></i>r
           <span class="link_name">Prices</span>
         </a>
         <ul class="sub-menu blank">
@@ -198,11 +210,7 @@
       </div>
     </section>
     <section id="Booking" style="display:none">
-      <div class="imgbox">
-        <img src="images/business-card-001.png" alt="iLaS business card."/>
-      </div>
-      <div class="imgbox">
-        <img src="images/business-card-001.png" alt="iLaS business card."/>
+      <div class="bgbox">
       </div>
     </section>
     <section id="Prices" class="brochure" style="display:none">
