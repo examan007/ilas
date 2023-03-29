@@ -103,6 +103,21 @@
               console.log(hashValue)
               changeSection(hashValue)
           }
+            // Add an event listener for the message event
+            window.addEventListener("message", receiveMessage, false);
+            console.log("Adding event listener")
+
+            function receiveMessage(event) {
+                // Check if the message is coming from the expected origin
+                console.log("origin=[" + JSON.stringify(event) + "]")
+                if (event.isTrusted === true) {
+                    // Process the message data
+                    var message = event.data;
+                    console.log("Received message:", message);
+
+                    $('#login').toggle()
+                }
+            }
     }
 
 function FindPosition(oElement)
