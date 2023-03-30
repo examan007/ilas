@@ -69,11 +69,16 @@
     function menuClick(obj) {
         console.log('Getting menu item.')
         console.log('obj=[' + obj.innerHTML + ']')
-        var element = $(obj.innerHTML)
-        var sectionname = $('span', element).text()
+        var element = $($(obj.innerHTML)).find("a:first")
+        var sectionname = element.attr('href')
+        if (typeof(sectionname) === "undefined") {
+            console.log("element")
+           sectionname=$(obj.innerHTML).attr('href')
+        }
+        sectionname = sectionname.substring(1)
         console.log("link name=[" + sectionname + "]")
         changeSection(sectionname.replace(/ /g,"_"))
-        if (sectionname === 'Booking') {
+        if (sectionname === "Booking") {
             $('#login').toggle()
         }
     }
