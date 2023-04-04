@@ -35,7 +35,6 @@
 
     $(function () {
       /* console.log("width: "+ document.body.clientWidth); */
-
 //      resizeScreen();
       $(window).resize(function(){
         resizeScreen();
@@ -43,7 +42,6 @@
       $('.bx-menu').click(function(){
         toggleSidebar()
       });
-
     });
 
     var CurrentSection = "Home"
@@ -64,6 +62,9 @@
             $('.sidebar').addClass('close')
             $('section').css("margin-left", "" + 78 + "px")
         }
+        if (newsection === "Booking") {
+            $('#login').toggle()
+        }
     }
 
     function menuClick(obj) {
@@ -78,9 +79,6 @@
         sectionname = sectionname.substring(1)
         console.log("link name=[" + sectionname + "]")
         changeSection(sectionname.replace(/ /g,"_"))
-        if (sectionname === "Booking") {
-            $('#login').toggle()
-        }
     }
 
       function welcomeFunction() {
@@ -98,7 +96,7 @@
           const currentUrl = window.location.href;
           console.log(currentUrl);
 
-          const hashValue = window.location.hash.slice(1)
+          const hashValue = window.location.hash.slice(1).split("?")[0];
           if ( typeof(hashValue) === 'undefined' ) {
               changeSection('Home')
           } else
