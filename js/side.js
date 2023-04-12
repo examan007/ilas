@@ -120,7 +120,7 @@
                try {
                  const token = JSON.parse(message).token
                  console.log("token=[" + token + "]")
-                 $.cookie('NeoCookie', token, { expires: 3 })
+                 $.cookie('neotoken', token, { expires: 3 })
                  console.log("Cookie set: [" + document.cookie + "] token=[" + token + "]")
                } catch (e) {
                  $('#login').toggle()
