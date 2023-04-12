@@ -40,9 +40,17 @@
           );
         }
       }(window.location))
+      function testCookie() {
+        console.log("testCookie()")
+        allCookies = document.cookie
+        console.log("cookies: [" + allCookies + "]")
+      }
+      function onload() {
+        testCookie()
+      }
     </script>
   </head>
-  <body>
+  <body onload="onload()">
   <div class="imgbox">
      <img class="center-fit" src="images/business-card.png" alt="iLaS business card."/>
   </div>
