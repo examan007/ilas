@@ -110,17 +110,23 @@
             window.addEventListener("message", receiveMessage, false);
             console.log("Adding event listener")
 
-            function receiveMessage(event) {
-                // Check if the message is coming from the expected origin
-                console.log("origin=[" + JSON.stringify(event) + "]")
-                if (event.isTrusted === true) {
-                    // Process the message data
-                    var message = event.data;
-                    console.log("Received message:", message);
-
-                    $('#login').toggle()
-                }
+         function receiveMessage(event) {
+           // Check if the message is coming from the expected origin
+            console.log("origin=[" + JSON.stringify(event) + "]")
+            if (event.isTrusted === true) {
+               // Process the message data
+               var message = event.data;
+               console.log("Received message:", message);
+               try {
+                 const token = JSON.parse(message).token
+                 console.log("token=[" + token + "]")
+                 $.cookie('NeoCookie', token, { expires: 3 })
+                 console.log("Cookie set: [" + document.cookie + "] token=[" + token + "]")
+               } catch (e) {
+                 $('#login').toggle()
+               }
             }
+         }
     }
 
 function FindPosition(oElement)
