@@ -83,6 +83,7 @@
 
       function welcomeFunction() {
           console.log('page is loaded icons');
+          onload()
           $.each($('.sidebar'), function(index, val) {
               console.log(val);
           });
@@ -168,4 +169,13 @@ function GetCoordinates(e)
   PosX = PosX - ImgPos[0];
   PosY = PosY - ImgPos[1];
   console.log("X=[" + PosX + "] Y=[" + PosY + "]")
+}
+
+function testCookie() {
+    console.log("testCookie()")
+    allCookies = document.cookie
+    console.log("cookies: [" + allCookies + "]")
+}
+function onload() {
+    testCookie()
 }
