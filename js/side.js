@@ -63,7 +63,13 @@
             $('section').css("margin-left", "" + 78 + "px")
         }
         if (newsection === "Booking") {
-            $('#login').toggle()
+            testCookie((token)=> {
+                if (token == null) {
+                    $('#login').css("display", "block")
+                } else {
+                    $('#login').css("display", "block")
+                }
+            })
         }
     }
 
