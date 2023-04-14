@@ -67,7 +67,7 @@
                 if (token == null) {
                     $('#login').css("display", "block")
                 } else {
-                    $('#login').css("display", "block")
+                    $('#login').css("display", "none")
                 }
             })
         }
