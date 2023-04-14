@@ -83,7 +83,6 @@
 
       function welcomeFunction() {
           console.log('page is loaded icons');
-          onload()
           $.each($('.sidebar'), function(index, val) {
               console.log(val);
           });
@@ -95,40 +94,19 @@
           console.log("cursor style is " + document.body.style.cursor)
 
           const currentUrl = window.location.href;
-          console.log(currentUrl);
+          console.log("Current URL = [" + currentUrl + "]")
 
-          const hashValue = window.location.hash.slice(1).split("?")[0];
+          const hashValue = getHashValue()
           if ( typeof(hashValue) === 'undefined' ) {
               changeSection('Home')
           } else
           if (hashValue.length <= 0) {
               changeSection('Home')
           } else {
-              console.log(hashValue)
-              changeSection(hashValue)
+              console.log("hashValue=[" + hashValue + "]")
+              changeSection(removeLeadingChar(hashValue, "#"))
           }
-            // Add an event listener for the message event
-            window.addEventListener("message", receiveMessage, false);
-            console.log("Adding event listener")
-
-         function receiveMessage(event) {
-           // Check if the message is coming from the expected origin
-            console.log("origin=[" + JSON.stringify(event) + "]")
-            if (event.isTrusted === true) {
-               // Process the message data
-               var message = event.data;
-               console.log("Received message:", message);
-               try {
-                 const token = JSON.parse(message).token
-                 console.log("token=[" + token + "]")
-                 $.cookie('neotoken', token, { expires: 3 })
-                 console.log("Cookie set: [" + document.cookie + "] token=[" + token + "]")
-               } catch (e) {
-                 $('#login').toggle()
-               }
-            }
-         }
-    }
+      }
 
 function FindPosition(oElement)
 {
@@ -171,11 +149,3 @@ function GetCoordinates(e)
   console.log("X=[" + PosX + "] Y=[" + PosY + "]")
 }
 
-function testCookie() {
-    console.log("testCookie()")
-    allCookies = document.cookie
-    console.log("cookies: [" + allCookies + "]")
-}
-function onload() {
-    testCookie()
-}

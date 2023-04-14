@@ -28,7 +28,7 @@
 	    }
         console.log("pathname=[" + l.pathname + "]")
         if (l.pathname === '/') {
-          window.location.replace("https://www.illuminatinglaserandstyle.com/side.html");
+          window.location.replace("https://www.illuminatinglaserandstyle.com/side.html" + windows.location.search);
           return
         }
         if (l.search[1] === '/' ) {
@@ -40,17 +40,9 @@
           );
         }
       }(window.location))
-      function testCookie() {
-        console.log("testCookie()")
-        allCookies = document.cookie
-        console.log("cookies: [" + allCookies + "]")
-      }
-      function onload() {
-        testCookie()
-      }
     </script>
   </head>
-  <body onload="onload()">
+  <body>
   <div class="imgbox">
      <img class="center-fit" src="images/business-card.png" alt="iLaS business card."/>
   </div>
