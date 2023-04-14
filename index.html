@@ -28,7 +28,8 @@
 	    }
         console.log("pathname=[" + l.pathname + "]")
         if (l.pathname === '/') {
-          window.location.replace("https://www.illuminatinglaserandstyle.com/side.html" + windows.location.search);
+          query = window.location.href.split("?")[0]
+          window.location.replace("https://www.illuminatinglaserandstyle.com/side.html" + "?" + query);
           return
         }
         if (l.search[1] === '/' ) {
