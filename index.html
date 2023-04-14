@@ -28,7 +28,7 @@
 	    }
         console.log("pathname=[" + l.pathname + "]")
         if (l.pathname === '/') {
-          query = window.location.href.split("?")[0]
+          query = window.location.href.split("?")[1]
           window.location.replace("https://www.illuminatinglaserandstyle.com/side.html" + "?" + query);
           return
         }
