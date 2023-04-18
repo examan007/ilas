@@ -47,6 +47,26 @@
         padding: 0;
         margin: 0;
       }
+      #xcalendar {
+        overflow: hidden !important;
+        position: absolute;
+        margin: 20%;
+        height: 40em;
+        background-color: rgba(255, 255, 255, .8);
+        display: block;
+      }
+      #calendar {
+        overflow: hidden !important;
+        position: absolute;
+        top: 50%;
+        left: 30%;
+        transform: translate(-10%, -50%);
+        height: 40em;
+        width: 75%;
+        background-color: rgba(255, 255, 255, .8);
+        display: block;
+        box-sizing: border-box;
+      }
     </style>
 </head>
 
@@ -145,9 +165,8 @@
         <img src="images/business-card-001.png" alt="iLaS business card."/>
       </div>
       <div class="brochure"><br>
-        <h1>Codi Hayes</h1>
         <h2>Esthetic laser professional</h2>
-        <h2>& hair stylist</h2>
+        <h2>and hair stylist</h2>
         <br>
           <a href="tel:(226) 224-6635"><img src="images/phone-icon.jpg">
             <span style="margin-top: 12px;">(226) 224-6635&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -212,8 +231,7 @@
       </div>
     </section>
     <section id="Booking" style="display:none">
-      <div class="bgbox">
-      </div>
+        <object id="calendar" type="text/html" data="https://neobook.neolation.com/index.html"></object>
     </section>
     <section id="Prices" class="brochure" style="display:none">
       <div class="prices">
