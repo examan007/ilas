@@ -70,6 +70,7 @@
         newsectionobj.css("display", "block");
         CurrentSection = newsection
         if (newsection === "Booking") {
+            console.log("testCookie for Booking.")
             testCookie((token)=> {
                 if (token == null) {
                     $('#login').css("display", "block")
