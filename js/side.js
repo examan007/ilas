@@ -47,21 +47,32 @@
     var CurrentSection = "Home"
 
     function changeSection(newsection) {
-        if ( newsection === "Services" ) {
-            newsection = "Home"
+        function testDomobj(elementid) {
+            return $('#' + elementid)
         }
-        var newsectionobj = $("#" + newsection)
-        console.log(newsectionobj)
-        if (newsectionobj.length === 0) {
-            console.log("Section=[" + newsection + "] not found!")
-        } else {
-            $("#" + CurrentSection).css("display", "none");
-            newsectionobj.css("display", "block");
-            CurrentSection = newsection
-            resizeScreen();
-            $('.sidebar').addClass('close')
-            $('section').css("margin-left", "" + 78 + "px")
+        function getsectionobj() {
+            try {
+                if ( newsection === "Services" ) {
+                    return testDomobj('Home')
+                } else
+                if (newsection.length > 0) {
+                    return testDomobj(newsection)
+                } else {
+                    return testDomobj('Home')
+                }
+            } catch (e) {
+                console.log(e.toString())
+            }
+            return testDomobj('#Home')
         }
+        const newsectionobj = getsectionobj()
+        $("#" + CurrentSection).css("display", "none");
+        newsectionobj.css("display", "block");
+        CurrentSection = newsection
+        resizeScreen();
+        $('.sidebar').addClass('close')
+        $('section').css("margin-left", "" + 78 + "px")
+
         if (newsection === "Booking") {
             testCookie((token)=> {
                 if (token == null) {
