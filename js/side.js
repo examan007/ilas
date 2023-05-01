@@ -69,10 +69,6 @@
         $("#" + CurrentSection).css("display", "none");
         newsectionobj.css("display", "block");
         CurrentSection = newsection
-        resizeScreen();
-        $('.sidebar').addClass('close')
-        $('section').css("margin-left", "" + 78 + "px")
-
         if (newsection === "Booking") {
             testCookie((token)=> {
                 if (token == null) {
@@ -82,6 +78,10 @@
                 }
             })
         }
+        resizeScreen();
+        $('.sidebar').addClass('close')
+        $('section').css("margin-left", "" + 78 + "px")
+
     }
 
     function menuClick(obj) {
