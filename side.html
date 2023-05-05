@@ -105,15 +105,21 @@
           <li onclick="menuClick(this)"><a href="#Acne_Treatment"><span>Acne Treatment</span></a></li>`
         </ul>
       </li>
-      <li onclick="menuClick(this)">
-        <div class="icon-link">
-          <a href="#Booking">
+      <li>
+        <div class="icon-link" onclick="menuClick(this)">
+          <p><a href="#Booking">
             <i class='bx bx-calendar'></i>
             <span class="link_name">Booking</span>
-          </a>
+          </a></p>
+          <i class='bx bxs-chevron-down arrow'></i>
         </div>
         <ul class="sub-menu">
-          <li><a class="link_name" href="#Booking">Booking</a></li>
+          <li onclick="menuClick(this)"><a class="link_name" href="#Booking"><span>Booking</span></a></li>
+          <li onclick="menuClick(this)"><a href="#Booking?filter=My_appointments"><span>My appointments</span></a></li>
+          <li onclick="menuClick(this)"><a href="#Booking?filter=Free_consultation"><span>Free consultation</span></a></li>
+          <li onclick="menuClick(this)"><a href="#Booking?filter=Laser_treatment"><span>Laser treatment</span></a></li>
+          <li onclick="menuClick(this)"><a href="#Booking?filter=Colour_treatment"><span>Colour treatment</span></a></li>
+          <li onclick="menuClick(this)"><a href="#Booking?filter=General_styling"><span>General styling</span></a></li>
         </ul>
       </li>
       <li onclick="menuClick(this)">
@@ -238,13 +244,13 @@
     </section>
     <section id="Prices" class="brochure" style="display:none">
       <div class="prices">
-        <img src="docs/Price-List-000.png" alt="Price list."/>
+        <img src="docs/Price-List-A.png" alt="Price list."/>
       </div>
       <div class="prices">
-        <img src="docs/Price-List-001.png" alt="Price list."/>
+        <img src="docs/Price-List-B.png" alt="Price list."/>
       </div>
       <div class="prices">
-        <img src="docs/Price-List-002.png" alt="Price list."/>
+        <img src="docs/Price-List-C.png" alt="Price list."/>
       </div>
     </section>
     <object id="login"  type="text/html" data="https://neonow.neolation.com/login-new.html"></object>
