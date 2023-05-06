@@ -47,14 +47,6 @@
         padding: 0;
         margin: 0;
       }
-      #xcalendar {
-        overflow: hidden !important;
-        position: absolute;
-        margin: 20%;
-        height: 40em;
-        background-color: rgba(255, 255, 255, .8);
-        display: block;
-      }
       #calendar {
         overflow: hidden !important;
         position: absolute;
@@ -68,6 +60,7 @@
         box-sizing: border-box;
         z-index: 250;
         border-radius: 50px;
+        transition: all 0.5s ease;
       }
     </style>
 </head>
@@ -161,7 +154,7 @@
       <li onclick="menuClick(this)">
         <div class="profile-details">
           <div class="imgbox">
-            <div class="profile_name">Neolation</div>
+            <a class="profile_name" href="https://neolation.com">Neolation</a>
             <div class="job"></div>
           </div>
         </div>
@@ -173,7 +166,6 @@
         <img src="images/business-card-001.png" alt="iLaS business card."/>
       </div>
       <div class="brochure"><br>
-        <h1>&nbsp;</h1>
         <h2>Esthetic laser professional</h2>
         <h2>and hair stylist</h2>
         <br>
@@ -222,42 +214,42 @@
       </div>
     </section>
     <section id="Skin_Rejuvenation" style="display:none;left-margin:132px">
-      <div class="brochure">
+      <div class="pamphlet">
         <img src="docs/Skin-Rejuvenation-M.png" alt="Skin rejuvenation."/>
       </div>
-      <div class="brochure">
+      <div class="pamphlet">
         <img src="docs/Skin-Rejuvenation-N.png" alt="Skin rejuvenation."/>
       </div>
-      <div class="brochure">
+      <div class="pamphlet">
         <img src="docs/Skin-Rejuvenation-O.png" alt="Skin rejuvenation."/>
       </div>
-      <div class="brochure">
+      <div class="pamphlet">
         <img src="docs/Skin-Rejuvenation-P.png" alt="Skin rejuvenation."/>
       </div>
-      <div class="brochure">
+      <div class="pamphlet">
         <img src="docs/Skin-Rejuvenation-Q.png" alt="Skin rejuvenation."/>
       </div>
-      <div class="brochure">
+      <div class="pamphlet">
         <img src="docs/Skin-Rejuvenation-R.png" alt="Skin rejuvenation."/>
       </div>
     </section>
     <section id="Vascular_Lesions" style="display:none;left-margin:132px">
-      <div class="brochure">
+      <div class="pamphlet">
         <img src="docs/Vascular-Lesions-M.png" alt="Vascular lesions."/>
       </div>
-      <div class="brochure">
+      <div class="pamphlet">
         <img src="docs/Vascular-Lesions-N.png" alt="Vascular lesions."/>
       </div>
-      <div class="brochure">
+      <div class="pamphlet">
         <img src="docs/Vascular-Lesions-O.png" alt="Vascular lesions."/>
       </div>
-      <div class="brochure">
+      <div class="pamphlet">
         <img src="docs/Vascular-Lesions-P.png" alt="Vascular lesions."/>
       </div>
-      <div class="brochure">
+      <div class="pamphlet">
         <img src="docs/Vascular-Lesions-Q.png" alt="Vascular lesions."/>
       </div>
-      <div class="brochure">
+      <div class="pamphlet">
         <img src="docs/Vascular-Lesions-R.png" alt="Vascular lesions."/>
       </div>
     </section>
@@ -281,10 +273,10 @@
         <img class="pageimage" src="docs/Acne-Treatment-R.png" alt="Acne treatment."/>
       </div>
     </section>
-    <section id="Booking" class="brochure" style="display:none">
+    <section id="Booking" class="pamphlet" style="display:none">
         <object id="calendar" type="text/html" data="https://neobook.neolation.com/index.html"></object>
     </section>
-    <section id="Prices" class="brochure" style="display:none">
+    <section id="Prices" class="pamphlet" style="display:none">
       <div class="prices">
         <img src="docs/Price-List-A.png" alt="Price list."/>
       </div>

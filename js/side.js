@@ -11,6 +11,7 @@
         console.log("small-screen")
         $('.sidebar').toggleClass('small-screen');
       }
+      function adjustSidebarwidth() {
         var sidebarwidth = $('.sidebar').width() + InitialMargin
         InitialMargin = 0
         if (sidebarwidth >= 260) {
@@ -18,9 +19,10 @@
         } else {
             sidebarwidth = 260
         }
-
         console.log("resize before setting width sbw=[" + sidebarwidth + "]")
-       $('section').css("margin-left", "" + sidebarwidth + "px")
+        $('section').css("margin-left", "" + sidebarwidth + "px")
+       }
+
         console.log("resize after setting width.")
     }
       function resizeScreen() {
@@ -94,7 +96,7 @@
             console.log("element")
            sectionname=$(obj.innerHTML).attr('href')
         }
-        sectionname = sectionname.substring(1)
+        sectionname = sectionname.substring(1).split("?")[0]
         console.log("link name=[" + sectionname + "]")
         changeSection(sectionname.replace(/ /g,"_"))
     }
