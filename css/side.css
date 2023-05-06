@@ -16,7 +16,7 @@
   width: 260px;
   background: #11101d;
   background-size: cover;
-  z-index: 100;
+  z-index: 500;
   transition: all 0.5s ease;
 }
 .sidebar.close{
