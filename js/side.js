@@ -1,6 +1,10 @@
 
    var InitialMargin = 260
-   function toggleSidebar() {
+   function toggleSidebar(flag) {
+      if (typeof(flag) === 'undefined') { flag = true }
+      if ($('.sidebar').hasClass('close') && !flag) {
+        console.log('Already closed');
+      } else
       if (1) { //document.body.clientWidth > 400){
          console.log("click to close")
          var classobj = $('.sidebar').attr("class");
@@ -78,7 +82,7 @@
                     $('#login').css("display", "block")
                     $('#login').on('click', function() {
                           console.log('login was clicked!')
-                          toggleSidebar()
+                          toggleSidebar(false)
                     })
                 } else {
                     $('#login').css("display", "none")
@@ -86,8 +90,8 @@
             })
         }
         newsectionobj.on('click', function() {
-          console.log('Checkbox was clicked!')
-          toggleSidebar()
+          console.log('close sidebar!')
+          toggleSidebar(false)
         })
         resizeScreen();
         $('.sidebar').addClass('close')
