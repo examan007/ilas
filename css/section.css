@@ -66,3 +66,6 @@ a:-webkit-any-link {
 .pageimage {
     float: left;
 }
+.neoicon {
+    max-height: 40px;
+}
