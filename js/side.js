@@ -76,11 +76,19 @@
             testCookie((token)=> {
                 if (token == null) {
                     $('#login').css("display", "block")
+                    $('#login').on('click', function() {
+                          console.log('login was clicked!')
+                          toggleSidebar()
+                    })
                 } else {
                     $('#login').css("display", "none")
                 }
             })
         }
+        newsectionobj.on('click', function() {
+          console.log('Checkbox was clicked!')
+          toggleSidebar()
+        })
         resizeScreen();
         $('.sidebar').addClass('close')
         $('section').css("margin-left", "" + 78 + "px")
