@@ -2,15 +2,25 @@
    var InitialMargin = 260
    function toggleSidebar(flag) {
       if (typeof(flag) === 'undefined') { flag = true }
-      if ($('.sidebar').hasClass('close') && !flag) {
-        console.log('Already closed');
-      } else
+      var ret = flag
+      if ($('.sidebar').hasClass('close') ) {
+          $('.sidebar').css('width', '260px')
+          $('.sub-links').css('display', 'inline-block')
+          if (!flag) {
+            console.log('Already closed');
+            ret = false
+          }
+      } else {
+         $('.sidebar').css('width', '78px')
+         $('.sub-links').css('display', 'none')
+      }
       if (1) { //document.body.clientWidth > 400){
          console.log("click to close")
          var classobj = $('.sidebar').attr("class");
          console.log(classobj);
          console.log(JSON.stringify($('.sidebar')))
         $('.sidebar').toggleClass('close');
+        ret = ! $('.sidebar').hasClass('close')
       }else{
         console.log("small-screen")
         $('.sidebar').toggleClass('small-screen');
@@ -24,10 +34,12 @@
             sidebarwidth = 260
         }
         console.log("resize before setting width sbw=[" + sidebarwidth + "]")
-        $('section').css("margin-left", "" + sidebarwidth + "px")
+       // $('section').css("margin-left", "" + sidebarwidth + "px")
        }
 
         console.log("resize after setting width.")
+
+        return ret
     }
       function resizeScreen() {
         if (1) { //document.body.clientWidth < 400){
@@ -39,6 +51,14 @@
         console.log("resize before setting width.")
       }
 
+    var SidebarTimeoutObj = null
+    function toggleSidebarAlone() {
+          $('.sidebar').css('width', '0px')
+          //$('.logo-details-alone').css('display', 'block')
+          $('.icon-link').css('display', 'none');
+          $('.logo-details').css('display', 'none')
+    }
+
     $(function () {
       /* console.log("width: "+ document.body.clientWidth); */
 //      resizeScreen();
@@ -46,7 +66,19 @@
         resizeScreen();
       });
       $('.bx-menu').click(function(){
-        toggleSidebar()
+        clearTimeout(SidebarTimeoutObj)
+        $('.icon-link').css('display', 'block');
+        $('.logo-details').css('display', 'block');
+        console.log("logo-details-alone clicked.")
+        var ret = false
+        try {
+               var ret = toggleSidebar()
+        } catch (e) {
+            e.toString()
+         }
+         if (ret === false) {
+            SidebarTimeoutObj = setTimeout(toggleSidebarAlone, 3000)
+         }
       });
     });
 
@@ -69,7 +101,7 @@
             } catch (e) {
                 console.log(e.toString())
             }
-            return testDomobj('#Home')
+            return testDomobj('Home')
         }
         const newsectionobj = getsectionobj()
         $("#" + CurrentSection).css("display", "none");
@@ -95,7 +127,7 @@
         })
         resizeScreen();
         $('.sidebar').addClass('close')
-        $('section').css("margin-left", "" + 78 + "px")
+        $('section').css("margin-left", "" + 0 + "px")
 
     }
 
@@ -138,6 +170,7 @@
               console.log("hashValue=[" + hashValue + "]")
               changeSection(removeLeadingChar(hashValue, "#"))
           }
+          SidebarTimeoutObj = setTimeout(toggleSidebarAlone, 5000)
       }
 
 function FindPosition(oElement)
