@@ -3,17 +3,10 @@
    function toggleSidebar(flag) {
       if (typeof(flag) === 'undefined') { flag = true }
       var ret = flag
-      if ($('.sidebar').hasClass('close') ) {
-          $('.sidebar').css('width', '260px')
-          $('.sub-links').css('display', 'inline-block')
-          if (!flag) {
-            console.log('Already closed');
-            ret = false
-          }
-      } else {
-         $('.sidebar').css('width', '78px')
-         $('.sub-links').css('display', 'none')
-      }
+      if ($('.sidebar').hasClass('close') && !flag) {
+        console.log('Already closed');
+        ret = false
+      } else
       if (1) { //document.body.clientWidth > 400){
          console.log("click to close")
          var classobj = $('.sidebar').attr("class");
@@ -24,6 +17,17 @@
       }else{
         console.log("small-screen")
         $('.sidebar').toggleClass('small-screen');
+      }
+      const width = $('.sidebar').css('width')
+      if (width === '0px') {
+          console.log("Menu is hidden.")
+      } else
+      if ( ! $('.sidebar').hasClass('close') ) {
+          $('.sidebar').css('width', '260px')
+          $('.sub-links').css('display', 'inline-block')
+      } else {
+         $('.sidebar').css('width', '78px')
+         $('.sub-links').css('display', 'none')
       }
       function adjustSidebarwidth() {
         var sidebarwidth = $('.sidebar').width() + InitialMargin
@@ -72,6 +76,11 @@
         console.log("logo-details-alone clicked.")
         var ret = false
         try {
+               if ($('.sidebar').hasClass('close')) {
+                   $('.sidebar').css('width', '260px')
+               } else {
+                   $('.sidebar').css('width', '78px')
+               }
                var ret = toggleSidebar()
         } catch (e) {
             e.toString()
@@ -106,7 +115,9 @@
         const newsectionobj = getsectionobj()
         $("#" + CurrentSection).css("display", "none");
         newsectionobj.css("display", "block");
-        CurrentSection = newsection
+        if (newsection.length > 0) {
+            CurrentSection = newsection
+        }
         if (newsection === "Booking") {
             console.log("testCookie for Booking.")
             testCookie((token)=> {
