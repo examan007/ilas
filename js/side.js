@@ -1,47 +1,61 @@
 
+    var SidebarState = "Minimized"
+    var SidebarTimeoutObj = null
+    function toggleSidebarAlone() {
+        if (SidebarState === 'Minimized') {
+          $('.sidebar').css('width', '0px')
+          $('.icon-link').css('display', 'none');
+          $('.logo-details').css('display', 'none')
+          $('.sidebar').addClass('close');
+          SidebarState = "Hidden"
+        }
+    }
+
    var InitialMargin = 260
    function toggleSidebar(flag) {
-      if (typeof(flag) === 'undefined') { flag = true }
-      var ret = flag
-      if ($('.sidebar').hasClass('close') && !flag) {
-        console.log('Already closed');
-        ret = false
-      } else
-      if (1) { //document.body.clientWidth > 400){
-         console.log("click to close")
-         var classobj = $('.sidebar').attr("class");
-         console.log(classobj);
-         console.log(JSON.stringify($('.sidebar')))
-        $('.sidebar').toggleClass('close');
-        ret = ! $('.sidebar').hasClass('close')
-      }else{
-        console.log("small-screen")
-        $('.sidebar').toggleClass('small-screen');
-      }
-      const width = $('.sidebar').css('width')
-      if (width === '0px') {
-          console.log("Menu is hidden.")
-      } else
-      if ( ! $('.sidebar').hasClass('close') ) {
-          $('.sidebar').css('width', '260px')
-          $('.sub-links').css('display', 'inline-block')
-      } else {
-         $('.sidebar').css('width', '78px')
-         $('.sub-links').css('display', 'none')
-      }
-      function adjustSidebarwidth() {
-        var sidebarwidth = $('.sidebar').width() + InitialMargin
-        InitialMargin = 0
-        if (sidebarwidth >= 260) {
-            sidebarwidth = 78
+      var NewSidebarState = null
+      if (typeof(flag) !== 'undefined') {
+        if (flag == true) {
+           SidebarState = "Submenu"
+        } else
+        if (SidebarState === "Hidden") {
+           NewSidebarState = "Hidden"
         } else {
-            sidebarwidth = 260
+           NewSidebarState = "Minimized"
         }
-        console.log("resize before setting width sbw=[" + sidebarwidth + "]")
-       // $('section').css("margin-left", "" + sidebarwidth + "px")
-       }
-
-        console.log("resize after setting width.")
+      } else
+      if (SidebarState === "Submenu") {
+        NewSidebarState = "Submenu"
+      } else
+      if (SidebarState === "Minimized") {
+        NewSidebarState = "Maximized"
+      } else
+      if (SidebarState === "Maximized") {
+        NewSidebarState = "Minimized"
+      } else
+      if (SidebarState === "Hidden") {
+        NewSidebarState = "Maximized"
+      }
+      clearTimeout(SidebarTimeoutObj)
+      if (SidebarState === "Submenu") {
+        $('.sidebar').addClass('close');
+        $('.sidebar').css('width', '78px')
+        $('.sub-links').css('display', 'none')
+      } else
+      if (NewSidebarState === "Maximized") {
+        $('.sidebar').removeClass('close');
+        $('.sidebar').css('width', '260px')
+        $('.sub-links').css('display', 'inline-block')
+        SidebarState = NewSidebarState
+      } else
+      if (NewSidebarState === "Minimized") {
+        $('.sidebar').addClass('close');
+        $('.sidebar').css('width', '78px')
+        $('.sub-links').css('display', 'none')
+        SidebarTimeoutObj = setTimeout(toggleSidebarAlone, 3000)
+        SidebarState = NewSidebarState
+      }
+      ret = ! $('.sidebar').hasClass('close')
 
         return ret
     }
@@ -55,14 +69,6 @@
         console.log("resize before setting width.")
       }
 
-    var SidebarTimeoutObj = null
-    function toggleSidebarAlone() {
-          $('.sidebar').css('width', '0px')
-          //$('.logo-details-alone').css('display', 'block')
-          $('.icon-link').css('display', 'none');
-          $('.logo-details').css('display', 'none')
-    }
-
     $(function () {
       /* console.log("width: "+ document.body.clientWidth); */
 //      resizeScreen();
@@ -70,24 +76,16 @@
         resizeScreen();
       });
       $('.bx-menu').click(function(){
-        clearTimeout(SidebarTimeoutObj)
         $('.icon-link').css('display', 'block');
         $('.logo-details').css('display', 'block');
         console.log("logo-details-alone clicked.")
         var ret = false
         try {
-               if ($('.sidebar').hasClass('close')) {
-                   $('.sidebar').css('width', '260px')
-               } else {
-                   $('.sidebar').css('width', '78px')
-               }
-               var ret = toggleSidebar()
+                var ret = toggleSidebar()
         } catch (e) {
             e.toString()
          }
-         if (ret === false) {
-            SidebarTimeoutObj = setTimeout(toggleSidebarAlone, 3000)
-         }
+
       });
     });
 
@@ -181,7 +179,7 @@
               console.log("hashValue=[" + hashValue + "]")
               changeSection(removeLeadingChar(hashValue, "#"))
           }
-          SidebarTimeoutObj = setTimeout(toggleSidebarAlone, 5000)
+          SidebarTimeoutObj = setTimeout(toggleSidebarAlone, 3000)
       }
 
 function FindPosition(oElement)
