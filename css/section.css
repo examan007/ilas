@@ -58,6 +58,11 @@ a:-webkit-any-link {
     float: left;
     background-color: #FFFFFF;
 }
+.pamplet-margin {
+    float: right;
+    margin-left: auto;
+    background-color: #FFFFFF;
+}
 .pamphlet {
     float: left;
     background-color: #FFFFFF;
@@ -67,4 +72,7 @@ a:-webkit-any-link {
 }
 .neoicon {
     max-height: 40px;
+}
+#Home {
+    max-width: 750px;
 }
