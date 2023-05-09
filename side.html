@@ -48,13 +48,15 @@
         margin: 0;
       }
       #calendar {
-        overflow: hidden !important;
         position: absolute;
         top: 50%;
-        left: 20%;
+        left: 10%;
+        overflow: hidden !important;
+        height: 80%;
+        width: 80%;
+        margin: auto;
+        max-width: 500px;
         transform: translate(-0%, -50%);
-        height: 40em;
-        width: 75%;
         background-color: rgba(255, 255, 255, .8);
         display: block;
         box-sizing: border-box;
@@ -69,22 +71,27 @@
 
 <div class="wrapper">
   <div id="sidebar" class="sidebar close">
+    <div class="logo-details-alone">
+      <i class='bx bx-menu'></i>
+    </div>
     <div class="logo-details">
         <i class='bx bx-menu'></i>
     </div>
     <ul class="nav-links">
-      <li onclick="menuClick(this)">
+      <li>
+        <div class="icon-link" onclick="menuClick(this)">
         <a href="#">
           <i class='bx bx-home'></i>
           <span class="link_name">Home</span>
         </a>
+        </div>
         <ul class="sub-menu blank">
           <li><a class="link_name" href="#Home">Home</a></li>
         </ul>
       </li>
       <li>
-        <div class="icon-link" onclick="menuClick(this)">
-          <p><a href="#Services">
+        <div class="icon-link">
+          <p><a href="#Services" onclick="menuClick(this)">
             <i class='bx bx-meteor'></i>
             <span class="link_name">Services</span>
           </a></p>
@@ -99,8 +106,8 @@
         </ul>
       </li>
       <li>
-        <div class="icon-link" onclick="menuClick(this)">
-          <p><a href="#Booking">
+        <div class="icon-link">
+          <p><a href="#Booking" onclick="menuClick(this)">
             <i class='bx bx-calendar'></i>
             <span class="link_name">Booking</span>
           </a></p>
@@ -115,38 +122,46 @@
           <li onclick="menuClick(this)"><a href="#Booking?filter=General_styling"><span>General styling</span></a></li>
         </ul>
       </li>
-      <li onclick="menuClick(this)">
-        <a href="#Prices">
+      <li>
+        <div class="icon-link">
+        <a href="#Prices" onclick="menuClick(this)">
           <i class='bx bx-dollar'></i>
           <span class="link_name">Prices</span>
         </a>
+        </div>
         <ul class="sub-menu blank">
           <li><a class="link_name" href="#Prices">Prices</a></li>
         </ul>
       </li>
-      <li onclick="menuClick(this)">
-        <a href="#">
+      <li>
+        <div class="icon-link">
+        <a href="#" onclick="menuClick(this)">
           <i class='bx bx-line-chart'></i>
           <span class="link_name">Training</span>
         </a>
+        </div>
         <ul class="sub-menu blank">
           <li><a class="link_name" href="#">Training</a></li>
         </ul>
       </li>
-      <li onclick="menuClick(this)">
-        <a href="#">
+      <li>
+        <div class="icon-link">
+        <a href="#" onclick="menuClick(this)">
           <i class='bx bx-history'></i>
           <span class="link_name">History</span>
         </a>
+        </div>
         <ul class="sub-menu blank">
           <li><a class="link_name" href="#">History</a></li>
         </ul>
       </li>
-      <li onclick="menuClick(this)">
-        <a href="#">
+      <li>
+        <div class="icon-link">
+        <a href="#" onclick="menuClick(this)">
           <i class='bx bx-cog'></i>
           <span class="link_name">Settings</span>
         </a>
+        </div>
         <ul class="sub-menu blank">
           <li><a class="link_name" href="#">Settings</a></li>
         </ul>

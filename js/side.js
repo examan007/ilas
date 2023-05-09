@@ -1,34 +1,85 @@
-
+    var SidebarState = "Minimized"
+    function toggleSidebarAlone() {
+        if (SidebarState === 'Minimized') {
+          $('.sidebar').css('width', '0px')
+          $('.icon-link').css('display', 'none');
+          $('.logo-details').css('display', 'none')
+          $('.sidebar').addClass('close');
+          SidebarState = "Hidden"
+        }
+    }
+    function showStack() {
+        function foo() {
+          throw new Error('Show stack trace.');
+        }
+        function bar() {
+          foo();
+        }
+        function baz() {
+          bar();
+        }
+        try {
+          baz();
+        } catch (e) {
+          console.error(e.stack);
+        }
+    }
    var InitialMargin = 260
    function toggleSidebar(flag) {
-      if (typeof(flag) === 'undefined') { flag = true }
-      if ($('.sidebar').hasClass('close') && !flag) {
-        console.log('Already closed');
-      } else
-      if (1) { //document.body.clientWidth > 400){
-         console.log("click to close")
-         var classobj = $('.sidebar').attr("class");
-         console.log(classobj);
-         console.log(JSON.stringify($('.sidebar')))
-        $('.sidebar').toggleClass('close');
-      }else{
-        console.log("small-screen")
-        $('.sidebar').toggleClass('small-screen');
-      }
-      function adjustSidebarwidth() {
-        var sidebarwidth = $('.sidebar').width() + InitialMargin
-        InitialMargin = 0
-        if (sidebarwidth >= 260) {
-            sidebarwidth = 78
+      var NewSidebarState = null
+      if (typeof(flag) !== 'undefined') {
+        if (flag == true) {
+           SidebarState = "Submenu"
+        } else
+        if (SidebarState === "Hidden") {
+           NewSidebarState = "Hidden"
         } else {
-            sidebarwidth = 260
+           NewSidebarState = "Minimized"
         }
-        console.log("resize before setting width sbw=[" + sidebarwidth + "]")
-        $('section').css("margin-left", "" + sidebarwidth + "px")
-       }
+      } else
+      if (SidebarState === "Submenu") {
+        NewSidebarState = "Submenu"
+      } else
+      if (SidebarState === "Hidden") {
+        NewSidebarState = "Maximized"
+      } else
+      if (SidebarState === "Minimized") {
+        NewSidebarState = "Maximized"
+      } else
+      if (SidebarState === "Maximized") {
+        NewSidebarState = "Minimized"
+      } else
+      if (SidebarState === "Hidden") {
+        NewSidebarState = "Maximized"
+      }
+      clearTimeout(SidebarTimeoutObj)
+      console.log("NewSidebarState=[" + NewSidebarState + "]")
+      showStack()
+      if (SidebarState === "Submenu") {
+        $('.sidebar').addClass('close');
+        $('.sidebar').css('width', '78px')
+      } else
+      if (NewSidebarState === "Maximized") {
+        $('.sidebar').removeClass('close');
+        $('.sidebar').css('width', '260px')
+        $('.icon-link').css('display', 'inline-block');
+        $('.logo-details').css('display', 'inline-block')
+        SidebarState = NewSidebarState
+      } else
+      if (NewSidebarState === "Minimized") {
+        $('.sidebar').addClass('close');
+        $('.sidebar').css('width', '78px')
+        $('.icon-link').css('display', 'inline-block');
+        $('.logo-details').css('display', 'inline-block')
+        SidebarTimeoutObj = setTimeout(toggleSidebarAlone, 3000)
+        SidebarState = NewSidebarState
+      }
+      changeSection(CurrentSection)
+      ret = ! $('.sidebar').hasClass('close')
 
-        console.log("resize after setting width.")
+        return ret
     }
+
       function resizeScreen() {
         if (1) { //document.body.clientWidth < 400){
           $('.sidebar').addClass('close');
@@ -69,12 +120,16 @@
             } catch (e) {
                 console.log(e.toString())
             }
-            return testDomobj('#Home')
+            return testDomobj('Home')
         }
         const newsectionobj = getsectionobj()
         $("#" + CurrentSection).css("display", "none");
         newsectionobj.css("display", "block");
-        CurrentSection = newsection
+        if (newsection.length > 0) {
+            CurrentSection = newsection
+        } else {
+            CurrentSection = "Home"
+        }
         if (newsection === "Booking") {
             console.log("testCookie for Booking.")
             testCookie((token)=> {
@@ -93,9 +148,9 @@
           console.log('close sidebar!')
           toggleSidebar(false)
         })
-        resizeScreen();
-        $('.sidebar').addClass('close')
-        $('section').css("margin-left", "" + 78 + "px")
+//        resizeScreen();
+//        $('.sidebar').addClass('close')
+//        $('section').css("margin-left", "" + 78 + "px")
 
     }
 
@@ -138,6 +193,7 @@
               console.log("hashValue=[" + hashValue + "]")
               changeSection(removeLeadingChar(hashValue, "#"))
           }
+          SidebarTimeoutObj = setTimeout(toggleSidebarAlone, 3000)
       }
 
 function FindPosition(oElement)
