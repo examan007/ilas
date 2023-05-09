@@ -62,8 +62,8 @@
       if (NewSidebarState === "Maximized") {
         $('.sidebar').removeClass('close');
         $('.sidebar').css('width', '260px')
-        $('.icon-link').css('display', 'inline-block');
-        $('.logo-details').css('display', 'inline-block')
+        $('.icon-link').css('display', 'flex');
+        $('.logo-details').css('display', 'flex')
         SidebarState = NewSidebarState
       } else
       if (NewSidebarState === "Minimized") {
@@ -74,7 +74,6 @@
         SidebarTimeoutObj = setTimeout(toggleSidebarAlone, 3000)
         SidebarState = NewSidebarState
       }
-      changeSection(CurrentSection)
       ret = ! $('.sidebar').hasClass('close')
 
         return ret
@@ -175,7 +174,7 @@
           });
           var classobj = $('.sidebar').attr("class");
           console.log(classobj);
-          resizeScreen();
+//          resizeScreen();
 //          toggleSidebar()
           document.body.style.cursor = "default";
           console.log("cursor style is " + document.body.style.cursor)
