@@ -96,7 +96,7 @@
   justify-content: space-between;
 }
 .sidebar.close .nav-links li .icon-link{
-  display: block
+  display: inline-block;
 }
 .sidebar .nav-links li i{
   height: 50px;
