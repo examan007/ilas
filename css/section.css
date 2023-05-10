@@ -5,7 +5,7 @@
 .imgbox {
     background-color:#FFFFFF;
     border: none;
-    text-align:center;
+    float: right;
 }
 .center-fit {
     max-width: 100%;
@@ -13,9 +13,9 @@
     margin: auto;
 }
 section {
-    float: right;
     margin-left: 0px;
     width: 100%;
+    min-width: 300px;
 }
 .brochure h1 {
     font-size: 40px;
@@ -31,10 +31,11 @@ section {
     background-color: #FFFFFF;
     border: none;
     display: grid;
-    text-align:center;
     min-height: 1.25em;
     line-height: 1.25;
     width: 100%;
+    margin: auto;
+    text-align: center;
 }
 .brochure a {
     margin: auto;
@@ -74,5 +75,24 @@ a:-webkit-any-link {
     max-height: 40px;
 }
 #Home {
+    margin: auto;
     max-width: 750px;
+    min-width: 300px;
+}
+.widewindow {
+    display: none;
+    height: 100%;
+    width: 100%;
+}
+.wideportal {
+    position: absolute;
+    top: 0%;
+    left: 700px;
+    overflow: hidden !important;
+    height: 100%;
+    width: 100%;
+}
+.wideobject {
+    height: 100%;
+    width: 100%;
 }

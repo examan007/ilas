@@ -123,13 +123,22 @@
         }
         const newsectionobj = getsectionobj()
         $("#" + CurrentSection).css("display", "none");
+         if (newsection === "Home" || newsection.length == 0 || newsection == "Booking") {
+             $('.wideportal').css("display", "block")
+             $('.wideobject').css("display", "block")
+             console.log("#%#$%##$%#% Change section to [" + newsection + "]")
+         } else {
+             $('.wideportal').css("display", "none")
+             $('.wideobject').css("display", "none")
+             console.log(">>>>>>>>>>>>> Change section to [" + newsection + "]")
+         }
         newsectionobj.css("display", "block");
         if (newsection.length > 0) {
             CurrentSection = newsection
         } else {
             CurrentSection = "Home"
         }
-        if (newsection === "Booking") {
+         if (newsection === "Booking") {
             console.log("testCookie for Booking.")
             testCookie((token)=> {
                 if (token == null) {

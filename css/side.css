@@ -5,7 +5,7 @@
   font-family: 'Poppins', sans-serif;
 }
 .wrapper{
-  display: flex;
+  float: left;
   min-height: 100%;
 }
 .profile-details{
@@ -289,7 +289,7 @@ img {
 body {
   cursor: default;
   background-color:#FFFFFF;
-  height: 100%;
+  width: 100%;
 }
 .hair-removal-section {
     display:none
