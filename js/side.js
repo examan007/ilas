@@ -124,12 +124,10 @@
         const newsectionobj = getsectionobj()
         $("#" + CurrentSection).css("display", "none");
          if (newsection === "Home" || newsection.length == 0 || newsection == "Booking") {
-             $('.wideportal').css("display", "block")
-             $('.wideobject').css("display", "block")
+             $('.wideportal').css("display", "none")
              console.log("#%#$%##$%#% Change section to [" + newsection + "]")
          } else {
              $('.wideportal').css("display", "none")
-             $('.wideobject').css("display", "none")
              console.log(">>>>>>>>>>>>> Change section to [" + newsection + "]")
          }
         newsectionobj.css("display", "block");
