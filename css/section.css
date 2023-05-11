@@ -75,7 +75,7 @@ a:-webkit-any-link {
     flex: 1 1 auto;
 }
 #Home {
-    display: flex;
+    display: none;
     flex-direction: row;
     justify-content: flex-start;
     align-content: stretch;
