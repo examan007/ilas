@@ -135,7 +135,7 @@
         $("#" + CurrentSection).css("display", "none");
          if (newsection === "Home" || newsection.length == 0 || newsection == "Booking") {
              if (getWindowDimensions().width > 700) {
-                 $('.wideportal').css("display", "block")
+                 $('.wideportal').css("display", "none")
              } else {
                  $('.wideportal').css("display", "none")
              }
@@ -187,9 +187,18 @@
         console.log("link name=[" + sectionname + "]")
         changeSection(sectionname.replace(/ /g,"_"))
     }
+    function getElementLocation(selector) {
+         const element = document.getElementById(removeLeadingChar(selector, "#"));
 
+         // Get its location relative to the document
+         const location = element.getBoundingClientRect();
+
+        // Log its coordinates
+        console.log(`Top: ${location.top}, Left: ${location.left}`);
+    }
       function welcomeFunction() {
           console.log('page is loaded icons');
+          getElementLocation('#sidebar')
           $.each($('.sidebar'), function(index, val) {
               console.log(val);
           });
