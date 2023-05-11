@@ -7,6 +7,8 @@
 .wrapper{
   float: left;
   min-height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 .profile-details{
   transition: all 0.5s ease;
@@ -266,7 +268,7 @@
   font-size: 26px;
   font-weight: 600;
 }
-@media (max-width: 400px) {
+@media (max-width: 550px) {
 
   .sidebar.close.small-screen{
     width: 0;
@@ -274,7 +276,7 @@
 
   .sidebar.close.small-screen ~ .home-section{
     width: 100%;
-    left: 0;r
+    left: 0;
     z-index: 100;
   }
 }
@@ -290,9 +292,6 @@ body {
   cursor: default;
   background-color:#FFFFFF;
   width: 100%;
-}
-.hair-removal-section {
-    display:none
 }
 .imgbox {
     margin: auto;

@@ -133,18 +133,19 @@
         }
         const newsectionobj = getsectionobj()
         $("#" + CurrentSection).css("display", "none");
-         if (newsection === "Home" || newsection.length == 0 || newsection == "Booking") {
-             if (getWindowDimensions().width > 700) {
-                 $('.wideportal').css("display", "none")
+         if (newsection === "Home" || newsection.length == 0 || newsection == "Booking" || newsection == "Services") {
+             if (getWindowDimensions().width > 550) {
+                 $('.wideportal').css("display", "block")
              } else {
                  $('.wideportal').css("display", "none")
              }
+             newsectionobj.css("display", "flex");
              console.log("#%#$%##$%#% Change section to [" + newsection + "]")
          } else {
              $('.wideportal').css("display", "none")
-             console.log(">>>>>>>>>>>>> Change section to [" + newsection + "]")
+            newsectionobj.css("display", "block");
+            console.log(">>>>>>>>>>>>> Change section to [" + newsection + "]")
          }
-        newsectionobj.css("display", "block");
         if (newsection.length > 0) {
             CurrentSection = newsection
         } else {
@@ -196,7 +197,7 @@
         // Log its coordinates
         console.log(`Top: ${location.top}, Left: ${location.left}`);
     }
-      function welcomeFunction() {
+      function welcomeFunction(AppMan) {
           console.log('page is loaded icons');
           getElementLocation('#sidebar')
           $.each($('.sidebar'), function(index, val) {
@@ -223,6 +224,11 @@
               changeSection(removeLeadingChar(hashValue, "#"))
           }
           SidebarTimeoutObj = setTimeout(toggleSidebarAlone, 3000)
+
+          const nomenuflag = AppMan.getQueryValue('nomenuflag')
+          if (nomenuflag != null) {
+            $('#sidebar').css('display', 'none')
+          }
       }
 
 function FindPosition(oElement)

@@ -5,7 +5,7 @@
 .imgbox {
     background-color:#FFFFFF;
     border: none;
-    float: right;
+    margin-top: 10px;
 }
 .center-fit {
     max-width: 100%;
@@ -13,10 +13,8 @@
     margin: auto;
 }
 section {
-    margin-left: 0px;
-    width: 100%;
     min-width: 300px;
-    max-width: 1650px
+    max-width: 1650px;
 }
 .brochure h1 {
     font-size: 40px;
@@ -31,27 +29,19 @@ section {
     font-family: "Times New Roman", Times, serif;
     background-color: #FFFFFF;
     border: none;
-    display: grid;
     min-height: 1.25em;
     line-height: 1.25;
-    width: 100%;
-    margin: auto;
-    text-align: center;
 }
 .brochure a {
-    margin: auto;
     min-height: 1.25em;
     line-height: 1.25;
 }
 .brochure a img {
-    float: left;
 }
 .brochure a span {
     font-size: 15px;
     font-weight: medium;
     color:#000000;
-    float: left;
-    text-align:  left;
 }
 a:-webkit-any-link {
     text-decoration: none;
@@ -62,23 +52,32 @@ a:-webkit-any-link {
 }
 .pamplet-margin {
     float: right;
-    margin-left: auto;
     background-color: #FFFFFF;
 }
 .pamphlet {
-    float: left;
     background-color: #FFFFFF;
+    margin: 0;
+    float: left;
 }
 .pageimage {
-    float: left;
+    height: 100vh;
 }
 .neoicon {
     max-height: 40px;
+    flex: 1 1 auto;
 }
 #Home {
-    margin: auto;
-    max-width: 750px;
-    min-width: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: center;
+    flex-wrap: nowrap;
+    max-width: 550px;
+    overflow: hidden;
+    flex-direction: column;
+    align-content: flex-center;
+    margin: 0;
 }
 .widewindow {
     display: none;
@@ -86,14 +85,21 @@ a:-webkit-any-link {
     width: 100%;
 }
 .wideportal {
+    display: none;
     position: absolute;
-    top: 0%;
-    left: 700px;
-    overflow: hidden !important;
+    top: 0;
+    left: 550px;
     height: 100%;
     width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    z-index: 250;
+    transition: all 0.5s ease;
 }
 .wideobject {
     height: 100%;
     width: 100%;
+}
+.container::-webkit-scrollbar {
+  display: none;
 }
