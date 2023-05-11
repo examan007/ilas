@@ -39,6 +39,7 @@ section {
     float: left;
     align-items: flex-start;
     position: relative;
+    left: 20%;
     overflow: hidden;
 }
 .brochure a {
@@ -79,7 +80,7 @@ a:-webkit-any-link {
     flex-direction: row;
     justify-content: flex-start;
     align-content: stretch;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: nowrap;
     max-width: 550px;
     overflow: hidden;
@@ -112,5 +113,7 @@ a:-webkit-any-link {
   display: none;
 }
 span {
+  position: relative:
+  left: 20%;
   white-space: nowrap;
 }
