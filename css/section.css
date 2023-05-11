@@ -20,6 +20,7 @@
 section {
     min-width: 300px;
     max-width: 1650px;
+    overflow: hidden;
 }
 .neo-section {
     display: none;
@@ -102,13 +103,13 @@ a:-webkit-any-link {
     display: none;
     position: absolute;
     top: 0;
-    left: 550px;
+    margin-left: 550px;
     height: 100%;
     width: 100%;
-    margin: 0;
     box-sizing: border-box;
     z-index: 250;
     transition: all 0.5s ease;
+    overflow: hidden;
 }
 .wideobject {
     height: 100%;

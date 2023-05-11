@@ -139,11 +139,14 @@
             }
         }
         const newsectionobj = getsectionobj()
+        const dimensions = getWindowDimensions()
+        $('.wrapper').css("width", "" + (dimensions.width) + "px")
+        $('.wideportal').css("width", "" + (dimensions.width - 550) + "px")
         $("#" + CurrentSection).css("display", "none");
         $('.wrapper').removeClass(CurrentSection)
         $('.wrapper').addClass(getsectionname)
          if (newsection === "Home" || newsection.length == 0 || newsection == "Booking" || newsection == "Services") {
-             if (getWindowDimensions().width > 550) {
+             if (dimensions.width > 550) {
                  $('.wideportal').css("display", "block")
              } else {
                  $('.wideportal').css("display", "none")
