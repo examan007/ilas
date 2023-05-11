@@ -139,7 +139,7 @@
              } else {
                  $('.wideportal').css("display", "none")
              }
-             newsectionobj.css("display", "block");
+             newsectionobj.css("display", "flex");
              console.log("#%#$%##$%#% Change section to [" + newsection + "]")
          } else {
              $('.wideportal').css("display", "none")
