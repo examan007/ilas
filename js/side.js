@@ -24,6 +24,16 @@
           console.error(e.stack);
         }
     }
+    function getWindowDimensions () {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        console.log(`Window size is ${width}x${height}`);
+        return {
+            width: width,
+            height: height,
+        }
+    }
+
    var InitialMargin = 260
    function toggleSidebar(flag) {
       var NewSidebarState = null
@@ -124,7 +134,11 @@
         const newsectionobj = getsectionobj()
         $("#" + CurrentSection).css("display", "none");
          if (newsection === "Home" || newsection.length == 0 || newsection == "Booking") {
-             $('.wideportal').css("display", "none")
+             if (getWindowDimensions().width > 700) {
+                 $('.wideportal').css("display", "block")
+             } else {
+                 $('.wideportal').css("display", "none")
+             }
              console.log("#%#$%##$%#% Change section to [" + newsection + "]")
          } else {
              $('.wideportal').css("display", "none")
