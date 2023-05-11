@@ -65,7 +65,6 @@ a:-webkit-any-link {
 }
 .pamphlet {
     background-color: #FFFFFF;
-    margin: 0;
     float: left;
 }
 .pageimage {
@@ -111,4 +110,7 @@ a:-webkit-any-link {
 }
 .container::-webkit-scrollbar {
   display: none;
+}
+span {
+  white-space: nowrap;
 }
