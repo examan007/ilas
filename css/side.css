@@ -10,6 +10,21 @@
   width: 100%;
   overflow: hidden;
 }
+.Hair_Removal {
+   background-color: rgba(240,77,48,1);
+}
+.Home {
+   background-color: rgba(255,255,255,1);
+}
+.Skin_Rejuvenation {
+   background-color: rgba(135,40,129,1);
+}
+.Vascular_Lesions {
+   background-color: rgba(16,127,172,1);
+}
+.Acne_Treatment {
+   background-color: rgba(247,144,32,1);
+}
 .profile-details{
   transition: all 0.5s ease;
   border-bottom-right-radius: 20px;

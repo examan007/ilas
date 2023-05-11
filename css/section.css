@@ -21,6 +21,10 @@ section {
     min-width: 300px;
     max-width: 1650px;
 }
+.neo-section {
+    display: none;
+    width: 100%;
+}
 .brochure h1 {
     font-size: 40px;
 }
@@ -63,6 +67,7 @@ a:-webkit-any-link {
 .pamplet-margin {
     float: right;
     background-color: #FFFFFF;
+    display: none;
 }
 .pamphlet {
     background-color: #FFFFFF;

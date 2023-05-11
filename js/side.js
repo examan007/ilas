@@ -131,8 +131,17 @@
             }
             return testDomobj('Home')
         }
+        function getsectionname() {
+            if (newsection.length > 0) {
+                return newsection
+            } else {
+                return "Home"
+            }
+        }
         const newsectionobj = getsectionobj()
         $("#" + CurrentSection).css("display", "none");
+        $('.wrapper').removeClass(CurrentSection)
+        $('.wrapper').addClass(getsectionname)
          if (newsection === "Home" || newsection.length == 0 || newsection == "Booking" || newsection == "Services") {
              if (getWindowDimensions().width > 550) {
                  $('.wideportal').css("display", "block")
@@ -146,11 +155,7 @@
             newsectionobj.css("display", "block");
             console.log(">>>>>>>>>>>>> Change section to [" + newsection + "]")
          }
-        if (newsection.length > 0) {
-            CurrentSection = newsection
-        } else {
-            CurrentSection = "Home"
-        }
+         CurrentSection = getsectionname()
          if (newsection === "Booking") {
             console.log("testCookie for Booking.")
             testCookie((token)=> {
