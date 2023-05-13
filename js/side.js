@@ -92,6 +92,11 @@
       function resizeScreen() {
         const dimensions = getWindowDimensions()
         //console.log("resize with new width =[" + dimensions.width + "]")
+        $('.wrapper').css("width", "" + dimensions.width + "px")
+        if (dimensions.width > 550) {
+            $('.wideportal').css("width", "" + (dimensions.width - 550) + "px")
+       }
+        log.console
       }
 
     $(function () {
