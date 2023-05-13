@@ -29,7 +29,7 @@ section {
 .brochure h1 {
     font-size: 40px;
 }
-.brochure h2 {
+.brochure {
     font-size: 16px;
     color: #7e7ea0;
     min-height: 1.25em;
@@ -50,14 +50,11 @@ section {
 .brochure a {
     min-height: 1.25em;
     line-height: 1.25;
+    color: #7e7ea0;
 }
 .brochure a img {
 }
-.brochure a span {
-    font-size: 15px;
-    font-weight: medium;
-    color:#000000;
-}
+
 a:-webkit-any-link {
     text-decoration: none;
 }
