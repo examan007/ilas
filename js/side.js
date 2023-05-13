@@ -161,18 +161,21 @@
                     if (token == null) {
                         return false
                     } else
-                    if (token.length <= 0) {
+                    if (token.length > 0) {
+                        return true
+                    } else {
                         return false
                     }
-                    return true
                 }
                 if (testThisToken() == false) {
+                    console.log("$$$ Need a valid token.")
                     $('#login').css("display", "block")
                     $('#login').on('click', function() {
                           console.log('login was clicked!')
                           toggleSidebar(false)
                     })
                 } else {
+                    console.log("token is [" + token + "]")
                     $('#login').css("display", "none")
                 }
             })
