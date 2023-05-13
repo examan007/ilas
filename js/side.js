@@ -27,7 +27,7 @@
     function getWindowDimensions () {
         const width = window.innerWidth;
         const height = window.innerHeight;
-        console.log(`Window size is ${width}x${height}`);
+        //console.log(`Window size is ${width}x${height}`);
         return {
             width: width,
             height: height,
@@ -90,13 +90,8 @@
     }
 
       function resizeScreen() {
-        if (1) { //document.body.clientWidth < 400){
-          $('.sidebar').addClass('close');
-          //toggleSidebar()
-        }else{
-          $('.sidebar').removeClass('close');
-        }
-        console.log("resize before setting width.")
+        const dimensions = getWindowDimensions()
+        //console.log("resize with new width =[" + dimensions.width + "]")
       }
 
     $(function () {
@@ -162,7 +157,16 @@
          if (newsection === "Booking") {
             console.log("testCookie for Booking.")
             testCookie((token)=> {
-                if (token == null) {
+                function testThisToken() {
+                    if (token == null) {
+                        return false
+                    } else
+                    if (token.length <= 0) {
+                        return false
+                    }
+                    return true
+                }
+                if (testThisToken() == false) {
                     $('#login').css("display", "block")
                     $('#login').on('click', function() {
                           console.log('login was clicked!')
