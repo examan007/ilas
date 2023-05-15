@@ -96,7 +96,6 @@
         if (dimensions.width > 550) {
             $('.wideportal').css("width", "" + (dimensions.width - 550) + "px")
        }
-        log.console
       }
 
     $(function () {
