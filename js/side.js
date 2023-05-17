@@ -34,6 +34,8 @@
         }
     }
 
+   var timeoutobj = null
+   var timeoutflag = true
    var InitialMargin = 260
    function toggleSidebar(flag) {
       var NewSidebarState = null
@@ -65,6 +67,8 @@
       clearTimeout(SidebarTimeoutObj)
       console.log("NewSidebarState=[" + NewSidebarState + "]")
       showStack()
+      window.clearTimeout(timeoutobj)
+      timeoutflag = false
       if (SidebarState === "Submenu") {
         $('.sidebar').addClass('close');
         $('.sidebar').css('width', '78px')
@@ -216,6 +220,13 @@
         // Log its coordinates
         console.log(`Top: ${location.top}, Left: ${location.left}`);
     }
+    var ServicesArray = function getServicesArray() {
+        const elements = document.querySelectorAll('.neo-service');
+        const idArray = Array.from(elements).map(element => element.id);
+        return idArray
+    }
+    var ServiceIndex = 1
+
       function welcomeFunction(AppMan) {
           console.log('page is loaded icons');
           getElementLocation('#sidebar')
@@ -248,6 +259,87 @@
           if (nomenuflag != null) {
             $('#sidebar').css('display', 'none')
           }
+
+        const initduration = 2000
+        const initinterval = 1000
+        const defaultdelay = 5000
+
+        function smoothScrollWithInterval(duration, interval, lasttop) {
+          var start = window.pageYOffset;
+          var startTime = 'now' in window.performance ? performance.now() : new Date().getTime();
+
+          var documentHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
+          var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
+          var destinationOffset = documentHeight - windowHeight;
+          var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+          var intervalOffset = Math.floor(viewportHeight);
+          var destinationOffsetToScroll = Math.round(documentHeight < windowHeight ? 0 : destinationOffset);
+          function scroll() {
+            if (!timeoutflag) {
+                return
+            }
+            var currentTime = 'now' in window.performance ? performance.now() : new Date().getTime();
+            var time = Math.min(1, ((currentTime - startTime) / duration));
+            var easedTime = time;
+
+            // Apply easing functions if desired
+            // Example: easedTime = easeInOutCubic(time);
+
+            var scrollToOffset = Math.ceil(easedTime * destinationOffsetToScroll + start);
+            window.scrollTo(0, scrollToOffset);
+
+            const windowheight = getWindowDimensions().height
+            const maxScrollValue = document.documentElement.scrollHeight - windowheight
+            const maxScrollTop = $(window).scrollTop()
+            const currentTop = lasttop - windowheight
+            //console.log("Current=[" + currentTop + " NextTop=[" + lasttop + " Top=[" + maxScrollTop + "] Max=[" + maxScrollValue + "]")
+            if (window.pageYOffset >= destinationOffsetToScroll) {
+              console.log("done auto scrolling")
+              console.log("Get next section.")
+              function switchToStart_A() {
+                  console.log("SWITCH")
+                  $(window).scrollTop(0)
+                  smoothScrollWithInterval(initduration, initinterval, 0)
+              }
+              function switchToStart() {
+                  console.log("SWITCH")
+                  $(window).scrollTop(0)
+                  try {
+                      var messageobj = {
+                         operation: 'autoscrollswitch',
+                      }
+                      function sendMessage(message) {
+                          window.parent.postMessage(message, "*");
+                          console.log("message posted [" + message + "]")
+                      }
+                      sendMessage(JSON.stringify(messageobj))
+                  } catch (e) {
+                      console.log(e.toString())
+                  }
+              }
+             clearTimeout(timeoutobj)
+             window.setTimeout(switchToStart, defaultdelay)
+              return;
+            }
+            if ( maxScrollTop >= lasttop && (maxScrollValue - maxScrollTop) > 50) {
+                const nexttop = lasttop + windowheight
+                clearTimeout(timeoutobj)
+                window.setTimeout(()=> {
+                  console.log("TIMEOUT")
+                  smoothScrollWithInterval(initduration, initinterval, nexttop)
+                }, defaultdelay)
+            } else
+            if (window.pageYOffset % intervalOffset < 1) {
+                  timeoutobj = setTimeout(scroll, interval);
+                } else {
+                  requestAnimationFrame(scroll);
+                }
+            }
+          scroll();
+        }
+        if (nomenuflag != null) {
+            smoothScrollWithInterval(initduration, initinterval, 0)
+        }
       }
 
 function FindPosition(oElement)
@@ -291,3 +383,55 @@ function GetCoordinates(e)
   console.log("X=[" + PosX + "] Y=[" + PosY + "]")
 }
 
+function neoOnloadLocal() {
+        console.log("neoOnload()")
+        let AppMan = ApplicationManager((event, flag) => {
+          const services = ServicesArray()
+          function getJSONMsg() {
+            try{
+                return JSON.parse(event.data)
+            } catch (e) {
+            }
+            return {}
+          }
+          const jsonobj = getJSONMsg()
+          if (typeof(jsonobj.operation) === "undefined") {
+            if (typeof(flag) === "undefined") {
+                $('#login').css("display", "none")
+                console.log("event.data=[" + event.data + "]")
+            } else
+            if (flag == true) {
+                $('#login').css("display", "block")
+                console.log("event.data=[" + event.data + "]")
+            }
+          } else
+          if (jsonobj.operation === "autoscrollswitch") {
+                $('#rightpanel').attr('data', "side.html#" + services[ServiceIndex] + "?nomenuflag=true")
+                if (ServiceIndex >= (services.length-1)) {
+                    ServiceIndex = 0
+                } else {
+                    ServiceIndex++
+                }
+          }
+        })
+        AppMan.
+        verify(
+        () => {
+            thishref = $('#login').attr('data')
+            console.log("Xthishref=[" + thishref + "]")
+            return thishref
+        },
+        (newquery) => {
+            $('#login').attr('data', newquery)
+        })
+
+//        testCookie((token)=> {
+//            if (token == null) {
+//                $('#login').css("display", "block")
+//            } else {
+                $('#login').css("display", "none")
+//            }
+//        })
+
+        return AppMan;
+}
