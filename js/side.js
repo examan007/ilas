@@ -290,6 +290,7 @@
           const nomenuflag = AppMan.getQueryValue('nomenuflag')
           if (nomenuflag != null) {
             $('#sidebar').css('display', 'none')
+            $('#login').css('display', 'none')
           }
 
         const initduration = 2000
