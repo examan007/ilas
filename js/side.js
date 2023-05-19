@@ -207,7 +207,9 @@
                 }
                 if (testThisToken() == false) {
                     console.log("$$$ Need a valid token.")
-                    getLoginWindow('tokenneeded')
+                    window.setTimeout(()=> {
+                        getLoginWindow('tokenneeded')
+                    }, 2000)
                 } else {
                     console.log("token is [" + token + "]")
                     $('#login').css("display", "none")
