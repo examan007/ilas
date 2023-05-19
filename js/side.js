@@ -114,7 +114,24 @@
     });
 
     var CurrentSection = "Home"
-
+    function getLoginWindow(operation) {
+        const messageobj = {
+            operation: operation,
+        }
+        $('#login').css("display", "block")
+        $('#login').on('click', function() {
+              console.log('login was clicked!')
+              toggleSidebar(false)
+        })
+        var objectEl = document.getElementById('login');
+        if (objectEl.contentWindow != null) {
+          function sendMessage(message) {
+              objectEl.contentWindow.postMessage(message, "*");
+              console.log("To login window message posted [" + message + "]")
+          }
+          sendMessage(JSON.stringify(messageobj))
+         }
+    }
     function changeSection(newsection) {
         function testDomobj(elementid) {
             return $('#' + elementid)
@@ -122,6 +139,9 @@
         function getsectionobj() {
             try {
                 if ( newsection === "Services" ) {
+                    return testDomobj('Home')
+                } else
+                if ( newsection === "Settings" ) {
                     return testDomobj('Home')
                 } else
                 if (newsection.length > 0) {
@@ -148,7 +168,17 @@
         $("#" + CurrentSection).css("display", "none");
         $('.wrapper').removeClass(CurrentSection)
         $('.wrapper').addClass(getsectionname)
-         if (newsection === "Home" || newsection.length == 0 || newsection == "Booking" || newsection == "Services") {
+         if (
+         newsection === "Home"
+          ||
+         newsection.length == 0
+          ||
+         newsection == "Booking"
+          ||
+         newsection == "Services"
+          ||
+         newsection == "Settings"
+         ) {
              if (dimensions.width > 550) {
                  $('.wideportal').css("display", "block")
              } else {
@@ -177,16 +207,16 @@
                 }
                 if (testThisToken() == false) {
                     console.log("$$$ Need a valid token.")
-                    $('#login').css("display", "block")
-                    $('#login').on('click', function() {
-                          console.log('login was clicked!')
-                          toggleSidebar(false)
-                    })
+                    getLoginWindow('tokenneeded')
                 } else {
                     console.log("token is [" + token + "]")
                     $('#login').css("display", "none")
                 }
             })
+        } else
+        if (newsection === "Settings") {
+            console.log("Settings")
+            getLoginWindow('showstatus')
         }
         newsectionobj.on('click', function() {
           console.log('close sidebar!')
@@ -317,20 +347,20 @@
                       console.log(e.toString())
                   }
               }
-             clearTimeout(timeoutobj)
+             window.clearTimeout(timeoutobj)
              window.setTimeout(switchToStart, defaultdelay)
               return;
             }
             if ( maxScrollTop >= lasttop && (maxScrollValue - maxScrollTop) > 50) {
                 const nexttop = lasttop + windowheight
-                clearTimeout(timeoutobj)
+                window.clearTimeout(timeoutobj)
                 window.setTimeout(()=> {
                   console.log("TIMEOUT")
                   smoothScrollWithInterval(initduration, initinterval, nexttop)
                 }, defaultdelay)
             } else
             if (window.pageYOffset % intervalOffset < 1) {
-                  timeoutobj = setTimeout(scroll, interval);
+                  timeoutobj = window.setTimeout(scroll, interval);
                 } else {
                   requestAnimationFrame(scroll);
                 }
@@ -384,7 +414,7 @@ function GetCoordinates(e)
 }
 
 function neoOnloadLocal() {
-        console.log("neoOnload()")
+        console.log("neoOnloadLocal()")
         let AppMan = ApplicationManager((event, flag) => {
           const services = ServicesArray()
           function getJSONMsg() {
@@ -412,6 +442,11 @@ function neoOnloadLocal() {
                 } else {
                     ServiceIndex++
                 }
+          } else
+          if (jsonobj.operation === "showtoken") {
+              console.log("xshowtoken=[" + JSON.stringify(jsonobj.token) + "]")
+              console.log("token value=[" + $('#Token').text() + "]")
+              $('#Token').text(JSON.stringify(jsonobj.token))
           }
         })
         AppMan.

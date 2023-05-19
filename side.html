@@ -160,13 +160,13 @@
       </li>
       <li>
         <div class="icon-link">
-        <a href="#" onclick="menuClick(this)">
-          <i class='bx bx-cog'></i>
-          <span class="link_name">Settings</span>
-        </a>
+          <a href="#Settings" onclick="menuClick(this)">
+            <i class='bx bx-cog'></i>
+            <span class="link_name">Settings</span>
+          </a>
         </div>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Settings</a></li>
+          <li><a class="link_name" href="#Settings">Settings</a></li>
         </ul>
       </li>
       <li onclick="menuClick(this)">
@@ -301,6 +301,10 @@
     </section>
     <section id="Booking" class="neo-section">
         <object id="calendar" type="text/html" data="https://neobook.neolation.com/index.html"></object>
+    </section>
+    <section id="Settings" class="neo-section">
+      <div class="settings-label" id="TokenLabel">Current access token:</div>
+      <div id="Token">default</div>
     </section>
     <section id="Prices" class="pamphlet" style="display:none">
       <div class="prices">
