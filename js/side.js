@@ -444,6 +444,9 @@ function neoOnloadLocal() {
                 console.log("event.data=[" + event.data + "]")
             }
           } else
+          if (jsonobj.operation === "exitlogin") {
+                $('#login').css("display", "none")
+          } else
           if (jsonobj.operation === "autoscrollswitch") {
                 $('#rightpanel').attr('data', "side.html#" + services[ServiceIndex] + "?nomenuflag=true")
                 if (ServiceIndex >= (services.length-1)) {
