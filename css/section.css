@@ -58,7 +58,7 @@ a:-webkit-any-link {
     text-decoration: none;
 }
 .prices {
-    float: left;
+    float: right;
     background-color: #FFFFFF;
 }
 .pamplet-margin {
