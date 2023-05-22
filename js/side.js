@@ -139,9 +139,6 @@
         }
         function getsectionobj() {
             try {
-                if ( newsection === "Services" ) {
-                    return testDomobj('Home')
-                } else
                 if ( newsection === "Settings" ) {
                     return testDomobj('Home')
                 } else

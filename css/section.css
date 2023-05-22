@@ -81,7 +81,7 @@ a:-webkit-any-link {
     max-height: 40px;
     flex: 1 1 auto;
 }
-#Home {
+#Home,#Services {
     display: none;
     flex-direction: row;
     justify-content: flex-start;
