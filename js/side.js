@@ -1,4 +1,5 @@
     var SidebarState = "Minimized"
+    var LoginFlag = false
     function toggleSidebarAlone() {
         if (SidebarState === 'Minimized') {
           $('.sidebar').css('width', '0px')
@@ -208,6 +209,8 @@
                 if (testThisToken() == false) {
                     console.log("$$$ Need a valid token.")
                     window.setTimeout(()=> {
+                        console.log("Show Login %%%%%%%%%%%%")
+                        LoginFlag = true
                         getLoginWindow('tokenneeded')
                     }, 2000)
                 } else {
@@ -418,6 +421,7 @@ function GetCoordinates(e)
 
 function neoOnloadLocal() {
         console.log("neoOnloadLocal()")
+        $('#login').css("display", "none")
         let AppMan = ApplicationManager((event, flag) => {
           const services = ServicesArray()
           function getJSONMsg() {
@@ -430,7 +434,9 @@ function neoOnloadLocal() {
           const jsonobj = getJSONMsg()
           if (typeof(jsonobj.operation) === "undefined") {
             if (typeof(flag) === "undefined") {
-                $('#login').css("display", "none")
+                if (!LoginFlag) {
+                    $('#login').css("display", "none")
+                }
                 console.log("event.data=[" + event.data + "]")
             } else
             if (flag == true) {
@@ -467,7 +473,6 @@ function neoOnloadLocal() {
 //            if (token == null) {
 //                $('#login').css("display", "block")
 //            } else {
-                $('#login').css("display", "none")
 //            }
 //        })
 
