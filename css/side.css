@@ -10,11 +10,17 @@
   width: 100%;
   overflow: hidden;
 }
+.Home {
+   background-color: rgba(255,255,255,1);
+}
+.Body_Contouring {
+   background-color: rgba(231,101,155,1);
+}
 .Hair_Removal {
    background-color: rgba(240,77,48,1);
 }
-.Home {
-   background-color: rgba(255,255,255,1);
+.Stretch_Mark_Removal {
+   background-color: rgba(231,101,155,1);
 }
 .Skin_Rejuvenation {
    background-color: rgba(135,40,129,1);
