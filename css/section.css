@@ -121,3 +121,6 @@ span {
   left: 20%;
   white-space: nowrap;
 }
+#rightpanel {
+    transition: all 1s ease;
+}

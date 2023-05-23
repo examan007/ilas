@@ -336,7 +336,7 @@
               }
               function switchToStart() {
                   console.log("SWITCH")
-                  $(window).scrollTop(0)
+                  //$(window).scrollTop(0)
                   try {
                       var messageobj = {
                          operation: 'autoscrollswitch',
