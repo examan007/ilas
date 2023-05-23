@@ -58,12 +58,10 @@ a:-webkit-any-link {
     text-decoration: none;
 }
 #Prices {
-   margin-left: 25px;
+   margin-left: 10%;
    margin-right: 10%;
 }
 .prices {
-    margin-left: 10px;
-    float: right;
     background-color: #FFFFFF;
 }
 .pamplet-margin {
