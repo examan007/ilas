@@ -16,11 +16,17 @@
 .Body_Contouring {
    background-color: rgba(231,101,155,1);
 }
+.Facial_Contouring {
+   background-color: rgba(240,77,48,1);
+}
 .Hair_Removal {
    background-color: rgba(240,77,48,1);
 }
 .Stretch_Mark_Removal {
    background-color: rgba(231,101,155,1);
+}
+.Cellulite_Reduction {
+   background-color: rgba(221,23,102,1);
 }
 .Skin_Rejuvenation {
    background-color: rgba(135,40,129,1);

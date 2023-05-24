@@ -107,7 +107,7 @@ a:-webkit-any-link {
     box-sizing: border-box;
     z-index: 250;
     overflow: hidden;
-    transition: all 1s ease;
+
 }
 .wideobject {
     height: 100%;
