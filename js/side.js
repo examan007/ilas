@@ -1,3 +1,4 @@
+    console.log = function(msg) {}
     var SidebarState = "Minimized"
     var LoginFlag = false
     function toggleSidebarAlone() {
@@ -10,6 +11,7 @@
         }
     }
     function showStack() {
+        return
         function foo() {
           throw new Error('Show stack trace.');
         }
@@ -115,6 +117,16 @@
     });
 
     var CurrentSection = "Home"
+    function sendToChildWindow(identifier, messageobj) {
+         var objectEl = document.getElementById(identifier);
+        if (objectEl.contentWindow != null) {
+          function sendMessage(message) {
+              objectEl.contentWindow.postMessage(message, "*");
+              console.log("To login window message posted [" + message + "]")
+          }
+          sendMessage(JSON.stringify(messageobj))
+         }
+    }
     function getLoginWindow(operation) {
         const messageobj = {
             operation: operation,
@@ -124,14 +136,7 @@
               console.log('login was clicked!')
               toggleSidebar(false)
         })
-        var objectEl = document.getElementById('login');
-        if (objectEl.contentWindow != null) {
-          function sendMessage(message) {
-              objectEl.contentWindow.postMessage(message, "*");
-              console.log("To login window message posted [" + message + "]")
-          }
-          sendMessage(JSON.stringify(messageobj))
-         }
+        sendToChildWindow('login', messageobj)
     }
     function changeSection(newsection) {
         function testDomobj(elementid) {
@@ -292,6 +297,7 @@
             $('#sidebar').css('display', 'none')
             $('#login').css('display', 'none')
           }
+
 
         const initduration = 2000
         const initinterval = 1000
@@ -456,6 +462,9 @@ function neoOnloadLocal() {
               console.log("xshowtoken=[" + JSON.stringify(jsonobj.token) + "]")
               console.log("token value=[" + $('#Token').text() + "]")
               $('#Token').text(JSON.stringify(jsonobj.token))
+          } else
+          if (jsonobj.operation === "createevent") {
+            sendToChildWindow('calendar', jsonobj)
           }
         })
         AppMan.
