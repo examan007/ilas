@@ -1,4 +1,4 @@
-    var consolex = {
+    var console = {
         log: function(msg) {},
     }
     var SidebarState = "Minimized"
@@ -537,11 +537,21 @@ function loadImagesLazyily() {
                  console.log("entry=[" + elem.getAttribute('class') + "]")
                  return (elem.parentNode.parentNode.getElementsByClassName('pageimage'))
               }
+              function testParent(elem) {
+                try {
+                    return elem.parentNode.classList.contains('active-pamphlet')
+                } catch (e) {
+                    console.log(e.toString())
+                }
+                return false
+              }
             const siblings = getSiblings(entry.target)
             console.log("loading siblings [" + siblings.length + "]")
             Array.from(siblings).forEach(function (sibling) {
-              sibling.src = sibling.dataset.src;
-              observer.unobserve(sibling);
+                if (testParent(sibling)) {
+                  sibling.src = sibling.dataset.src;
+                }
+                observer.unobserve(sibling);
             });
           }
           try {
