@@ -25,6 +25,12 @@ section {
     display: none;
     width: 100%;
 }
+.active-pamphlet {
+    display: block;
+}
+.template-pamphlet {
+    display: none;
+}
 .brochure h1 {
     font-size: 40px;
 }

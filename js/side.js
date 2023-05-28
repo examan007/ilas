@@ -1,4 +1,6 @@
-    console.log = function(msg) {}
+    var consolex = {
+        log: function(msg) {},
+    }
     var SidebarState = "Minimized"
     var LoginFlag = false
     function toggleSidebarAlone() {
@@ -486,4 +488,76 @@ function neoOnloadLocal() {
 //        })
 
         return AppMan;
+}
+
+function createPamplets () {
+    function buildElements(identifiers, divname) {
+        neoSections = document.getElementsByClassName(divname)
+        // Iterate over each neo-section element
+        Array.from(neoSections).forEach(function(neoSection) {
+          // Find the pamphlet element within the neo-section
+          var pamphletDiv = neoSection.getElementsByClassName('template-pamphlet')[0];
+
+          // Iterate over the identifiers and update the data source attribute
+          identifiers.forEach(function(identifier) {
+            try {
+                // Clone the pamphlet element
+                var clonePamphlet = pamphletDiv.cloneNode(true);
+
+                // Find the image element within the cloned pamphlet
+                var image = clonePamphlet.getElementsByTagName('img')[0];
+
+                // Set the data source attribute based on the identifier
+                image.setAttribute('data-src', image.getAttribute('data-src').replace('{identifier}', identifier));
+
+                // Append the cloned image element to the cloned pamphlet div
+                neoSection.appendChild(clonePamphlet);
+                clonePamphlet.classList.remove('template-pamphlet');
+                clonePamphlet.classList.add('active-pamphlet');
+            } catch (e) {
+                console.log(e.toString())
+            }
+          });
+        });
+    }
+    buildElements(['M', 'N', 'O', 'P', 'Q', 'R'], 'neo-section')
+    buildElements(['A', 'B', 'C'], 'neo-altsection')
+}
+function loadImagesLazyily() {
+    // Get all the images with the 'data-src' attribute
+    const lazyImages = document.querySelectorAll('img[data-src]');
+    console.log("loading images")
+
+    // Create a new Intersection Observer instance
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          function adjustAllSiblngs(entry) {
+              function getSiblings(elem) {
+                 console.log("entry=[" + elem.getAttribute('class') + "]")
+                 return (elem.parentNode.parentNode.getElementsByClassName('pageimage'))
+              }
+            const siblings = getSiblings(entry.target)
+            console.log("loading siblings [" + siblings.length + "]")
+            Array.from(siblings).forEach(function (sibling) {
+              sibling.src = sibling.dataset.src;
+              observer.unobserve(sibling);
+            });
+          }
+          try {
+              console.log("Setting img src")
+              entry.target.src = entry.target.dataset.src
+              adjustAllSiblngs(entry)
+          } catch (e) {
+            console.log("adjust " + e.toString())
+          }
+        }
+      });
+    });
+
+    // Start observing each lazy image
+    lazyImages.forEach((lazyImage) => {
+      lazyImage.src = 'images/logo-white-large.jpg';
+      imageObserver.observe(lazyImage);
+    });
 }
