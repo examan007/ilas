@@ -515,13 +515,13 @@ function createPamplets () {
                 clonePamphlet.classList.remove('template-pamphlet');
                 clonePamphlet.classList.add('active-pamphlet');
             } catch (e) {
-                console.log(e.toString())
+                console.log("createPamplet() " + e.toString())
             }
           });
         });
     }
-    buildElements(['M', 'N', 'O', 'P', 'Q', 'R'], 'neo-section')
-    buildElements(['A', 'B', 'C'], 'neo-altsection')
+    buildElements(['M', 'N', 'O', 'P', 'Q', 'R'], 'neo-repeat')
+    buildElements(['A', 'B', 'C'], 'neo-altrepeat')
 }
 function loadImagesLazyily() {
     // Get all the images with the 'data-src' attribute
