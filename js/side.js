@@ -120,13 +120,19 @@
 
     var CurrentSection = "Home"
     function sendToChildWindow(identifier, messageobj) {
-         var objectEl = document.getElementById(identifier);
+        console.log("sendToChildWindow")
+        var objectEl = document.getElementById(identifier);
         if (objectEl.contentWindow != null) {
           function sendMessage(message) {
               objectEl.contentWindow.postMessage(message, "*");
-              console.log("To login window message posted [" + message + "]")
+              console.log("To " + identifier + " window message posted [" + message + "]")
           }
           sendMessage(JSON.stringify(messageobj))
+         } else {
+            console.log("Cannot get window object. [" + objectEl.toString() + "] contentWindow=[" + objectEl.contentWindow + "]")
+            window.setTimeout(()=> {
+                sendToChildWindow(identifier, messageobj)
+            }, 1000)
          }
     }
     function getLoginWindow(operation) {
@@ -220,6 +226,10 @@
                 } else {
                     console.log("token is [" + token + "]")
                     $('#login').css("display", "none")
+                    var message = {
+                      operation: 'readappointments',
+                    }
+                    sendToChildWindow('login', message)
                 }
             })
         } else
@@ -449,6 +459,21 @@ function neoOnloadLocal() {
                 console.log("event.data=[" + event.data + "]")
             }
           } else
+            if (jsonobj.operation === 'showappointmentrequest') {
+                console.log("appointment request")
+                console.log("Request object", JSON.stringify($('#login').children()))
+                var message = {
+                  operation: 'showsection',
+                  sectionname: 'Request',
+                  datetime: jsonobj.datetime,
+                  message: jsonobj
+                }
+                sendToChildWindow('login', message)
+                $('#login').css("display", "block")
+            } else
+            if (jsonobj.operation === 'loginpageloaded') {
+                console.log("Login page loaded.")
+            } else
           if (jsonobj.operation === "exitlogin") {
                 $('#login').css("display", "none")
           } else
@@ -466,6 +491,9 @@ function neoOnloadLocal() {
               $('#Token').text(JSON.stringify(jsonobj.token))
           } else
           if (jsonobj.operation === "createevent") {
+            sendToChildWindow('calendar', jsonobj)
+          } else
+          if (jsonobj.operation === "readappointments") {
             sendToChildWindow('calendar', jsonobj)
           }
         })
