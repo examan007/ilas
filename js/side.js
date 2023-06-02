@@ -471,6 +471,19 @@ function neoOnloadLocal() {
                 sendToChildWindow('login', message)
                 $('#login').css("display", "block")
             } else
+            if (jsonobj.operation === 'changeappointmentrequest') {
+                console.log("appointment change")
+                console.log("Request object", JSON.stringify($('#login').children()))
+                var message = {
+                  operation: 'showsection',
+                  sectionname: 'Change',
+                  datetime: jsonobj.event.start,
+                  usermessage: jsonobj.event.title,
+                  message: jsonobj
+                }
+                sendToChildWindow('login', message)
+                $('#login').css("display", "block")
+            } else
             if (jsonobj.operation === 'loginpageloaded') {
                 console.log("Login page loaded.")
             } else
