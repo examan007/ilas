@@ -490,6 +490,9 @@ function neoOnloadLocal() {
           if (jsonobj.operation === "exitlogin") {
                 $('#login').css("display", "none")
           } else
+          if (jsonobj.operation === "showlogin") {
+                $('#login').css("display", "block")
+          } else
           if (jsonobj.operation === "autoscrollswitch") {
                 $('#rightpanel').attr('data', "side.html#" + services[ServiceIndex] + "?nomenuflag=true")
                 if (ServiceIndex >= (services.length-1)) {
