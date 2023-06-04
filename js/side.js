@@ -486,6 +486,7 @@ function neoOnloadLocal() {
             } else
             if (jsonobj.operation === 'loginpageloaded') {
                 console.log("Login page loaded.")
+                $('#login').css('display','none')
             } else
           if (jsonobj.operation === "exitlogin") {
                 $('#login').css("display", "none")
