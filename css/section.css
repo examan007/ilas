@@ -144,3 +144,32 @@ span {
 .neoflex > div > h2 {
     transform: translateX(1em);
 }
+
+.banner {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.banner a {
+  display: inline-block;
+  padding: 10px;
+  color: #36e80e;
+  font-size: 2em;
+  text-decoration: none;
+  animation: scrollBanner 15s linear infinite;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+@keyframes scrollBanner {
+  0% {
+    transform: translateX(175%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
