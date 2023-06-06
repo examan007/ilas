@@ -1,4 +1,4 @@
-    var console = {
+    var consolex = {
         log: function(msg) {},
     }
     var SidebarState = "Minimized"
@@ -98,13 +98,23 @@
         return ret
     }
 
+    var lastwidth = 0
+    var lastheight = 0
       function resizeScreen() {
         const dimensions = getWindowDimensions()
-        //console.log("resize with new width =[" + dimensions.width + "]")
+        console.log("resize with new width =[" + dimensions.width + "]")
         $('.wrapper').css("width", "" + dimensions.width + "px")
         if (dimensions.width > 550) {
             $('.wideportal').css("width", "" + (dimensions.width - 550) + "px")
+            if (lastwidth < 550) {
+                location.reload()
+            }
+       } else {
+            if (lastwidth > 550) {
+                location.reload()
+            }
        }
+       lastwidth = dimensions.width
       }
 
     $(function () {
