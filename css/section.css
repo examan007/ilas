@@ -129,3 +129,13 @@ span {
 }
 #rightpanel {
 }
+.neoflex {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content: start;
+  gap: 10px;
+}
+
+.neoflex > .neotext {
+    transform: translateY(0.5em);
+}
