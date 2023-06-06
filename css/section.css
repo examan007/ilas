@@ -137,5 +137,10 @@ span {
 }
 
 .neoflex > .neotext {
-    transform: translateY(0.5em);
+    transform: translateY(0.75em);
+    white-space: nowrap;
+}
+
+.neoflex > div > h2 {
+    transform: translateX(1em);
 }
