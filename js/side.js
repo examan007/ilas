@@ -1,4 +1,5 @@
-    var consolex = {
+var CustomManager = function() {
+    var console = {
         log: function(msg) {},
     }
     var SidebarState = "Minimized"
@@ -320,6 +321,24 @@
             $('#login').css('display', 'none')
           }
 
+        function registerForEach(objectids, callback) {
+            function register(index) {
+                const objid = objectids[index]
+                if (typeof(objid) === 'undefined') {
+                    return
+                }
+                callback(objid)
+                register(index + 1)
+            }
+            register(0)
+        }
+        registerForEach(['login', 'calendar'], function (obj) {
+            const selector = '#' + obj
+            $(selector).on('click', function() {
+              console.log('registered on click close sidebar')
+              toggleSidebar(false)
+            })
+        })
 
         const initduration = 2000
         const initinterval = 1000
@@ -403,228 +422,263 @@
         }
       }
 
-function FindPosition(oElement)
-{
-  if(typeof( oElement.offsetParent ) != "undefined")
-  {
-    for(var posX = 0, posY = 0; oElement; oElement = oElement.offsetParent)
+    function FindPosition(oElement)
     {
-      posX += oElement.offsetLeft;
-      posY += oElement.offsetTop;
+      if(typeof( oElement.offsetParent ) != "undefined")
+      {
+        for(var posX = 0, posY = 0; oElement; oElement = oElement.offsetParent)
+        {
+          posX += oElement.offsetLeft;
+          posY += oElement.offsetTop;
+        }
+          return [ posX, posY ];
+        }
+        else
+        {
+          return [ oElement.x, oElement.y ];
+        }
     }
-      return [ posX, posY ];
-    }
-    else
-    {
-      return [ oElement.x, oElement.y ];
-    }
-}
 
-function GetCoordinates(e)
-{
-  var PosX = 0;
-  var PosY = 0;
-  var ImgPos;
-  ImgPos = FindPosition(myImg);
-  if (!e) var e = window.event;
-  if (e.pageX || e.pageY)
-  {
-    PosX = e.pageX;
-    PosY = e.pageY;
-  }
-  else if (e.clientX || e.clientY)
+    function GetCoordinates(e)
     {
-      PosX = e.clientX + document.body.scrollLeft
-        + document.documentElement.scrollLeft;
-      PosY = e.clientY + document.body.scrollTop
-        + document.documentElement.scrollTop;
+      var PosX = 0;
+      var PosY = 0;
+      var ImgPos;
+      ImgPos = FindPosition(myImg);
+      if (!e) var e = window.event;
+      if (e.pageX || e.pageY)
+      {
+        PosX = e.pageX;
+        PosY = e.pageY;
+      }
+      else if (e.clientX || e.clientY)
+        {
+          PosX = e.clientX + document.body.scrollLeft
+            + document.documentElement.scrollLeft;
+          PosY = e.clientY + document.body.scrollTop
+            + document.documentElement.scrollTop;
+        }
+      PosX = PosX - ImgPos[0];
+      PosY = PosY - ImgPos[1];
+      console.log("X=[" + PosX + "] Y=[" + PosY + "]")
     }
-  PosX = PosX - ImgPos[0];
-  PosY = PosY - ImgPos[1];
-  console.log("X=[" + PosX + "] Y=[" + PosY + "]")
-}
 
-function neoOnloadLocal() {
-        console.log("neoOnloadLocal()")
-        $('#login').css("display", "none")
-        let AppMan = ApplicationManager((event, flag) => {
-          const services = ServicesArray()
-          function getJSONMsg() {
-            try{
-                return JSON.parse(event.data)
-            } catch (e) {
-            }
-            return {}
-          }
-          const jsonobj = getJSONMsg()
-          if (typeof(jsonobj.operation) === "undefined") {
-            if (typeof(flag) === "undefined") {
-                if (!LoginFlag) {
+    function neoOnloadLocal() {
+            console.log("neoOnloadLocal()")
+            $('#login').css("display", "none")
+            let AppMan = ApplicationManager((event, flag) => {
+              const services = ServicesArray()
+              function getJSONMsg() {
+                try{
+                    return JSON.parse(event.data)
+                } catch (e) {
+                }
+                return {}
+              }
+              const jsonobj = getJSONMsg()
+              if (typeof(jsonobj.operation) === "undefined") {
+                if (typeof(flag) === "undefined") {
+                    if (!LoginFlag) {
+                        $('#login').css("display", "none")
+                    }
+                    console.log("event.data=[" + event.data + "]")
+                } else
+                if (flag == true) {
+                    $('#login').css("display", "block")
+                    console.log("event.data=[" + event.data + "]")
+                }
+              } else
+                if (jsonobj.operation === 'closesidebar') {
+                    toggleSidebar(false)
+                } else
+                if (jsonobj.operation === 'showappointmentrequest') {
+                    console.log("appointment request")
+                    console.log("Request object", JSON.stringify($('#login').children()))
+                    var message = {
+                      operation: 'showsection',
+                      sectionname: 'Request',
+                      datetime: jsonobj.datetime,
+                      message: jsonobj
+                    }
+                    sendToChildWindow('login', message)
+                    $('#login').css("display", "block")
+                } else
+                if (jsonobj.operation === 'changeappointmentrequest') {
+                    console.log("appointment change")
+                    console.log("Request object", JSON.stringify($('#login').children()))
+                    var message = {
+                      operation: 'showsection',
+                      sectionname: 'Change',
+                      datetime: jsonobj.event.start,
+                      usermessage: jsonobj.event.title,
+                      message: jsonobj
+                    }
+                    sendToChildWindow('login', message)
+                    $('#login').css("display", "block")
+                } else
+                if (jsonobj.operation === 'loginpageloaded') {
+                    console.log("Login page loaded.")
+                    $('#login').css('display','none')
+                } else
+              if (jsonobj.operation === "exitlogin") {
                     $('#login').css("display", "none")
+              } else
+              if (jsonobj.operation === "showlogin") {
+                    if (AppMan.getQueryValue('nomenuflag') !== "true") {
+                       $('#login').css("display", "block")
+                    }
+              } else
+              if (jsonobj.operation === "autoscrollswitch") {
+                    $('#rightpanel').attr('data', "side.html#" + services[ServiceIndex] + "?nomenuflag=true")
+                    if (ServiceIndex >= (services.length-1)) {
+                        ServiceIndex = 0
+                    } else {
+                        ServiceIndex++
+                    }
+              } else
+              if (jsonobj.operation === "showtoken") {
+                  console.log("xshowtoken=[" + JSON.stringify(jsonobj.token) + "]")
+                  console.log("token value=[" + $('#Token').text() + "]")
+                  $('#Token').text(JSON.stringify(jsonobj.token))
+              } else
+              if (jsonobj.operation === "createevent") {
+                sendToChildWindow('calendar', jsonobj)
+              } else
+              if (jsonobj.operation === "readappointments") {
+                sendToChildWindow('calendar', jsonobj)
+              }
+            })
+            AppMan.
+            verify(
+            () => {
+                thishref = $('#login').attr('data')
+                console.log("Xthishref=[" + thishref + "]")
+                return thishref
+            },
+            (newquery) => {
+                $('#login').attr('data', newquery)
+            })
+
+    //        testCookie((token)=> {
+    //            if (token == null) {
+    //                $('#login').css("display", "block")
+    //            } else {
+    //            }
+    //        })
+
+            return AppMan;
+    }
+
+    function createPamplets () {
+        function buildElements(identifiers, divname) {
+            neoSections = document.getElementsByClassName(divname)
+            // Iterate over each neo-section element
+            Array.from(neoSections).forEach(function(neoSection) {
+              // Find the pamphlet element within the neo-section
+              var pamphletDiv = neoSection.getElementsByClassName('template-pamphlet')[0];
+
+              // Iterate over the identifiers and update the data source attribute
+              identifiers.forEach(function(identifier) {
+                try {
+                    // Clone the pamphlet element
+                    var clonePamphlet = pamphletDiv.cloneNode(true);
+
+                    // Find the image element within the cloned pamphlet
+                    var image = clonePamphlet.getElementsByTagName('img')[0];
+
+                    // Set the data source attribute based on the identifier
+                    image.setAttribute('data-src', image.getAttribute('data-src').replace('{identifier}', identifier));
+
+                    // Append the cloned image element to the cloned pamphlet div
+                    neoSection.appendChild(clonePamphlet);
+                    clonePamphlet.classList.remove('template-pamphlet');
+                    clonePamphlet.classList.add('active-pamphlet');
+                } catch (e) {
+                    console.log("createPamplet() " + e.toString())
                 }
-                console.log("event.data=[" + event.data + "]")
-            } else
-            if (flag == true) {
-                $('#login').css("display", "block")
-                console.log("event.data=[" + event.data + "]")
-            }
-          } else
-            if (jsonobj.operation === 'showappointmentrequest') {
-                console.log("appointment request")
-                console.log("Request object", JSON.stringify($('#login').children()))
-                var message = {
-                  operation: 'showsection',
-                  sectionname: 'Request',
-                  datetime: jsonobj.datetime,
-                  message: jsonobj
-                }
-                sendToChildWindow('login', message)
-                $('#login').css("display", "block")
-            } else
-            if (jsonobj.operation === 'changeappointmentrequest') {
-                console.log("appointment change")
-                console.log("Request object", JSON.stringify($('#login').children()))
-                var message = {
-                  operation: 'showsection',
-                  sectionname: 'Change',
-                  datetime: jsonobj.event.start,
-                  usermessage: jsonobj.event.title,
-                  message: jsonobj
-                }
-                sendToChildWindow('login', message)
-                $('#login').css("display", "block")
-            } else
-            if (jsonobj.operation === 'loginpageloaded') {
-                console.log("Login page loaded.")
-                $('#login').css('display','none')
-            } else
-          if (jsonobj.operation === "exitlogin") {
-                $('#login').css("display", "none")
-          } else
-          if (jsonobj.operation === "showlogin") {
-                if (AppMan.getQueryValue('nomenuflag') !== "true") {
-                   $('#login').css("display", "block")
-                }
-          } else
-          if (jsonobj.operation === "autoscrollswitch") {
-                $('#rightpanel').attr('data', "side.html#" + services[ServiceIndex] + "?nomenuflag=true")
-                if (ServiceIndex >= (services.length-1)) {
-                    ServiceIndex = 0
-                } else {
-                    ServiceIndex++
-                }
-          } else
-          if (jsonobj.operation === "showtoken") {
-              console.log("xshowtoken=[" + JSON.stringify(jsonobj.token) + "]")
-              console.log("token value=[" + $('#Token').text() + "]")
-              $('#Token').text(JSON.stringify(jsonobj.token))
-          } else
-          if (jsonobj.operation === "createevent") {
-            sendToChildWindow('calendar', jsonobj)
-          } else
-          if (jsonobj.operation === "readappointments") {
-            sendToChildWindow('calendar', jsonobj)
-          }
-        })
-        AppMan.
-        verify(
-        () => {
-            thishref = $('#login').attr('data')
-            console.log("Xthishref=[" + thishref + "]")
-            return thishref
-        },
-        (newquery) => {
-            $('#login').attr('data', newquery)
-        })
+              });
+            });
+        }
+        buildElements(['M', 'N', 'O', 'P', 'Q', 'R'], 'neo-repeat')
+        buildElements(['A', 'B', 'C'], 'neo-altrepeat')
+    }
+    function loadImagesLazyily() {
+        // Get all the images with the 'data-src' attribute
+        const lazyImages = document.querySelectorAll('img[data-src]');
+        console.log("loading images")
 
-//        testCookie((token)=> {
-//            if (token == null) {
-//                $('#login').css("display", "block")
-//            } else {
-//            }
-//        })
-
-        return AppMan;
-}
-
-function createPamplets () {
-    function buildElements(identifiers, divname) {
-        neoSections = document.getElementsByClassName(divname)
-        // Iterate over each neo-section element
-        Array.from(neoSections).forEach(function(neoSection) {
-          // Find the pamphlet element within the neo-section
-          var pamphletDiv = neoSection.getElementsByClassName('template-pamphlet')[0];
-
-          // Iterate over the identifiers and update the data source attribute
-          identifiers.forEach(function(identifier) {
-            try {
-                // Clone the pamphlet element
-                var clonePamphlet = pamphletDiv.cloneNode(true);
-
-                // Find the image element within the cloned pamphlet
-                var image = clonePamphlet.getElementsByTagName('img')[0];
-
-                // Set the data source attribute based on the identifier
-                image.setAttribute('data-src', image.getAttribute('data-src').replace('{identifier}', identifier));
-
-                // Append the cloned image element to the cloned pamphlet div
-                neoSection.appendChild(clonePamphlet);
-                clonePamphlet.classList.remove('template-pamphlet');
-                clonePamphlet.classList.add('active-pamphlet');
-            } catch (e) {
-                console.log("createPamplet() " + e.toString())
+        // Create a new Intersection Observer instance
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              function adjustAllSiblngs(entry) {
+                  function getSiblings(elem) {
+                     console.log("entry=[" + elem.getAttribute('class') + "]")
+                     return (elem.parentNode.parentNode.getElementsByClassName('pageimage'))
+                  }
+                  function testParent(elem) {
+                    try {
+                        return elem.parentNode.classList.contains('active-pamphlet')
+                    } catch (e) {
+                        console.log(e.toString())
+                    }
+                    return false
+                  }
+                const siblings = getSiblings(entry.target)
+                console.log("loading siblings [" + siblings.length + "]")
+                Array.from(siblings).forEach(function (sibling) {
+                    if (testParent(sibling)) {
+                      sibling.src = sibling.dataset.src;
+                    }
+                    observer.unobserve(sibling);
+                });
+              }
+              try {
+                  console.log("Setting img src")
+                  entry.target.src = entry.target.dataset.src
+                  adjustAllSiblngs(entry)
+              } catch (e) {
+                console.log("adjust " + e.toString())
+              }
             }
           });
         });
+
+        // Start observing each lazy image
+        lazyImages.forEach((lazyImage) => {
+          lazyImage.src = 'images/logo-white-large.jpg';
+          imageObserver.observe(lazyImage);
+        });
     }
-    buildElements(['M', 'N', 'O', 'P', 'Q', 'R'], 'neo-repeat')
-    buildElements(['A', 'B', 'C'], 'neo-altrepeat')
-}
-function loadImagesLazyily() {
-    // Get all the images with the 'data-src' attribute
-    const lazyImages = document.querySelectorAll('img[data-src]');
-    console.log("loading images")
-
-    // Create a new Intersection Observer instance
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          function adjustAllSiblngs(entry) {
-              function getSiblings(elem) {
-                 console.log("entry=[" + elem.getAttribute('class') + "]")
-                 return (elem.parentNode.parentNode.getElementsByClassName('pageimage'))
-              }
-              function testParent(elem) {
-                try {
-                    return elem.parentNode.classList.contains('active-pamphlet')
-                } catch (e) {
-                    console.log(e.toString())
-                }
-                return false
-              }
-            const siblings = getSiblings(entry.target)
-            console.log("loading siblings [" + siblings.length + "]")
-            Array.from(siblings).forEach(function (sibling) {
-                if (testParent(sibling)) {
-                  sibling.src = sibling.dataset.src;
-                }
-                observer.unobserve(sibling);
-            });
-          }
-          try {
-              console.log("Setting img src")
-              entry.target.src = entry.target.dataset.src
-              adjustAllSiblngs(entry)
-          } catch (e) {
-            console.log("adjust " + e.toString())
-          }
+    function initializeMenu() {
+        let arrow = document.querySelectorAll(".arrow");
+        for (var i = 0; i < arrow.length; i++) {
+          arrow[i].addEventListener("click", (e) => {
+            let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+            arrowParent.classList.toggle("showMenu");
+          });
         }
-      });
-    });
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".bx-menu");
+        let menuspace = document.querySelector("#menu-space");
 
-    // Start observing each lazy image
-    lazyImages.forEach((lazyImage) => {
-      lazyImage.src = 'images/logo-white-large.jpg';
-      imageObserver.observe(lazyImage);
-    });
+        console.log(sidebarBtn);
+    //    $('.sidebar').toggleClass('close');
+
+        /* sidebarBtn.addEventListener("click", () => {
+          sidebar.classList.toggle("close");
+        }); */
+    }
+    return {
+        neoOnloadLocal: function () {
+            createPamplets()
+            loadImagesLazyily()
+            const appman = neoOnloadLocal()
+            neobookOnLoad()
+            welcomeFunction(appman)
+            $('#login').css('display','block')
+            initializeMenu()
+            console.log("Done load.")
+        }
+    }
 }
