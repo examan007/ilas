@@ -167,7 +167,7 @@ span {
 
 @keyframes scrollBanner {
   0% {
-    transform: translateX(175%);
+    transform: translateX(550px);
   }
   100% {
     transform: translateX(-100%);
