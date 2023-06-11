@@ -669,6 +669,28 @@ var CustomManager = function() {
           sidebar.classList.toggle("close");
         }); */
     }
+
+    $(document).ready(function() {
+      $('#scrollButton').on('click', function() {
+        $('html, body').animate({ scrollTop: 0 }, 'slow');
+      });
+    });
+
+    function runFadeInOut(flag) {
+        window.setTimeout(()=> {
+            function toggle() {
+                if (flag) {
+                    document.querySelector('#scrollButton').classList.add('show');
+                } else {
+                    document.querySelector('#scrollButton').classList.remove('show');
+                }
+                runFadeInOut(!flag)
+            }
+            toggle()
+        }, 2000)
+    }
+    runFadeInOut(true)
+
     return {
         neoOnloadLocal: function () {
             createPamplets()
