@@ -117,7 +117,7 @@ a:-webkit-any-link {
     flex-direction: column;
     align-content: flex-center;
     margin: 20px;
-    padding-bottom: 130px;
+    padding-bottom: 30%;
     padding-top: 60px;
 }
 .widewindow {
