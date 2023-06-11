@@ -319,6 +319,7 @@ var CustomManager = function() {
           if (nomenuflag != null) {
             $('#sidebar').css('display', 'none')
             $('#login').css('display', 'none')
+            $('#scrollButton').css('display', 'none')
           }
 
         function registerForEach(objectids, callback) {
