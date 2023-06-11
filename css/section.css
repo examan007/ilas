@@ -70,7 +70,7 @@ section {
     overflow: hidden;
 }
 .brochure:first-child {
-  transform: translateX(-50px);
+    left: 0;
 }
 .brochure a {
     min-height: 1.25em;
@@ -116,9 +116,9 @@ a:-webkit-any-link {
     overflow: hidden;
     flex-direction: column;
     align-content: flex-center;
-    margin: 0;
-    padding: 70px;
+    margin: 20px;
     padding-bottom: 120px;
+    padding-top: 60px;
 }
 .widewindow {
     display: none;
@@ -198,7 +198,7 @@ span {
 #scrollButton {
   position: fixed;
   left: 0;
-  bottom: 40px;
+  bottom: 20px;
   width: 100%;
   background-color: rgba(255, 255, 255, 0);
   padding: 10px;
