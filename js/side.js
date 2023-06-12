@@ -247,6 +247,11 @@ var CustomManager = function() {
         if (newsection === "Settings") {
             console.log("Settings")
             getLoginWindow('showstatus')
+        } else
+        if (newsection === "Home" || newsection.length == 0) {
+            $('#scrollButton').css('display', 'block')
+        } else {
+            $('#scrollButton').css('display', 'none')
         }
         newsectionobj.on('click', function() {
           console.log('close sidebar!')
