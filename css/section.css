@@ -37,7 +37,6 @@
 section {
     min-width: 300px;
     overflow: hidden;
-    height: 100vh;
 }
 .neo-section {
     display: none;
