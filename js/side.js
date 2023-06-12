@@ -195,11 +195,11 @@ var CustomManager = function() {
           ||
          newsection.length == 0
           ||
-         newsection == "Booking"
+         newsection === "Booking"
           ||
-         newsection == "Services"
+         newsection === "Services"
           ||
-         newsection == "Settings"
+         newsection === "Settings"
          ) {
              if (dimensions.width > 550) {
                  $('.wideportal').css("display", "block")
@@ -247,8 +247,8 @@ var CustomManager = function() {
         if (newsection === "Settings") {
             console.log("Settings")
             getLoginWindow('showstatus')
-        } else
-        if (true) { //newsection === "Home" || newsection.length == 0) {
+        }
+        if (newsection === "Home" || newsection.length == 0 || newsection === "Services") {
             $('#scrollButton').css('display', 'block')
         } else {
             $('#scrollButton').css('display', 'none')
