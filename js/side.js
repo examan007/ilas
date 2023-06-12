@@ -248,7 +248,7 @@ var CustomManager = function() {
             console.log("Settings")
             getLoginWindow('showstatus')
         } else
-        if (newsection === "Home" || newsection.length == 0) {
+        if (true) { //newsection === "Home" || newsection.length == 0) {
             $('#scrollButton').css('display', 'block')
         } else {
             $('#scrollButton').css('display', 'none')
@@ -285,12 +285,45 @@ var CustomManager = function() {
         // Log its coordinates
         console.log(`Top: ${location.top}, Left: ${location.left}`);
     }
-    var ServicesArray = function getServicesArray() {
-        const elements = document.querySelectorAll('.neo-service');
-        const idArray = Array.from(elements).map(element => element.id);
-        return idArray
+   function getServicesArray(classname) {
+        try {
+            const elements = document.querySelectorAll(classname);
+            return Array.from(elements).map(element => element.id);
+        } catch (e) {
+            console.log(e.stack.toString())
+        }
+        return []
     }
     var ServiceIndex = 1
+    var ServicesArray = getServicesArray('.neo-service')
+    var SectionArray = getServicesArray('.neo-home')
+    function getNextSection() {
+        function testSection(index) {
+            function getSection (index) {
+                const section = SectionArray[index]
+                console.log(section)
+                if (typeof(section) === 'undefined') {
+                    return ''
+                } else {
+                    return section
+                }
+            }
+            const section = getSection(index)
+            if (section.length === 0) {
+                return section;
+            }
+            if (section === CurrentSection) {
+                return getSection(index+1)
+            }
+            testSection(index + 1)
+        }
+        const newsection = testSection(0)
+        if (typeof(newsection) === 'undefined') {
+            return "Home"
+        } else {
+            return newsection
+        }
+    }
 
       function welcomeFunction(AppMan) {
           console.log('page is loaded icons');
@@ -473,7 +506,7 @@ var CustomManager = function() {
             console.log("neoOnloadLocal()")
             $('#login').css("display", "none")
             let AppMan = ApplicationManager((event, flag) => {
-              const services = ServicesArray()
+              const services = getServicesArray('.neo-service')
               function getJSONMsg() {
                 try{
                     return JSON.parse(event.data)
@@ -697,6 +730,19 @@ var CustomManager = function() {
     }
     runFadeInOut(true)
 
+    function registerForEvents() {
+        console.log("Adding event listener")
+        $('#scrollButton').on("click", ()=> {
+            const newsection = getNextSection()
+            changeSection(newsection)
+            var message = {
+                operation: "seturistate",
+                newhashcode: newsection,
+            }
+            window.postMessage(JSON.stringify(message), "*")
+        })
+    }
+
     return {
         neoOnloadLocal: function () {
             createPamplets()
@@ -706,6 +752,7 @@ var CustomManager = function() {
             welcomeFunction(appman)
             $('#login').css('display','block')
             initializeMenu()
+            registerForEvents()
             console.log("Done load.")
         }
     }
