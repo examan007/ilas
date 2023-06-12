@@ -119,6 +119,7 @@ a:-webkit-any-link {
     padding-bottom: 60px;
     padding-top: 60px;
     min-height: 350px;
+    height: 100vh;
 }
 .widewindow {
     display: none;
