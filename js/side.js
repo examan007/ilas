@@ -1,5 +1,5 @@
 var CustomManager = function() {
-    var console = {
+    var consolex = {
         log: function(msg) {},
     }
     var SidebarState = "Minimized"
@@ -128,8 +128,8 @@ var CustomManager = function() {
         toggleSidebar()
       });
     });
-
-    var CurrentSection = "Home"
+    const DefaultSection = "Services"
+    var CurrentSection = DefaultSection
     function sendToChildWindow(identifier, messageobj) {
         console.log("sendToChildWindow")
         var objectEl = document.getElementById(identifier);
@@ -164,23 +164,23 @@ var CustomManager = function() {
         function getsectionobj() {
             try {
                 if ( newsection === "Settings" ) {
-                    return testDomobj('Home')
+                    return testDomobj(DefaultSection)
                 } else
                 if (newsection.length > 0) {
                     return testDomobj(newsection)
                 } else {
-                    return testDomobj('Home')
+                    return testDomobj(DefaultSection)
                 }
             } catch (e) {
                 console.log(e.toString())
             }
-            return testDomobj('Home')
+            return testDomobj(DefaultSection)
         }
         function getsectionname() {
             if (newsection.length > 0) {
                 return newsection
             } else {
-                return "Home"
+                return DefaultSection
             }
         }
         const newsectionobj = getsectionobj()
@@ -301,7 +301,6 @@ var CustomManager = function() {
         function testSection(index) {
             function getSection (index) {
                 const section = SectionArray[index]
-                console.log(section)
                 if (typeof(section) === 'undefined') {
                     return ''
                 } else {
@@ -315,13 +314,15 @@ var CustomManager = function() {
             if (section === CurrentSection) {
                 return getSection(index+1)
             }
-            testSection(index + 1)
+            const retsec = testSection(index + 1)
+            console.log("testSection: " + retsec)
+            return retsec
         }
         const newsection = testSection(0)
-        if (typeof(newsection) === 'undefined') {
-            return "Home"
-        } else {
+        if (newsection.length > 0) {
             return newsection
+        } else {
+            return SectionArray[0]
         }
     }
 
@@ -343,10 +344,10 @@ var CustomManager = function() {
 
           const hashValue = getHashValue()
           if ( typeof(hashValue) === 'undefined' ) {
-              changeSection('Home')
+              changeSection(DefaultSection)
           } else
           if (hashValue.length <= 0) {
-              changeSection('Home')
+              changeSection(DefaultSection)
           } else {
               console.log("hashValue=[" + hashValue + "]")
               changeSection(removeLeadingChar(hashValue, "#"))
@@ -730,17 +731,149 @@ var CustomManager = function() {
     }
     runFadeInOut(true)
 
+    function switchToNextSection() {
+        const newsection = getNextSection()
+        changeSection(newsection)
+        var message = {
+            operation: "seturistate",
+            newhashcode: newsection,
+        }
+        window.postMessage(JSON.stringify(message), "*")
+    }
+
     function registerForEvents() {
         console.log("Adding event listener")
         $('#scrollButton').on("click", ()=> {
-            const newsection = getNextSection()
-            changeSection(newsection)
-            var message = {
-                operation: "seturistate",
-                newhashcode: newsection,
-            }
-            window.postMessage(JSON.stringify(message), "*")
+            scrollToNextSection(1)
         })
+    }
+
+    var blockflag = false
+    function scrollToNextSection(direction) {
+        console.log(direction > 0 ? "up swipe" : "down swipe")
+        const NextSection = getNextSection()
+        console.log("next section: [" + NextSection + "]")
+        if (NextSection === CurrentSection) {
+            return
+        }
+        if (blockflag) {
+            return
+        }
+        blockflag = true
+        const current = document.getElementById(CurrentSection);
+        const nextsec = document.getElementById(NextSection);
+        function clearClasses() {
+            const objs=[current, nextsec]
+            function remove(index) {
+                const obj = objs[index]
+                if (typeof(obj) !== 'undefined') {
+                    const classes = [
+                        'section-quick',
+                        'section-ease',
+                        'slide-in',
+                        'slide-out-top',
+                        'slide-out-bottom'
+                        ]
+                    function removeClass(index) {
+                        const classname = classes[index]
+                        if (typeof(classname) !== 'undefined') {
+                            obj.classList.remove(classname)
+                            removeClass(index + 1)
+                        }
+                    }
+                    removeClass(0)
+                }
+                remove(0)
+            }
+        }
+        clearClasses()
+        current.classList.add('section-quick')
+        nextsec.classList.add('section-quick')
+        current.classList.add('slide-in')
+        if (direction > 0) {
+            nextsec.classList.add('slide-out-bottom')
+        } else {
+            nextsec.classList.add('slide-out-top')
+        }
+        $('#' + NextSection).css("visibility", "hidden")
+        $('#' + NextSection).css("display", "flex")
+        window.setTimeout(()=> {
+            $('#' + NextSection).css("visibility", "visible")
+            nextsec.classList.remove('section-quick')
+            current.classList.remove('section-quick')
+            nextsec.classList.add('section-ease')
+            current.classList.add('section-ease')
+            if (direction > 0) {
+                nextsec.classList.remove('slide-out-bottom')
+            } else {
+                nextsec.classList.remove('slide-out-top')
+            }
+            current.classList.remove('slide-in')
+            if (direction > 0) {
+                current.classList.add('slide-out-top')
+            } else {
+                current.classList.add('slide-out-bottom')
+            }
+            window.setTimeout(()=> {
+                nextsec.classList.add('slide-in')
+
+                console.log("make next section visible.")
+                window.setTimeout(()=> {
+                    $('#' + CurrentSection).css("display", "none")
+                    if (direction > 0) {
+                        current.classList.remove('slide-out-top')
+                    } else {
+                        current.classList.remove('slide-out-bottom')
+                    }
+                    nextsec.classList.remove('slide-in')
+                    nextsec.classList.remove('section-ease')
+                    current.classList.remove('section-ease')
+                    window.setTimeout(()=> {
+                         blockflag = false
+                        switchToNextSection()
+                    }, 1)
+                }, 1)
+            }, 1000)
+        },100)
+    }
+
+    function initSwipeScroll() {
+        // Variables to store initial and final touch positions
+        let startY;
+        let endY;
+
+        // Threshold value to determine if a swipe is valid
+        const swipeThreshold = 100;
+
+        // Event listener for touchstart (or mousedown) event
+        document.addEventListener('touchstart', touchStartHandler, false);
+
+        function touchStartHandler(event) {
+          // Store initial touch position
+          startY = event.touches[0].clientY;
+        }
+
+        // Event listener for touchend (or mouseup) event
+        document.addEventListener('touchend', touchEndHandler, false);
+
+        function touchEndHandler(event) {
+          // Store final touch position
+          endY = event.changedTouches[0].clientY;
+
+          // Calculate the difference between initial and final touch positions
+          const diffY = startY - endY;
+
+          // Check if the swipe distance is greater than the threshold
+          if (Math.abs(diffY) > swipeThreshold) {
+            // Check if it's an upward swipe
+            if (diffY > 0) {
+              // Scroll to the next section
+              scrollToNextSection(1);
+            } else {
+              scrollToNextSection(-1);
+            }
+          }
+        }
     }
 
     return {
@@ -753,6 +886,7 @@ var CustomManager = function() {
             $('#login').css('display','block')
             initializeMenu()
             registerForEvents()
+            initSwipeScroll()
             console.log("Done load.")
         }
     }

@@ -37,6 +37,9 @@
 section {
     min-width: 300px;
     overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 .neo-section {
     display: none;
@@ -134,7 +137,7 @@ a:-webkit-any-link {
     height: 100%;
     width: 100%;
     box-sizing: border-box;
-    z-index: 250;
+    z-index: 1001;
     overflow: hidden;
 
 }
@@ -217,4 +220,24 @@ span {
 
 #scrollButton.show {
   opacity: 1;
+}
+
+.slide-out-top {
+  background-color: rgba(245, 66, 90, 0);  /* red */
+  transform: translateY(-100%);
+}
+.slide-out-bottom {
+  background-color: rgba(66, 111, 245, 0);  /* blue */
+  transform: translateY(100%);
+}
+.slide-in {
+  z-index: 1000;
+  background-color: rgba(15, 252, 3, 0);   /* green */
+  transform: translateY(0%);
+}
+.section-ease{
+    transition: transform 1s ease-out;
+}
+.section-quick{
+    transition: transform 0 ease-out;
 }
