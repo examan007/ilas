@@ -756,6 +756,9 @@ var CustomManager = function() {
         if (NextSection === CurrentSection) {
             return
         }
+        if (!SectionArray.includes(CurrentSection)) {
+            return
+        }
         if (blockflag) {
             return
         }
