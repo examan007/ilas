@@ -68,7 +68,6 @@ section {
     line-height: 1.25;
     align-items: flex-start;
     position: relative;
-    left: 20%;
     overflow: hidden;
 }
 .brochure:first-child {
@@ -80,6 +79,9 @@ section {
     color: #7e7ea0;
 }
 .brochure a img {
+}
+.template-brochure {
+    display: none;
 }
 
 a:-webkit-any-link {
@@ -157,7 +159,8 @@ span {
 }
 .neoflex {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 50px auto auto;
+  margin: auto;
   justify-content: start;
   gap: 10px;
 }
@@ -165,10 +168,6 @@ span {
 .neoflex > .neotext {
     transform: translateY(0.75em);
     white-space: nowrap;
-}
-
-.neoflex > div > h2 {
-    transform: translateX(1em);
 }
 
 .banner {

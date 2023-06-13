@@ -1,5 +1,5 @@
 var CustomManager = function() {
-    var consolex = {
+    var console = {
         log: function(msg) {},
     }
     var SidebarState = "Minimized"
@@ -879,6 +879,60 @@ var CustomManager = function() {
         }
     }
 
+    function getServiceNames() {
+        const names = []
+        console.log("initializeServiceLinks()")
+        const parentArray = document.querySelectorAll('.sub-menu')
+        parentArray.forEach((parentElement)=> {
+            //console.log("sub-menu")
+            const childElements = parentElement.querySelectorAll('li');
+            var flag = false
+            childElements.forEach((element)=> {
+                const name = element.childNodes[0].childNodes[0].textContent
+                if (name === 'Services') {
+                    flag = true
+                } else
+                if (flag) {
+                    console.log("element=[" + name + "]")
+                    names.push(name)
+                }
+            })
+        })
+        return names
+    }
+    function createServiceLinks() {
+        const neoSection = document.getElementById("Services")
+        const identifiers = getServiceNames()
+        var serviceDiv = neoSection.getElementsByClassName('template-brochure')[0];
+        identifiers.push("")
+        identifiers.forEach(function(name) {
+            try {
+                const identifier = name.replace(' ', '_')
+                console.log("new node identifier [" + identifier + "]")
+                var cloneService = serviceDiv.cloneNode(true);
+                var anchor = cloneService.getElementsByTagName('a')[0];
+                anchor.setAttribute('href', anchor.getAttribute('href').replace('{identifier}', identifier));
+                anchor.textContent = name
+                neoSection.appendChild(cloneService);
+                cloneService.classList.remove('template-brochure');
+            } catch (e) {
+                console.log("createPamplet() " + e.toString())
+            }
+        });
+
+    }
+    function initializeServiceLinks() {
+        const names = getServiceNames()
+        function process(index) {
+            const name = names[index]
+            if (typeof(name) !== 'undefined') {
+                console.log("name=[" + name + "]")
+                process(index + 1)
+            }
+        }
+        process(0)
+    }
+
     return {
         neoOnloadLocal: function () {
             createPamplets()
@@ -890,6 +944,7 @@ var CustomManager = function() {
             initializeMenu()
             registerForEvents()
             initSwipeScroll()
+            createServiceLinks()
             console.log("Done load.")
         }
     }
