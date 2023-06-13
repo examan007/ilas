@@ -843,7 +843,8 @@ var CustomManager = function() {
         let endY;
 
         // Threshold value to determine if a swipe is valid
-        const swipeThreshold = 100;
+        const swipeThreshold = 75
+        ;
 
         // Event listener for touchstart (or mousedown) event
         document.addEventListener('touchstart', touchStartHandler, false);
@@ -866,6 +867,8 @@ var CustomManager = function() {
           // Check if the swipe distance is greater than the threshold
           if (Math.abs(diffY) > swipeThreshold) {
             // Check if it's an upward swipe
+            startY = 0
+            endY = 0
             if (diffY > 0) {
               // Scroll to the next section
               scrollToNextSection(1);
