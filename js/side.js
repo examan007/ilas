@@ -208,7 +208,13 @@ var CustomManager = function() {
              }
              newsectionobj.css("display", "flex");
              console.log("#%#$%##$%#% Change section to [" + newsection + "]")
+            if (newsection === "Booking") {
+             $('.banner').css('display', 'none')
+            } else {
+             $('.banner').css('display', 'block')
+            }
          } else {
+             $('.banner').css('display', 'none')
              $('.wideportal').css("display", "none")
             newsectionobj.css("display", "block");
             console.log(">>>>>>>>>>>>> Change section to [" + newsection + "]")
@@ -230,9 +236,9 @@ var CustomManager = function() {
                 if (testThisToken() == false) {
                     console.log("$$$ Need a valid token.")
                     window.setTimeout(()=> {
-                        console.log("Show Login %%%%%%%%%%%%")
-                        LoginFlag = true
-                        getLoginWindow('tokenneeded')
+                        console.log("Do NOT Show Login %%%%%%%%%%%%")
+                        //LoginFlag = true
+                        //getLoginWindow('tokenneeded')
                     }, 2000)
                 } else {
                     console.log("token is [" + token + "]")
@@ -294,7 +300,7 @@ var CustomManager = function() {
         }
         return []
     }
-    var ServiceIndex = 1
+    var ServiceIndex = 2
     var ServicesArray = getServicesArray('.neo-service')
     var SectionArray = getServicesArray('.neo-home')
     function getNextSection() {
@@ -571,7 +577,7 @@ var CustomManager = function() {
               if (jsonobj.operation === "autoscrollswitch") {
                     $('#rightpanel').attr('data', "side.html#" + services[ServiceIndex] + "?nomenuflag=true")
                     if (ServiceIndex >= (services.length-1)) {
-                        ServiceIndex = 0
+                        ServiceIndex = 1
                     } else {
                         ServiceIndex++
                     }
@@ -906,15 +912,15 @@ var CustomManager = function() {
     function createServiceLinks() {
         const neoSection = document.getElementById("Services")
         const identifiers = getServiceNames()
-        var serviceDiv = neoSection.getElementsByClassName('template-brochure')[0];
+        var serviceDiv = neoSection.getElementsByClassName('template-brochure')[0]
         identifiers.push("")
         identifiers.forEach(function(name) {
             try {
-                const identifier = name.replace(' ', '_')
+                const identifier = name.replace(new RegExp(' ', 'g'), '_')
                 console.log("new node identifier [" + identifier + "]")
                 var cloneService = serviceDiv.cloneNode(true);
                 var anchor = cloneService.getElementsByTagName('a')[0];
-                anchor.setAttribute('href', anchor.getAttribute('href').replace('{identifier}', identifier));
+                anchor.setAttribute('href', anchor.getAttribute('href').replace('{identifier}', identifier))
                 anchor.textContent = name
                 neoSection.appendChild(cloneService);
                 cloneService.classList.remove('template-brochure');
@@ -924,20 +930,51 @@ var CustomManager = function() {
         });
 
     }
-    function initializeServiceLinks() {
-        const names = getServiceNames()
-        function process(index) {
-            const name = names[index]
-            if (typeof(name) !== 'undefined') {
-                console.log("name=[" + name + "]")
-                process(index + 1)
-            }
+    function createServiceSections() {
+        try {
+            const identifiers = getServiceNames()
+            const sectiondiv = document.getElementsByClassName('template-section')[0]
+            identifiers.forEach(function(name) {
+                const cloneSection = sectiondiv.cloneNode(true);
+                function replacetags(element, attrname, tagstr, value) {
+                    element.setAttribute(attrname,
+                     element.getAttribute(attrname).replace(tagstr, value))
+                }
+                replacetags(cloneSection,
+                    'id', '{section-identifier}', name.replace(new RegExp(' ', 'g'), '_'))
+                replacetags(cloneSection.getElementsByTagName('img')[0],
+                    'data-src', '{image-identifier}', name.replace(new RegExp(' ', 'g'), '-'))
+                replacetags(cloneSection.getElementsByTagName('img')[0],
+                    'alt', '{nicename}', name)
+                cloneSection.classList.remove('template-section')
+                sectiondiv.parentNode.appendChild(cloneSection)
+            })
+        } catch (e) {
+            console.log(e.stack.toString())
         }
-        process(0)
+    }
+
+    function copyStaticElements() {
+        try {
+            const copies = document.querySelectorAll('.neo-copy')
+            copies.forEach((parent)=> {
+                const copyclass = parent.classList[1]
+                const original = document.querySelectorAll('.' + copyclass)[0]
+                original.childNodes.forEach((child)=> {
+                    const cloned = child.cloneNode(true);
+                    parent.appendChild(cloned);
+                })
+                parent.classList.remove('neo-copy');
+            })
+        } catch (e) {
+            console.log(e.stack.toString())
+        }
     }
 
     return {
         neoOnloadLocal: function () {
+            copyStaticElements()
+            createServiceSections()
             createPamplets()
             loadImagesLazyily()
             const appman = neoOnloadLocal()

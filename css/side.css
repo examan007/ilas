@@ -9,31 +9,31 @@
   width: 100%;
   overflow: hidden;
 }
-.Home {
+#Home {
    background-color: rgba(255,255,255,1);
 }
-.Body_Contouring {
+#Body_Contouring {
    background-color: rgba(231,101,155,1);
 }
-.Facial_Contouring {
+#Facial_Contouring {
    background-color: rgba(240,77,48,1);
 }
-.Hair_Removal {
+#Hair_Removal {
    background-color: rgba(240,77,48,1);
 }
-.Stretch_Mark_Removal {
+#Stretch_Mark_Removal {
    background-color: rgba(231,101,155,1);
 }
-.Cellulite_Reduction {
+#Cellulite_Reduction {
    background-color: rgba(221,23,102,1);
 }
-.Skin_Rejuvenation {
+#Skin_Rejuvenation {
    background-color: rgba(135,40,129,1);
 }
-.Vascular_Lesions {
+#Vascular_Lesions {
    background-color: rgba(16,127,172,1);
 }
-.Acne_Treatment {
+#Acne_Treatment {
    background-color: rgba(247,144,32,1);
 }
 .profile-details{
