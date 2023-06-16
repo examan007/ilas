@@ -540,14 +540,31 @@ var CustomManager = function() {
                 if (jsonobj.operation === 'showappointmentrequest') {
                     console.log("appointment request")
                     console.log("Request object", JSON.stringify($('#login').children()))
-                    var message = {
-                      operation: 'showsection',
-                      sectionname: 'Request',
-                      datetime: jsonobj.datetime,
-                      message: jsonobj
+                    function getSectionName(callback) {
+                        AppMan.testCookie((token)=> {
+                            if (typeof(token) === 'undefined') {
+                                callback('Appoint')
+                            } else
+                            if (token == null) {
+                                callback('Appoint')
+                            } else
+                            if (token.length > 16) {
+                                callback('Request')
+                            } else {
+                                callback('Appoint')
+                            }
+                        })
                     }
-                    sendToChildWindow('login', message)
-                    $('#login').css("display", "block")
+                    getSectionName((sectionname) => {
+                        var message = {
+                          operation: 'showsection',
+                          sectionname: sectionname,
+                          datetime: jsonobj.datetime,
+                          message: jsonobj
+                        }
+                        sendToChildWindow('login', message)
+                        $('#login').css("display", "block")
+                    })
                 } else
                 if (jsonobj.operation === 'changeappointmentrequest') {
                     console.log("appointment change")
