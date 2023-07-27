@@ -214,7 +214,12 @@ var CustomManager = function() {
              $('.banner').css('display', 'block')
             }
          } else {
-             $('.banner').css('display', 'none')
+            const nomenuflag = AppMan.getQueryValue('nomenuflag')
+            if (nomenuflag != null) {
+                 $('.banner').css('display', 'none')
+            } else {
+                 $('.banner').css('display', 'block')
+            }
              $('.wideportal').css("display", "none")
             newsectionobj.css("display", "block");
             console.log(">>>>>>>>>>>>> Change section to [" + newsection + "]")
@@ -509,10 +514,11 @@ var CustomManager = function() {
       console.log("X=[" + PosX + "] Y=[" + PosY + "]")
     }
 
+    let AppMan = null
     function neoOnloadLocal() {
             console.log("neoOnloadLocal()")
             $('#login').css("display", "none")
-            let AppMan = ApplicationManager((event, flag) => {
+            AppMan = ApplicationManager((event, flag) => {
               const services = getServicesArray('.neo-service')
               function getJSONMsg() {
                 try{
@@ -988,13 +994,14 @@ var CustomManager = function() {
         }
     }
 
+
     return {
         neoOnloadLocal: function () {
             copyStaticElements()
             createServiceSections()
             createPamplets()
             loadImagesLazyily()
-            const appman = neoOnloadLocal()
+            let appman = neoOnloadLocal()
             neobookOnLoad()
             welcomeFunction(appman)
             $('#login').css('display','block')
