@@ -183,11 +183,15 @@ span {
 
 .banner a {
   display: inline-block;
-  color: #000000;
+  color: #ffffff;
   font-size: 1.5em;
   text-decoration: none;
   animation: scrollBanner 15s linear infinite;
-  background-color: rgba(255, 255, 255, 0);
+  background-color: rgba(172,148,232,255);
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 10px 30px;
+
 }
 
 @keyframes scrollBanner {
