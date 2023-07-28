@@ -10,7 +10,6 @@
 }
 #Booking {
     height: 100vh;
-    overflow: hidden;
     background-repeat: repeat;
     max-width: 700px;
 }
@@ -24,7 +23,6 @@
     position: absolute;
     top: 50%;
     left: 5%;
-    overflow: hidden !important;
     height: 90%;
     width: 90%;
     margin: auto;

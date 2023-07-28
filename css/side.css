@@ -6,8 +6,9 @@
 }
 .wrapper{
   float: left;
-  width: 100%;
-  overflow: hidden;
+}
+.neo-home {
+  height: 95%;
 }
 #Home {
    background-color: rgba(255,255,255,1);

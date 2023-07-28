@@ -36,7 +36,6 @@
 }
 section {
     min-width: 300px;
-    overflow: hidden;
     position: absolute;
     top: 0;
     left: 0;
@@ -68,7 +67,6 @@ section {
     line-height: 1.25;
     align-items: flex-start;
     position: relative;
-    overflow: hidden;
 }
 .brochure:first-child {
     left: 0;
@@ -117,14 +115,12 @@ a:-webkit-any-link {
     align-items: flex-start;
     flex-wrap: nowrap;
     max-width: 550px;
-    overflow: hidden;
     flex-direction: column;
     align-content: flex-center;
     margin: 20px;
     padding-bottom: 60px;
     padding-top: 60px;
     min-height: 350px;
-    height: 100vh;
 }
 .widewindow {
     display: none;
@@ -140,7 +136,6 @@ a:-webkit-any-link {
     width: 100%;
     box-sizing: border-box;
     z-index: 1001;
-    overflow: hidden;
 
 }
 .wideobject {
@@ -191,7 +186,6 @@ span {
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 10px 30px;
-
 }
 
 @keyframes scrollBanner {
