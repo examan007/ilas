@@ -35,3 +35,40 @@
     border-radius: 50px;
     transition: all 0.5s ease;
 }
+.container {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 450;
+}
+
+.triangle {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 2em;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-top: 100px solid rgba(172,148,232,0.5); /* Replace #007bff with your desired triangle color */
+  transform: rotate(-45deg);
+  right: -50px;
+}
+
+.content {
+  position: relative;
+  background-color: rgba(172,148,232,0); /* Replace #007bff with your desired background color */
+  color: #ffffff; /* Replace #ffffff with your desired text color */
+  border-radius: 8px;
+  margin-bottom: 20px;
+  bottom: 80px;
+  text-align: center;
+  padding-right: 45px;
+  left: -45px;
+}
+
+.content:nth-child(2) {
+  left: -30px;
+}
+

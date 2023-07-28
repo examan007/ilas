@@ -390,7 +390,22 @@ var CustomManager = function() {
               toggleSidebar(false)
             })
         })
-
+        const elements = document.querySelectorAll('.triangle');
+        elements.forEach(element => {
+          element.addEventListener('click', (event) => {
+            window.clearTimeout(timeoutobj)
+            timeoutflag = false
+            timeoutobj = null
+            const container = document.querySelectorAll('.container')[0]
+            container.setAttribute("style", "display: none;")
+            console.log(`Clicked on ${event.target.classList}`);
+          });
+        });
+        //const nomenuflag = AppMan.getQueryValue('nomenuflag')
+        if (nomenuflag == null) {
+            const container = document.querySelectorAll('.container')[0]
+            container.setAttribute("style", "display: none;")
+        }
         const initduration = 2000
         const initinterval = 1000
         const defaultdelay = 5000
@@ -449,13 +464,13 @@ var CustomManager = function() {
                   }
               }
              window.clearTimeout(timeoutobj)
-             window.setTimeout(switchToStart, defaultdelay)
+             timeoutobj = window.setTimeout(switchToStart, defaultdelay)
               return;
             }
             if ( maxScrollTop >= lasttop && (maxScrollValue - maxScrollTop) > 50) {
                 const nexttop = lasttop + windowheight
                 window.clearTimeout(timeoutobj)
-                window.setTimeout(()=> {
+                timeoutobj = window.setTimeout(()=> {
                   console.log("TIMEOUT")
                   smoothScrollWithInterval(initduration, initinterval, nexttop)
                 }, defaultdelay)
