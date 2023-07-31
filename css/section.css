@@ -182,7 +182,7 @@ span {
   font-size: 1.5em;
   text-decoration: none;
   animation: scrollBanner 15s linear infinite;
-  background-color: rgba(172,148,232,255);
+  background-color: rgba(172,148,232,0.6);
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 10px 30px;
