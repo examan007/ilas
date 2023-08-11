@@ -160,6 +160,11 @@ span {
   gap: 10px;
 }
 
+.neoserve {
+  grid-template-columns: 50px 100% 0px;
+  overflow: hidden;
+}
+
 .neoflex > .neotext {
     transform: translateY(0.75em);
     white-space: nowrap;
