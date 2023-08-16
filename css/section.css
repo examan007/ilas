@@ -24,8 +24,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-bottom: 50px;
-    font-size: 16px;
+    padding-bottom: 0;
+    font-size: 0.70em;
     color: #7e7ea0;
 }
 .center-fit {
@@ -49,6 +49,12 @@ section {
 .template-pamphlet {
     display: none;
 }
+.brochure-header {
+    flex: 1;
+}
+.brochure-content {
+    flex: 3;
+}
 .brochure h1 {
     font-size: 40px;
 }
@@ -57,9 +63,10 @@ section {
     color: #7e7ea0;
     min-height: 1.25em;
     line-height: 1.25;
+    width: 100%;
+    padding-right: 0px;
 }
 .brochure {
-    font-family: "Times New Roman", Times, serif;
     background-color: #FFFFFF;
     border: none;
     min-height: 1.25em;
@@ -106,14 +113,19 @@ a:-webkit-any-link {
     max-height: 40px;
     flex: 1 1 auto;
 }
+#Home {
+    justify-content: space-between;
+}
+#Services {
+    justify-content: flex-start;
+}
 #Home,#Services {
     display: none;
     flex-direction: row;
-    justify-content: space-between;
     align-content: stretch;
     align-items: flex-start;
     flex-wrap: nowrap;
-    max-width: 550px;
+    max-width: 520px;
     flex-direction: column;
     align-content: flex-center;
     margin: 20px;
@@ -160,7 +172,7 @@ span {
 }
 
 .neoserve {
-  grid-template-columns: 50px 100% 0px;
+  grid-template-columns: 30px 100% 0px;
   overflow: hidden;
 }
 

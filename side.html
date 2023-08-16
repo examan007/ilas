@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="css/side.css">
   <link rel="stylesheet" href="css/section.css">
   <link rel="stylesheet" href="css/custom.css">
+  <link rel="stylesheet" href="css/tabs.css">
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-..."" crossorigin="anonymous">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
@@ -216,20 +217,39 @@
         <img id="myImgId" src="images/business-card-002.png" alt="iLaS business card."/>
       </div>
     </section>
+    <section id="topElement"></section>
     <section id="Services" class="neo-home">
-      <div class="brochure">
+      <div class="brochure brochure-header">
         <div class="neo-copy header-box">
         </div>
       </div>
-      <div class="template-brochure brochure">
-        <div class="neoflex neoserve">
-          <div>&nbsp;</div>
-          <div>
-            <h2><a href="#{identifier}">{nicename}</a></h2>
+      <div class="brochure brochure-content">
+        <div class="tabs">
+          <button class="tab-button" onclick="openTab(event, 'tab1')">Hair Options</button>
+          <button class="tab-button" onclick="openTab(event, 'tab2')">Laser Treatment</button>
+          <button class="tab-button" onclick="openTab(event, 'tab3')">Other Services</button>
+        </div>
+        <div class="tab-content" id="tab1">
+          <h2>Hair Options</h2>
+          <p></p>
+        </div>
+        <div class="tab-content" id="tab2">
+          <div class="template-brochure brochure">
+            <div class="neoflex neoserve">
+              <div>&nbsp;</div>
+              <div>
+                <h2><a href="#{identifier}">{nicename}</a></h2>
+              </div>
+              <div>&nbsp;</div>
+            </div>
           </div>
-          <div>&nbsp;</div>
+        </div>
+        <div class="tab-content" id="tab3">
+          <h2>Other Services</h2>
+          <p></p>
         </div>
       </div>
+      <script src="js/tabs.js"></script>
     </section>
     <section id="{section-identifier}" class="template-section neo-repeat neo-section neo-service">
       <div class="pamphlet template-pamphlet">

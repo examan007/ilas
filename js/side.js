@@ -948,7 +948,7 @@ var CustomManager = function() {
         return names
     }
     function createServiceLinks() {
-        const neoSection = document.getElementById("Services")
+        const neoSection = document.getElementById("tab2") // "Services")
         const identifiers = getServiceNames()
         var serviceDiv = neoSection.getElementsByClassName('template-brochure')[0]
         identifiers.push("")
@@ -1025,6 +1025,8 @@ var CustomManager = function() {
             initSwipeScroll()
             createServiceLinks()
             console.log("Done load.")
+            const element = document.querySelector('#topElement'); // Replace with your element's selector
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Smooth scroll to the top of the element
         }
     }
 }
