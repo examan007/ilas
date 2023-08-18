@@ -1,5 +1,5 @@
 var CustomManager = function() {
-    var console = {
+    var consolex = {
         log: function(msg) {},
     }
     var SidebarState = "Minimized"
@@ -1028,6 +1028,22 @@ var CustomManager = function() {
             initSwipeScroll()
             createServiceLinks()
             console.log("Done load.")
+        },
+        createServiceOptions: function (id, options) {
+            try {
+                const sectiondiv = document.getElementById(id)
+                const template = sectiondiv.getElementsByClassName('template-brochure')[0]
+                options.forEach(function(obj) {
+                    console.log("Service option: " + JSON.stringify(obj))
+                    const cloneSection = template.cloneNode(true);
+                    const element = cloneSection.getElementsByTagName('h2')[0]
+                    element.textContent = obj.name
+                    cloneSection.classList.remove("template-brochure")
+                    template.parentNode.appendChild(cloneSection)
+                })
+            } catch (e) {
+                console.log(e.stack.toString())
+            }
         }
     }
 }

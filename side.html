@@ -229,8 +229,15 @@
           <button class="tab-button" onclick="openTab(event, 'tab3')">Other Services</button>
         </div>
         <div class="tab-content" id="tab1">
-          <h2>Hair Options</h2>
-          <p></p>
+          <div class="template-brochure brochure">
+            <div class="neoflex neoserve">
+              <div>&nbsp;</div>
+              <div>
+                <h2>{nicename}</h2>
+              </div>
+              <div>&nbsp;</div>
+            </div>
+          </div>
         </div>
         <div class="tab-content" id="tab2">
           <div class="template-brochure brochure">
@@ -244,8 +251,15 @@
           </div>
         </div>
         <div class="tab-content" id="tab3">
-          <h2>Other Services</h2>
-          <p></p>
+          <div class="template-brochure brochure">
+            <div class="neoflex neoserve">
+              <div>&nbsp;</div>
+              <div>
+                <h2>{nicename}</h2>
+              </div>
+              <div>&nbsp;</div>
+            </div>
+          </div>
         </div>
       </div>
       <script src="js/tabs.js"></script>
@@ -273,7 +287,36 @@
       <i class="fas fa-chevron-up"></i>
     </div>
     <script>
-       CustomManager().neoOnloadLocal()
+       const Manager = CustomManager()
+       Manager.neoOnloadLocal()
+       Manager.createServiceOptions("tab1", [
+          {
+            name: "Hair cut for man"
+          },
+          {
+            name: "Hair cut for woman"
+          },
+          {
+            name: "Hair cut and style"
+          },
+          {
+            name: "Hair colour"
+          },
+          {
+            name: "Hair style"
+          }
+       ])
+       Manager.createServiceOptions("tab3", [
+          {
+            name: "Massage"
+          },
+          {
+            name: "Eyelash extensions"
+          },
+          {
+            name: "Micro blading"
+          }
+       ])
     </script>
 </div>
 </body>
