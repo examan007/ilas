@@ -956,12 +956,15 @@ var CustomManager = function() {
             try {
                 const identifier = name.replace(new RegExp(' ', 'g'), '_')
                 console.log("new node identifier [" + identifier + "]")
-                var cloneService = serviceDiv.cloneNode(true);
-                var anchor = cloneService.getElementsByTagName('a')[0];
-                anchor.setAttribute('href', anchor.getAttribute('href').replace('{identifier}', identifier))
-                anchor.textContent = name
-                neoSection.appendChild(cloneService);
-                cloneService.classList.remove('template-brochure');
+                if (identifier.length > 0) {
+                    var cloneService = serviceDiv.cloneNode(true);
+                    var anchor = cloneService.getElementsByTagName('a')[0];
+                    anchor.setAttribute('href', anchor.getAttribute('href').
+                        replace('{identifier}', identifier))
+                    anchor.textContent = name
+                    neoSection.appendChild(cloneService);
+                    cloneService.classList.remove('template-brochure');
+                }
             } catch (e) {
                 console.log("createPamplet() " + e.toString())
             }
@@ -1025,8 +1028,6 @@ var CustomManager = function() {
             initSwipeScroll()
             createServiceLinks()
             console.log("Done load.")
-            const element = document.querySelector('#topElement'); // Replace with your element's selector
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Smooth scroll to the top of the element
         }
     }
 }
