@@ -81,6 +81,7 @@ section {
     min-height: 1.25em;
     line-height: 1.25;
     color: #7e7ea0;
+    white-space: normal;
 }
 .brochure a img {
 }
@@ -170,10 +171,11 @@ span {
   justify-content: start;
   gap: 10px;
 }
-
 .neoserve {
-  grid-template-columns: 30px 100% 0px;
-  overflow: hidden;
+  display: block;
+  font-size: 14px;
+  padding-left: 52px;
+  padding-right: 50px;
 }
 
 .neoflex > .neotext {

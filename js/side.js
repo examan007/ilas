@@ -1,5 +1,5 @@
 var CustomManager = function() {
-    var consolex = {
+    var console = {
         log: function(msg) {},
     }
     var SidebarState = "Minimized"
@@ -932,16 +932,32 @@ var CustomManager = function() {
         const parentArray = document.querySelectorAll('.sub-menu')
         parentArray.forEach((parentElement)=> {
             //console.log("sub-menu")
-            const childElements = parentElement.querySelectorAll('li');
+            const childElements = parentElement.querySelectorAll('a');
             var flag = false
             childElements.forEach((element)=> {
-                const name = element.childNodes[0].childNodes[0].textContent
+                function getNameFromAnchor() {
+                    try {
+                        return  element.getAttribute("href").
+                         replace(new RegExp('_', 'g'), ' ').
+                         substring(1)
+                    } catch (e) {
+                        console.log(e.stack.toString())
+                        return e.toString()
+                    }
+                }
+                const name = getNameFromAnchor()
                 if (name === 'Services') {
                     flag = true
                 } else
                 if (flag) {
                     console.log("element=[" + name + "]")
-                    names.push(name)
+                    names.push({
+                        keyname: name,
+                        imagename: name,
+                        nicename: element.childNodes[0].textContent
+                    })
+                } else {
+                    console.log("element=[" + name + "]")
                 }
             })
         })
@@ -952,16 +968,16 @@ var CustomManager = function() {
         const identifiers = getServiceNames()
         var serviceDiv = neoSection.getElementsByClassName('template-brochure')[0]
         identifiers.push("")
-        identifiers.forEach(function(name) {
+        identifiers.forEach(function(identifier) {
             try {
-                const identifier = name.replace(new RegExp(' ', 'g'), '_')
-                console.log("new node identifier [" + identifier + "]")
-                if (identifier.length > 0) {
+                const name = identifier.keyname.replace(new RegExp(' ', 'g'), '_')
+                console.log("new node identifier [" + name + "]")
+                if (name.length > 0) {
                     var cloneService = serviceDiv.cloneNode(true);
                     var anchor = cloneService.getElementsByTagName('a')[0];
                     anchor.setAttribute('href', anchor.getAttribute('href').
-                        replace('{identifier}', identifier))
-                    anchor.textContent = name
+                        replace('{identifier}', name))
+                    anchor.textContent = identifier.nicename
                     neoSection.appendChild(cloneService);
                     cloneService.classList.remove('template-brochure');
                 }
@@ -975,7 +991,9 @@ var CustomManager = function() {
         try {
             const identifiers = getServiceNames()
             const sectiondiv = document.getElementsByClassName('template-section')[0]
-            identifiers.forEach(function(name) {
+            identifiers.forEach(function(identifier) {
+                const name = identifier.keyname
+                const nicename = identifier.nicename
                 const cloneSection = sectiondiv.cloneNode(true);
                 function replacetags(element, attrname, tagstr, value) {
                     element.setAttribute(attrname,

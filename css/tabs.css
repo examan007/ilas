@@ -40,7 +40,7 @@
 
 .tab-content {
   display: none;
-  padding: 20px;
+  padding-top: 20px;
   border: 0px solid #ccc;
   border-top: none;
   margin-top: -1px;
