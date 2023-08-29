@@ -363,7 +363,7 @@ var CustomManager = function() {
               console.log("hashValue=[" + hashValue + "]")
               changeSection(removeLeadingChar(hashValue, "#"))
           }
-          SidebarTimeoutObj = setTimeout(toggleSidebarAlone, 3000)
+          SidebarTimeoutObj = setTimeout(toggleSidebarAlone, 0)
 
           const nomenuflag = AppMan.getQueryValue('nomenuflag')
           if (nomenuflag != null) {
