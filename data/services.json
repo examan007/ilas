@@ -1,0 +1,78 @@
+{
+  "tabs": [{
+    "id": "tab1",
+    "name": "Hair Options",
+    "services": [
+      {
+        "name": "Cut for man"
+      },
+      {
+        "name": "Cut for woman"
+      },
+      {
+        "name": "Cut and style"
+      },
+      {
+        "name": "Colour only"
+      },
+      {
+        "name": "Style only"
+      }
+    ]
+  },
+    {
+      "id": "tab2",
+      "name": "Laser Treatment",
+      "services": [
+        {
+          "name": "Body Contouring"
+        },
+        {
+          "name": "Facial Contouring"
+        },
+        {
+          "name": "Hair Removal for ALL skin tones"
+        },
+        {
+          "name": "Stretch Mark Removal"
+        },
+        {
+          "name": "Cellulite Reduction"
+        },
+        {
+          "name": "Skin Rejuvenation"
+        },
+        {
+          "name": "Vascular Lesions"
+        },
+        {
+          "name": "Pigmented Lesions"
+        },
+        {
+          "name": "Acne Treatment"
+        },
+        {
+          "name": "Spider Veins, Skin tags, and Cherry hemangiomas"
+        }
+      ]
+    },
+    {
+      "id": "tab3",
+      "name": "Other Services",
+      "services": [
+        {
+          "name": "Relaxational massage"
+        },
+        {
+          "name": "Facial"
+        },
+        {
+          "name": "Eyelash extensions"
+        },
+        {
+          "name": "Micro blading"
+        }
+      ]
+    }
+  ]
+}

@@ -1045,6 +1045,16 @@ var CustomManager = function() {
             registerForEvents()
             initSwipeScroll()
             createServiceLinks()
+            function getServicesTabs() {
+            const LogMgr = LoginManager().getData(
+                "data/services.json",
+                (data)=> {
+                    console.log("new data = " + JSON.stringify(data))
+                    Manager.createServiceOptions(data.tabs[0].id, data.tabs[0].services)
+                    Manager.createServiceOptions(data.tabs[2].id, data.tabs[2].services)
+                })
+            }
+            getServicesTabs()
             console.log("Done load.")
         },
         createServiceOptions: function (id, options) {
