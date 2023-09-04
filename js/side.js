@@ -662,7 +662,11 @@ var CustomManager = function() {
               var pamphletDiv = neoSection.getElementsByClassName('template-pamphlet')[0];
 
               // Iterate over the identifiers and update the data source attribute
+              var done = false
               identifiers.forEach(function(identifier) {
+                if (done) {
+                    return
+                } else
                 try {
                     // Clone the pamphlet element
                     var clonePamphlet = pamphletDiv.cloneNode(true);
@@ -671,12 +675,18 @@ var CustomManager = function() {
                     var image = clonePamphlet.getElementsByTagName('img')[0];
 
                     // Set the data source attribute based on the identifier
-                    image.setAttribute('data-src', image.getAttribute('data-src').replace('{identifier}', identifier));
+                    const imagename = image.getAttribute('data-src').replace('{identifier}', identifier)
+                    image.setAttribute('data-src', imagename)
 
                     // Append the cloned image element to the cloned pamphlet div
                     neoSection.appendChild(clonePamphlet);
                     clonePamphlet.classList.remove('template-pamphlet');
                     clonePamphlet.classList.add('active-pamphlet');
+                    console.log("imagename=" + imagename)
+                    if (imagename === "docs/Eliminate-Spider-Veins-N.png" ) {
+                        console.log("done imagename")
+                        done = true;
+                    }
                 } catch (e) {
                     console.log("createPamplet() " + e.toString())
                 }
