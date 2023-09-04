@@ -1,5 +1,5 @@
 var CustomManager = function() {
-    var console = {
+    var consolex = {
         log: function(msg) {},
     }
     var SidebarState = "Minimized"
@@ -660,10 +660,16 @@ var CustomManager = function() {
             Array.from(neoSections).forEach(function(neoSection) {
               // Find the pamphlet element within the neo-section
               var pamphletDiv = neoSection.getElementsByClassName('template-pamphlet')[0];
-
+              function getIdentifiers() {
+                if (neoSection.getAttribute("id") === "Hair_Removal") {
+                    return ['anytone-M', 'anytone-N', 'anytone-O', 'anytone-P', 'anytone-Q', 'anytone-R', 'M', 'N', 'O', 'P', 'Q', 'R']
+                } else {
+                    return identifiers
+                }
+              }
               // Iterate over the identifiers and update the data source attribute
               var done = false
-              identifiers.forEach(function(identifier) {
+              getIdentifiers().forEach(function(identifier) {
                 if (done) {
                     return
                 } else
