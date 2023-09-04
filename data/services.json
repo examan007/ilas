@@ -4,19 +4,16 @@
     "name": "Hair Options",
     "services": [
       {
-        "name": "Cut for man"
+        "name": "Short and quick cut"
       },
       {
-        "name": "Cut for woman"
+        "name": "Long and enriching"
       },
       {
-        "name": "Cut and style"
+        "name": "Full and colour"
       },
       {
-        "name": "Colour only"
-      },
-      {
-        "name": "Style only"
+        "name": "Full colour and highlights "
       }
     ]
   },
@@ -61,16 +58,16 @@
       "name": "Other Services",
       "services": [
         {
-          "name": "Relaxational massage"
-        },
-        {
-          "name": "Facial"
-        },
-        {
           "name": "Eyelash extensions"
         },
         {
-          "name": "Micro blading"
+          "name": "Micro blading eyebrows"
+        },
+        {
+          "name": "Facials"
+        },
+        {
+          "name": "Relaxational massage"
         }
       ]
     }
