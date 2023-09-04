@@ -110,6 +110,10 @@ a:-webkit-any-link {
 .pageimage {
     height: 100vh;
 }
+.priceimage {
+    height: 100vh;
+    padding-top: 30px;
+}
 .neoicon {
     max-height: 40px;
     flex: 1 1 auto;
