@@ -14,8 +14,16 @@ function openTab(event, tabName) {
   // Show the selected tab content and mark the button as active
   document.getElementById(tabName).style.display = "block";
   event.currentTarget.classList.add("active");
+
+  const tabnumber = parseInt(tabName.match(/\d+/)[0]);
+  window.location.href = "#?tab=" + tabnumber
 }
 
-// Show the default tab on page load
-document.getElementById("tab2").style.display = "block";
-document.querySelectorAll(".tab-button")[1].classList.add("active");
+function defaultTab(number) {
+    try {
+        document.getElementById("tab" + number).style.display = "block";
+        document.querySelectorAll(".tab-button")[number - 1].classList.add("active");
+    } catch (e) {
+        console.log(e.stack.toString())
+    }
+}

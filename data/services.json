@@ -4,16 +4,20 @@
     "name": "Hair Options",
     "services": [
       {
+        "id": "Short_and_quick_cut",
         "name": "Short and quick cut"
       },
       {
+        "id":  "Long_and_enriching",
         "name": "Long and enriching"
       },
       {
+        "id": "Full_and_colour",
         "name": "Full and colour"
       },
       {
-        "name": "Full colour and highlights "
+        "id": "Full_colour_and_highlights",
+        "name": "Full colour and highlights"
       }
     ]
   },
@@ -22,33 +26,43 @@
       "name": "Laser Treatment",
       "services": [
         {
+          "id": "Body_Contouring",
           "name": "Body Contouring"
         },
         {
+          "id": "Facial_Contouring",
           "name": "Facial Contouring"
         },
         {
+          "id": "Hair_Removal_for_All_skin_tones",
           "name": "Hair Removal for ALL skin tones"
         },
         {
+          "id": "Stretch_Mark_Removal",
           "name": "Stretch Mark Removal"
         },
         {
+          "id": "Cellulite_Reduction",
           "name": "Cellulite Reduction"
         },
         {
+          "id": "Skin Rejuvenation",
           "name": "Skin Rejuvenation"
         },
         {
+          "id": "Vascuala_Lesions",
           "name": "Vascular Lesions"
         },
         {
+          "id": "Pigmented_Lesions",
           "name": "Pigmented Lesions"
         },
         {
+          "id": "Acne_Treatment",
           "name": "Acne Treatment"
         },
         {
+          "id": "Eliminate_Spider_Veins",
           "name": "Spider Veins, Skin tags, and Cherry hemangiomas"
         }
       ]
@@ -58,15 +72,19 @@
       "name": "Other Services",
       "services": [
         {
+          "id": "Eyelash_extensions",
           "name": "Eyelash extensions"
         },
         {
+          "id": "Micro_blading",
           "name": "Micro blading eyebrows"
         },
         {
+          "id": "Facials",
           "name": "Facials"
         },
         {
+          "id": "Relaxational_massage",
           "name": "Relaxational massage"
         }
       ]

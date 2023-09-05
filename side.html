@@ -79,14 +79,14 @@
       </li>
       <li>
         <div class="icon-link">
-          <p><a href="#Booking" onclick="menuClick(this)">
+          <p><a href="#Services?booking=true" onclick="menuClick(this)">
             <i class='bx bx-calendar'></i>
             <span class="link_name">Booking</span>
           </a></p>
           <i class='bx bxs-chevron-down arrow'></i>
         </div>
         <ul class="sub-menu">
-          <li onclick="menuClick(this)"><a class="link_name" href="#Booking"><span>Booking</span></a></li>
+          <li onclick="menuClick(this)"><a class="link_name" href="#Services?booking=true"><span>Booking</span></a></li>
           <li onclick="menuClick(this)"><a href="#Booking?filter=Free_consultation"><span>Book appointment</span></a></li>
           <li onclick="menuClick(this)"><a href="#Booking?filter=My_appointments"><span>My appointments</span></a></li>
         </ul>
@@ -224,35 +224,19 @@
         <div class="neo-copy header-box">
         </div>
       </div>
-      <div class="brochure brochure-content">
+      <div id="Services-List" class="brochure brochure-content">
         <div class="tabs">
           <button class="tab-button" onclick="openTab(event, 'tab1')">Hair Options</button>
           <button class="tab-button" onclick="openTab(event, 'tab2')">Laser Treatment</button>
           <button class="tab-button" onclick="openTab(event, 'tab3')">Other Services</button>
         </div>
-        <div class="tab-content" id="tab1">
+        <div id="${tabname}" class="template-tab tab-content">
           <div class="template-brochure brochure">
             <div class="neoserve">
               <div>
-                <h2>{nicename}</h2>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="tab-content" id="tab2">
-          <div class="template-brochure brochure">
-            <div class="neoserve">
-              <div>
-                <h2><a href="#{identifier}">{nicename}</a></h2>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="tab-content" id="tab3">
-          <div class="template-brochure brochure">
-            <div class="neoserve">
-              <div>
-                <h2>{nicename}</h2>
+                <h2><a id="a_${identifier}" href="#${hrefurl}?tab=${tabnumber}"
+                       onmouseover="mouseOverFunction('${identifier}')"
+                       onmouseout="mouseOutFunction('${identifier}')">${nicename}</a></h2>
               </div>
             </div>
           </div>
@@ -285,6 +269,16 @@
     <script>
       const Manager = CustomManager()
       Manager.neoOnloadLocal()
+      var acolour = ""
+      function mouseOverFunction(name) {
+          console.log("Over name=" + name)
+          acolour = document.getElementById("a_" + name).style.color
+          document.getElementById("a_" + name).style.color = "rgba(172,148,232,1)"
+      }
+      function mouseOutFunction(name) {
+          console.log("Out name=" + name)
+          document.getElementById("a_" + name).style.color = acolour
+      }
     </script>
 </div>
 </body>

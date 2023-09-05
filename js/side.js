@@ -979,30 +979,6 @@ var CustomManager = function() {
         })
         return names
     }
-    function createServiceLinks() {
-        const neoSection = document.getElementById("tab2") // "Services")
-        const identifiers = getServiceNames()
-        var serviceDiv = neoSection.getElementsByClassName('template-brochure')[0]
-        identifiers.push("")
-        identifiers.forEach(function(identifier) {
-            try {
-                const name = identifier.keyname.replace(new RegExp(' ', 'g'), '_')
-                console.log("new node identifier [" + name + "]")
-                if (name.length > 0) {
-                    var cloneService = serviceDiv.cloneNode(true);
-                    var anchor = cloneService.getElementsByTagName('a')[0];
-                    anchor.setAttribute('href', anchor.getAttribute('href').
-                        replace('{identifier}', name))
-                    anchor.textContent = identifier.nicename
-                    neoSection.appendChild(cloneService);
-                    cloneService.classList.remove('template-brochure');
-                }
-            } catch (e) {
-                console.log("createPamplet() " + e.toString())
-            }
-        });
-
-    }
     function createServiceSections() {
         try {
             const identifiers = getServiceNames()
@@ -1060,31 +1036,56 @@ var CustomManager = function() {
             initializeMenu()
             registerForEvents()
             initSwipeScroll()
-            createServiceLinks()
             function getServicesTabs() {
-            const LogMgr = LoginManager().getData(
-                "data/services.json",
-                (data)=> {
-                    console.log("new data = " + JSON.stringify(data))
-                    Manager.createServiceOptions(data.tabs[0].id, data.tabs[0].services)
-                    Manager.createServiceOptions(data.tabs[2].id, data.tabs[2].services)
-                })
+                const LogMgr = LoginManager().getData(
+                    "data/services.json",
+                    (data)=> {
+                        console.log("new data = " + JSON.stringify(data))
+                        Manager.createServiceOptions(data.tabs[0].id, data.tabs[0].services)
+                        Manager.createServiceOptions(data.tabs[1].id, data.tabs[1].services)
+                        Manager.createServiceOptions(data.tabs[2].id, data.tabs[2].services)
+                    })
             }
             getServicesTabs()
             console.log("Done load.")
         },
         createServiceOptions: function (id, options) {
             try {
-                const sectiondiv = document.getElementById(id)
-                const template = sectiondiv.getElementsByClassName('template-brochure')[0]
+                const sectiondiv = document.getElementById("Services-List")
+                const templatetab = sectiondiv.getElementsByClassName('template-tab')[0]
+                const clonecontent = templatetab.cloneNode(true);
+                const tabname = clonecontent.getAttribute('id').replace('${tabname}', id)
+                clonecontent.setAttribute('id', tabname)
+                templatetab.parentNode.appendChild(clonecontent)
+                const template = clonecontent.getElementsByClassName('template-brochure')[0]
                 options.forEach(function(obj) {
-                    console.log("Service option: " + JSON.stringify(obj))
+                    console.log("Tab: " + id + " Service option: " + JSON.stringify(obj))
                     const cloneSection = template.cloneNode(true);
-                    const element = cloneSection.getElementsByTagName('h2')[0]
-                    element.textContent = obj.name
+                    const nicename = obj.name
+                    const identifier = obj.id
+                    const tabnumber = parseInt(tabname.match(/\d+/)[0]);
+                    function getHrefUrl() {
+                        if (id === "tab2") {
+                            return obj.id
+                        } else {
+                            return ""
+                        }
+                    }
+                    const hrefurl = getHrefUrl()
                     cloneSection.classList.remove("template-brochure")
+                    cloneSection.innerHTML = eval('`' + cloneSection.innerHTML + '`')
                     template.parentNode.appendChild(cloneSection)
                 })
+                function getTabNumber() {
+                    const tabnumber = Number(AppMan.getQueryValue('tab'))
+                    console.log("tabnumber=" + tabnumber)
+                    if (tabnumber === 0) {
+                        return 2
+                    } else {
+                        return tabnumber
+                    }
+                }
+                defaultTab(getTabNumber())
             } catch (e) {
                 console.log(e.stack.toString())
             }
