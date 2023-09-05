@@ -40,6 +40,8 @@
 
 .tab-content {
   display: none;
+  flex-direction: column;
+  justify-content: space-evenly;
   padding-top: 30px;
   border: 0px solid #ccc;
   border-top: none;
@@ -47,6 +49,7 @@
   border-radius: 0 0 15px 15px;
   background-color: #fff;
   z-index: -2;
+  height: 100%
 }
 
 .tab-content.active {

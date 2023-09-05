@@ -18,6 +18,14 @@
       {
         "id": "Full_colour_and_highlights",
         "name": "Full colour and highlights"
+      },
+      {
+        "id": "empty0",
+        "name": ""
+      },
+      {
+        "id": "empty1",
+        "name": ""
       }
     ]
   },
@@ -64,6 +72,14 @@
         {
           "id": "Eliminate_Spider_Veins",
           "name": "Spider Veins, Skin tags, and Cherry hemangiomas"
+        },
+        {
+          "id": "empty0",
+          "name": ""
+        },
+        {
+          "id": "empty1",
+          "name": ""
         }
       ]
     },
@@ -86,6 +102,14 @@
         {
           "id": "Relaxational_massage",
           "name": "Relaxational massage"
+        },
+        {
+          "id": "empty0",
+          "name": ""
+        },
+        {
+          "id": "empty1",
+          "name": ""
         }
       ]
     }

@@ -1055,6 +1055,7 @@ var CustomManager = function() {
                 const templatetab = sectiondiv.getElementsByClassName('template-tab')[0]
                 const clonecontent = templatetab.cloneNode(true);
                 const tabname = clonecontent.getAttribute('id').replace('${tabname}', id)
+                clonecontent.classList.remove("template-tab")
                 clonecontent.setAttribute('id', tabname)
                 templatetab.parentNode.appendChild(clonecontent)
                 const template = clonecontent.getElementsByClassName('template-brochure')[0]

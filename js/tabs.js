@@ -12,7 +12,7 @@ function openTab(event, tabName) {
   }
 
   // Show the selected tab content and mark the button as active
-  document.getElementById(tabName).style.display = "block";
+  document.getElementById(tabName).style.display = "flex";
   event.currentTarget.classList.add("active");
 
   const tabnumber = parseInt(tabName.match(/\d+/)[0]);
@@ -26,7 +26,7 @@ function openTab(event, tabName) {
 
 function defaultTab(number) {
     try {
-        document.getElementById("tab" + number).style.display = "block";
+        document.getElementById("tab" + number).style.display = "flex";
         document.querySelectorAll(".tab-button")[number - 1].classList.add("active");
     } catch (e) {
         console.log(e.stack.toString())
