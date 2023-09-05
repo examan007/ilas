@@ -1,5 +1,5 @@
 var CustomManager = function() {
-    var consolex = {
+    var console = {
         log: function(msg) {},
     }
     var SidebarState = "Minimized"

@@ -16,7 +16,12 @@ function openTab(event, tabName) {
   event.currentTarget.classList.add("active");
 
   const tabnumber = parseInt(tabName.match(/\d+/)[0]);
-  window.location.href = "#?tab=" + tabnumber
+
+  const newState = { page: "newpage" }
+  const newTitle = "Services"
+  const newUrl = "#?tab=" + tabnumber
+
+  history.pushState(newState, newTitle, newUrl);
 }
 
 function defaultTab(number) {
