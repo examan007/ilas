@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="css/custom.css">
   <link rel="stylesheet" href="css/tabs.css">
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-..."" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-..." crossorigin="anonymous">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -226,17 +226,15 @@
       </div>
       <div id="Services-List" class="brochure brochure-content">
         <div class="tabs">
-          <button class="tab-button" onclick="openTab(event, 'tab1')">Hair Options</button>
-          <button class="tab-button" onclick="openTab(event, 'tab2')">Laser Treatment</button>
-          <button class="tab-button" onclick="openTab(event, 'tab3')">Other Services</button>
+          <button class="tab-button" onclick="TabMgr.openTab(event, 'tab1')">Hair Options</button>
+          <button class="tab-button" onclick="TabMgr.openTab(event, 'tab2')">Laser Treatment</button>
+          <button class="tab-button" onclick="TabMgr.openTab(event, 'tab3')">Other Services</button>
         </div>
         <div id="${tabname}" class="template-tab tab-content">
           <div class="template-brochure brochure">
             <div class="neoserve">
               <div>
-                <h2><a id="a_${identifier}" href="#${hrefurl}?tab=${tabnumber}"
-                       onmouseover="mouseOverFunction('${identifier}')"
-                       onmouseout="mouseOutFunction('${identifier}')">${nicename}</a></h2>
+                <h2><a id="a_${identifier}" href="#${hrefurl}?tab=${tabnumber}">${nicename}</a></h2>
               </div>
             </div>
           </div>
@@ -267,18 +265,9 @@
       <i class="fas fa-chevron-up"></i>
     </div>
     <script>
-      const Manager = CustomManager()
+      const TabMgr = TabManager()
+      const Manager = CustomManager(TabMgr)
       Manager.neoOnloadLocal()
-      var acolour = ""
-      function mouseOverFunction(name) {
-          console.log("Over name=" + name)
-          acolour = document.getElementById("a_" + name).style.color
-          document.getElementById("a_" + name).style.color = "rgba(172,148,232,1)"
-      }
-      function mouseOutFunction(name) {
-          console.log("Out name=" + name)
-          document.getElementById("a_" + name).style.color = acolour
-      }
     </script>
 </div>
 </body>

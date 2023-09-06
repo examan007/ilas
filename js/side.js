@@ -1,5 +1,5 @@
-var CustomManager = function() {
-    var console = {
+var CustomManager = function(TabMgr) {
+    var consolex = {
         log: function(msg) {},
     }
     var SidebarState = "Minimized"
@@ -1022,6 +1022,49 @@ var CustomManager = function() {
         }
     }
 
+    function initializeAnchorEvents() {
+        var anchors = document.querySelectorAll('#Services-List a');
+        anchors.forEach((anchor)=> {
+            var acolour = ""
+            const anchorid = anchor.getAttribute("id")
+            const serviceid = anchorid.substring(2)
+            console.log("anchor=" + anchor)
+            anchor.addEventListener('contextmenu', function(event) {
+              event.preventDefault(); // Prevent the browser's context menu from appearing
+            })
+            anchor.addEventListener("click", function(event) {
+                console.log("Click: " + serviceid)
+                event.preventDefault()
+                changeSection("Booking")
+                const newState = { page: "newpage" }
+                const newTitle = "Book " + anchorid.substring(2)
+                const newUrl = "#Booking?service=" + serviceid
+                history.pushState(newState, newTitle, newUrl)
+            })
+            anchor.addEventListener("mouseover", function(event) {
+                console.log("Over: " + anchorid )
+                acolour = anchor.style.color
+                anchor.style.color = "rgba(172,148,232,1)"
+            })
+            anchor.addEventListener("mouseout", function(event) {
+                console.log("Out: " + anchorid)
+                anchor.style.color = acolour
+            })
+            function setLongPress() {
+                var longPressTimeout;
+                anchor.addEventListener('touchstart', function(event) {
+                  longPressTimeout = setTimeout(function() {
+                    event.preventDefault(); // Prevent the default long-press behavior
+                  }, 1000); // Set the time threshold for a long press (in milliseconds)
+                });
+
+                anchor.addEventListener('touchend', function() {
+                  clearTimeout(longPressTimeout); // Cancel the timeout if the touch is released before the long-press threshold
+                });
+            }
+            setLongPress()
+        })
+    }
 
     return {
         neoOnloadLocal: function () {
@@ -1044,9 +1087,11 @@ var CustomManager = function() {
                         Manager.createServiceOptions(data.tabs[0].id, data.tabs[0].services)
                         Manager.createServiceOptions(data.tabs[1].id, data.tabs[1].services)
                         Manager.createServiceOptions(data.tabs[2].id, data.tabs[2].services)
+                        initializeAnchorEvents()
                     })
             }
             getServicesTabs()
+
             console.log("Done load.")
         },
         createServiceOptions: function (id, options) {
@@ -1086,7 +1131,7 @@ var CustomManager = function() {
                         return tabnumber
                     }
                 }
-                defaultTab(getTabNumber())
+                TabMgr.defaultTab(getTabNumber(), AppMan)
             } catch (e) {
                 console.log(e.stack.toString())
             }
