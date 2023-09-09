@@ -581,7 +581,8 @@ var CustomManager = function(TabMgr) {
                           operation: 'showsection',
                           sectionname: sectionname,
                           datetime: jsonobj.datetime,
-                          message: jsonobj
+                          message: jsonobj,
+                          services: AppMan.getQueryValue("services")
                         }
                         sendToChildWindow('login', message)
                         $('#login').css("display", "block")
@@ -1038,7 +1039,7 @@ var CustomManager = function(TabMgr) {
                 changeSection("Booking")
                 const newState = { page: "newpage" }
                 const newTitle = "Book " + anchorid.substring(2)
-                const newUrl = "#Booking?service=" + serviceid
+                const newUrl = "#Booking?services=" + serviceid
                 history.pushState(newState, newTitle, newUrl)
             })
             anchor.addEventListener("mouseover", function(event) {
