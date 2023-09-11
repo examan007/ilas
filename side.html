@@ -226,15 +226,15 @@
       </div>
       <div id="Services-List" class="brochure brochure-content">
         <div class="tabs">
-          <button class="tab-button" onclick="TabMgr.openTab(event, 'tab1')">Hair Options</button>
+          <button class="tab-button" onclick="TabMgr.openTab(event, 'tab1')">Hair Option</button>
           <button class="tab-button" onclick="TabMgr.openTab(event, 'tab2')">Laser Treatment</button>
-          <button class="tab-button" onclick="TabMgr.openTab(event, 'tab3')">Other Services</button>
+          <button class="tab-button" onclick="TabMgr.openTab(event, 'tab3')">Other Service</button>
         </div>
         <div id="${tabname}" class="template-tab tab-content">
           <div class="template-brochure brochure">
             <div class="neoserve">
               <div>
-                <h2><a id="a_${identifier}" href="#${hrefurl}?tab=${tabnumber}">${nicename}</a></h2>
+                <h2><a class="${classname}" id="a_${identifier}" href="#${hrefurl}?tab=${tabnumber}">${nicename}</a></h2>
               </div>
             </div>
           </div>
@@ -248,6 +248,11 @@
       </div>
     </section>
     <section id="Booking" class="neo-section">
+        <div class="control-container">
+          <div class="template-control-block" id="${identifier}">
+            ${name}
+          </div>
+        </div>
         <object id="calendar" type="text/html" data="../neobook/index.html"></object>
     </section>
     <section id="Settings" class="neo-section">

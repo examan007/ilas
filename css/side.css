@@ -297,6 +297,9 @@
   margin: 0 15px;
   cursor: pointer;
 }
+.bx-menu {
+    transform: translate(-15px, -10px);
+}
 .home-section .home-content .text{
   font-size: 26px;
   font-weight: 600;

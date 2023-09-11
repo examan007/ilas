@@ -131,7 +131,7 @@ var CustomManager = function(TabMgr) {
     const DefaultSection = "Services"
     var CurrentSection = DefaultSection
     function sendToChildWindow(identifier, messageobj) {
-        console.log("sendToChildWindow")
+        console.log("sendToChildWindow: " + JSON.stringify(messageobj))
         var objectEl = document.getElementById(identifier);
         if (objectEl.contentWindow != null) {
           function sendMessage(message) {
@@ -156,6 +156,55 @@ var CustomManager = function(TabMgr) {
               toggleSidebar(false)
         })
         sendToChildWindow('login', messageobj)
+    }
+    function getServiceValue(name, defval) {
+         const value = AppMan.getQueryValue(name)
+         if (value == null) {
+            if (typeof(defval) === 'undefined') {
+                return ""
+            } else {
+                return defval
+            }
+         } else {
+            return value
+         }
+    }
+    function getServicesObj() {
+        const ret = {
+            services: "",
+            classname: "Phone Consult"
+        }
+        try {
+            ret.services = getServiceValue("services", ret.services).replace(/_/g, ' '),
+            ret.classname = getServiceValue("classname", ret.classname).replace(/_/g, ' ')
+        } catch (e) {
+            console.log(e.stack.toString())
+        }
+        return ret
+    }
+    function createControlBlocks() {
+        console.log("create control blocks.")
+        const bookelement = document.getElementById("Booking")
+        const parent = bookelement.querySelectorAll('.control-container')[0]
+        do {
+            const blocklist = bookelement.querySelectorAll('.control-block')
+            if (blocklist.length > 0) {
+                parent.removeChild(blocklist[0])
+            } else {
+                break
+            }
+        } while (true)
+        console.log("creating new control blocks")
+        const template = bookelement.querySelectorAll('.template-control-block')[0]
+        function createblock(name) {
+            const block =  template.cloneNode(true)
+            block.innerHTML = eval('`' + block.innerHTML + '`')
+            block.classList.remove('template-control-block')
+            block.classList.add('control-block')
+            parent.appendChild(block)
+        }
+        createblock(getServicesObj().classname)
+        createblock(getServicesObj().services)
     }
     function changeSection(newsection) {
         function testDomobj(elementid) {
@@ -271,6 +320,7 @@ var CustomManager = function(TabMgr) {
 //        resizeScreen();
 //        $('.sidebar').addClass('close')
 //        $('section').css("margin-left", "" + 78 + "px")
+         window.setTimeout(createControlBlocks, 1000)
 
     }
 
@@ -579,10 +629,12 @@ var CustomManager = function(TabMgr) {
                     getSectionName((sectionname) => {
                         var message = {
                           operation: 'showsection',
+
                           sectionname: sectionname,
                           datetime: jsonobj.datetime,
                           message: jsonobj,
-                          services: AppMan.getQueryValue("services")
+                          services: getServicesObj().services,
+                          classname: getServicesObj().classname
                         }
                         sendToChildWindow('login', message)
                         $('#login').css("display", "block")
@@ -1023,12 +1075,14 @@ var CustomManager = function(TabMgr) {
         }
     }
 
-    function initializeAnchorEvents() {
+    function initializeAnchorEvents(tabs) {
         var anchors = document.querySelectorAll('#Services-List a');
+        var index = 0
         anchors.forEach((anchor)=> {
             var acolour = ""
             const anchorid = anchor.getAttribute("id")
             const serviceid = anchorid.substring(2)
+            const classname = anchor.getAttribute("class")
             console.log("anchor=" + anchor)
             anchor.addEventListener('contextmenu', function(event) {
               event.preventDefault(); // Prevent the browser's context menu from appearing
@@ -1039,7 +1093,7 @@ var CustomManager = function(TabMgr) {
                 changeSection("Booking")
                 const newState = { page: "newpage" }
                 const newTitle = "Book " + anchorid.substring(2)
-                const newUrl = "#Booking?services=" + serviceid
+                const newUrl = "#Booking?services=" + serviceid + "&classname=" + classname
                 history.pushState(newState, newTitle, newUrl)
             })
             anchor.addEventListener("mouseover", function(event) {
@@ -1064,6 +1118,7 @@ var CustomManager = function(TabMgr) {
                 });
             }
             setLongPress()
+            index = index + 1
         })
     }
 
@@ -1085,18 +1140,20 @@ var CustomManager = function(TabMgr) {
                     "data/services.json",
                     (data)=> {
                         console.log("new data = " + JSON.stringify(data))
-                        Manager.createServiceOptions(data.tabs[0].id, data.tabs[0].services)
-                        Manager.createServiceOptions(data.tabs[1].id, data.tabs[1].services)
-                        Manager.createServiceOptions(data.tabs[2].id, data.tabs[2].services)
-                        initializeAnchorEvents()
+                        Manager.createServiceOptions(data.tabs[0], data.tabs[0].services)
+                        Manager.createServiceOptions(data.tabs[1], data.tabs[1].services)
+                        Manager.createServiceOptions(data.tabs[2], data.tabs[2].services)
+                        initializeAnchorEvents(data.tabs)
                     })
             }
             getServicesTabs()
 
             console.log("Done load.")
         },
-        createServiceOptions: function (id, options) {
+        createServiceOptions: function (tab, options) {
             try {
+                const id = tab.id
+                const classname = tab.name.replace(/ /g, '_')
                 const sectiondiv = document.getElementById("Services-List")
                 const templatetab = sectiondiv.getElementsByClassName('template-tab')[0]
                 const clonecontent = templatetab.cloneNode(true);
