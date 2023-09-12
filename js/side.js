@@ -172,7 +172,7 @@ var CustomManager = function(TabMgr) {
     function getServicesObj() {
         const ret = {
             services: "",
-            classname: "Phone Consult"
+            classname: ""
         }
         try {
             ret.services = getServiceValue("services", ret.services).replace(/_/g, ' '),
@@ -203,8 +203,11 @@ var CustomManager = function(TabMgr) {
             block.classList.add('control-block')
             parent.appendChild(block)
         }
-        createblock(getServicesObj().classname)
-        createblock(getServicesObj().services)
+        const message = getServicesObj()
+        createblock(message.classname)
+        createblock(message.services)
+        message.operation = "filteravailable"
+        sendToChildWindow('calendar', message)
     }
     function changeSection(newsection) {
         function testDomobj(elementid) {
@@ -276,6 +279,9 @@ var CustomManager = function(TabMgr) {
          CurrentSection = getsectionname()
          if (newsection === "Booking") {
             console.log("testCookie for Booking.")
+            const message = getServicesObj()
+            message.operation = "filteravailable"
+            sendToChildWindow('calendar', message)
             testCookie((token)=> {
                 function testThisToken() {
                     if (token == null) {
@@ -633,7 +639,7 @@ var CustomManager = function(TabMgr) {
                           sectionname: sectionname,
                           datetime: jsonobj.datetime,
                           message: jsonobj,
-                          services: getServicesObj().services,
+                          services: getServicesObj().classname + " " + getServicesObj().services,
                           classname: getServicesObj().classname
                         }
                         sendToChildWindow('login', message)
