@@ -1,4 +1,4 @@
-var CustomManager = function() {
+var CustomManager = function(TabMgr) {
     var console = {
         log: function(msg) {},
     }
@@ -131,7 +131,7 @@ var CustomManager = function() {
     const DefaultSection = "Services"
     var CurrentSection = DefaultSection
     function sendToChildWindow(identifier, messageobj) {
-        console.log("sendToChildWindow")
+        console.log("sendToChildWindow: " + JSON.stringify(messageobj))
         var objectEl = document.getElementById(identifier);
         if (objectEl.contentWindow != null) {
           function sendMessage(message) {
@@ -157,6 +157,159 @@ var CustomManager = function() {
         })
         sendToChildWindow('login', messageobj)
     }
+    function getServiceValue(name, defval) {
+         const value = AppMan.getQueryValue(name)
+         if (value == null) {
+            if (typeof(defval) === 'undefined') {
+                return ""
+            } else {
+                return defval
+            }
+         } else {
+            return value
+         }
+    }
+    const FilterState = {
+        current: null
+    }
+    function getServicesObj() {
+        if (FilterState.current !== null) {
+            return FilterState.current
+        }
+        const ret = {
+            services: "",
+            classname: ""
+        }
+        try {
+            ret.services = getServiceValue("services", ret.services).replace(/_/g, ' '),
+            ret.classname = getServiceValue("classname", ret.classname).replace(/_/g, ' ')
+        } catch (e) {
+            console.log(e.stack.toString())
+        }
+        return ret
+    }
+    function sendFilterMessage(inmessage) {
+        const message = getServicesObj()
+        if (message.classname !== inmessage.classname) {
+            message.operation = "filteravailable"
+            sendToChildWindow('calendar', message)
+        }
+    }
+    function createControlBlocks() {
+        console.log("create control blocks.")
+        const bookelement = document.getElementById("Booking")
+        const parent = bookelement.querySelectorAll('.control-container')[0]
+        do {
+            const blocklist = bookelement.querySelectorAll('.control-block')
+            if (blocklist.length > 0) {
+                parent.removeChild(blocklist[0])
+            } else {
+                break
+            }
+        } while (true)
+        console.log("creating new control blocks")
+        const template = bookelement.querySelectorAll('.template-control-block')[0]
+        function createblock(name) {
+            const block =  template.cloneNode(true)
+            block.innerHTML = eval('`' + block.innerHTML + '`')
+            block.classList.remove('template-control-block')
+            block.classList.add('control-block')
+            parent.appendChild(block)
+        }
+        const message = getServicesObj()
+        createblock(message.classname)
+        //createblock(message.services)
+        message.operation = "filteravailable"
+        sendToChildWindow('calendar', message)
+    }
+    function createFilterSelect(inflag) {
+        function getFlag() {
+            if (typeof(inflag) === 'undefined') {
+                return false
+            }
+            return inflag
+        }
+        const flag = getFlag()
+        const select = document.querySelector("#filter-state div")
+        const options = select.querySelectorAll("div")
+        //const selectedIndex = select.selectedIndex
+        //const selectedOption = select.options[selectedIndex]
+        const message = getServicesObj()
+        console.log("create " + flag + " : " + select.outerHTML + "\n" + JSON.stringify(message))
+        message.operation = "filteravailable"
+        if (flag == false) {
+//            sendToChildWindow('calendar', message)
+        }
+        function testOption(index, flag, selected) {
+            if (index < options.length) {
+                const option = options[index]
+                const test = option.textContent
+                console.log("test=" + test)
+                if (test === message.classname) {
+                    option.setAttribute("style", "display: block;")
+                    return testOption(index + 1, flag, option)
+                } else
+                if ( flag === true) {
+                    option.setAttribute("style", "display: block;")
+                } else {
+                    option.setAttribute("style", "display: none;")
+                }
+                return testOption(index + 1, flag, selected)
+            }
+            return selected
+        }
+        if (flag) {
+            select.classList.add("control-block-border")
+        } else {
+            select.classList.remove("control-block-border")
+        }
+        const selected = testOption(0, flag, null)
+        if (selected !== null) {
+            const parent = selected.parentNode
+            parent.removeChild(selected);
+            parent.insertBefore(selected, parent.firstChild);
+        }
+        return flag ? false : true
+    }
+    var Gflag = true;
+    function initializeSelect() {
+        const optionElementList = document.querySelectorAll("#filter-state div div")
+        optionElementList.forEach((optionElement)=> {
+            optionElement.addEventListener('click', function() {
+                console.log("click" + Gflag.toString() + " " + this.textContent)
+                const testmessage = getServicesObj()
+                const newclassname = this.textContent
+                if (testmessage.classname === newclassname) {
+                    console.log("No change")
+                } else {
+                    testmessage.classname = newclassname
+                    FilterState.last = FilterState.current
+                    FilterState.current = testmessage
+                    const message = getServicesObj()
+                    message.services = ""
+                    message.operation = "filteravailable"
+                    sendToChildWindow('calendar', message)
+                }
+                Gflag = createFilterSelect(Gflag)
+            })
+            var moflag = false
+            optionElement.addEventListener('mouseover', function() {
+                moflag = true
+            })
+            optionElement.addEventListener('mouseout', function() {
+                console.log("click mo " + Gflag.toString() + " " + this.outerHTML)
+                const message = getServicesObj()
+                console.log(`You selected: ` + JSON.stringify(message))
+                if (Gflag === false && moflag === true) {
+                    moflag = false
+                    //Gflag = createFilterSelect(false)
+                }
+            })
+        })
+
+    }
+    initializeSelect()
+
     function changeSection(newsection) {
         function testDomobj(elementid) {
             return $('#' + elementid)
@@ -227,6 +380,7 @@ var CustomManager = function() {
          CurrentSection = getsectionname()
          if (newsection === "Booking") {
             console.log("testCookie for Booking.")
+            createFilterSelect(false)
             testCookie((token)=> {
                 function testThisToken() {
                     if (token == null) {
@@ -254,6 +408,13 @@ var CustomManager = function() {
                     sendToChildWindow('login', message)
                 }
             })
+            window.setTimeout(()=> {
+                Gflag = createFilterSelect(false)
+                sendFilterMessage({
+                    services: "",
+                    classname: ""
+                })
+                }, 1000)
         } else
         if (newsection === "Settings") {
             console.log("Settings")
@@ -271,7 +432,7 @@ var CustomManager = function() {
 //        resizeScreen();
 //        $('.sidebar').addClass('close')
 //        $('section').css("margin-left", "" + 78 + "px")
-
+         //window.setTimeout(createControlBlocks, 1000)
     }
 
     function menuClick(obj) {
@@ -581,7 +742,9 @@ var CustomManager = function() {
                           operation: 'showsection',
                           sectionname: sectionname,
                           datetime: jsonobj.datetime,
-                          message: jsonobj
+                          message: jsonobj,
+                          services: jsonobj.usermessage + " " + getServicesObj().services,
+                          classname: jsonobj.title
                         }
                         sendToChildWindow('login', message)
                         $('#login').css("display", "block")
@@ -1022,6 +1185,52 @@ var CustomManager = function() {
         }
     }
 
+    function initializeAnchorEvents(tabs) {
+        var anchors = document.querySelectorAll('#Services-List a');
+        var index = 0
+        anchors.forEach((anchor)=> {
+            var acolour = ""
+            const anchorid = anchor.getAttribute("id")
+            const serviceid = anchorid.substring(2)
+            const classname = anchor.getAttribute("class")
+            console.log("anchor=" + anchor)
+            anchor.addEventListener('contextmenu', function(event) {
+              event.preventDefault(); // Prevent the browser's context menu from appearing
+            })
+            anchor.addEventListener("click", function(event) {
+                console.log("Click: " + serviceid)
+                event.preventDefault()
+                changeSection("Booking")
+                const newState = { page: "newpage" }
+                const newTitle = "Book " + anchorid.substring(2)
+                const newUrl = "#Booking?services=" + serviceid + "&classname=" + classname
+                history.pushState(newState, newTitle, newUrl)
+            })
+            anchor.addEventListener("mouseover", function(event) {
+                console.log("Over: " + anchorid )
+                acolour = anchor.style.color
+                anchor.style.color = "rgba(172,148,232,1)"
+            })
+            anchor.addEventListener("mouseout", function(event) {
+                console.log("Out: " + anchorid)
+                anchor.style.color = acolour
+            })
+            function setLongPress() {
+                var longPressTimeout;
+                anchor.addEventListener('touchstart', function(event) {
+                  longPressTimeout = setTimeout(function() {
+                    event.preventDefault(); // Prevent the default long-press behavior
+                  }, 1000); // Set the time threshold for a long press (in milliseconds)
+                });
+
+                anchor.addEventListener('touchend', function() {
+                  clearTimeout(longPressTimeout); // Cancel the timeout if the touch is released before the long-press threshold
+                });
+            }
+            setLongPress()
+            index = index + 1
+        })
+    }
 
     return {
         neoOnloadLocal: function () {
@@ -1041,16 +1250,20 @@ var CustomManager = function() {
                     "data/services.json",
                     (data)=> {
                         console.log("new data = " + JSON.stringify(data))
-                        Manager.createServiceOptions(data.tabs[0].id, data.tabs[0].services)
-                        Manager.createServiceOptions(data.tabs[1].id, data.tabs[1].services)
-                        Manager.createServiceOptions(data.tabs[2].id, data.tabs[2].services)
+                        Manager.createServiceOptions(data.tabs[0], data.tabs[0].services)
+                        Manager.createServiceOptions(data.tabs[1], data.tabs[1].services)
+                        Manager.createServiceOptions(data.tabs[2], data.tabs[2].services)
+                        initializeAnchorEvents(data.tabs)
                     })
             }
             getServicesTabs()
+
             console.log("Done load.")
         },
-        createServiceOptions: function (id, options) {
+        createServiceOptions: function (tab, options) {
             try {
+                const id = tab.id
+                const classname = tab.name.replace(/ /g, '_')
                 const sectiondiv = document.getElementById("Services-List")
                 const templatetab = sectiondiv.getElementsByClassName('template-tab')[0]
                 const clonecontent = templatetab.cloneNode(true);
@@ -1086,7 +1299,7 @@ var CustomManager = function() {
                         return tabnumber
                     }
                 }
-                defaultTab(getTabNumber())
+                TabMgr.defaultTab(getTabNumber(), AppMan)
             } catch (e) {
                 console.log(e.stack.toString())
             }
