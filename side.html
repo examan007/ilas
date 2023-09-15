@@ -16,19 +16,19 @@
   <link rel="stylesheet" href="css/custom.css">
   <link rel="stylesheet" href="css/tabs.css">
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-..."" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-..." crossorigin="anonymous">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
-  <script src="https://neonow.neolation.com/js/app.js"></script>
-  <script src="https://neonow.neolation.com/js/login.js"></script>
+  <script src="../neonow/js/app.js"></script>
+  <script src="../neonow/js/login.js"></script>
   <script src="js/side.js"></script>
 </head>
 <body>
 <div class="wrapper">
   <div class="banner">
-    <a href="#Booking">Click here to book your free consultation today.</a>
+    <a href="#Booking?classname=Phone_Consult">Click here to book your free consultation today.</a>
   </div>
   <div class="container">
     <div class="triangle">
@@ -79,14 +79,14 @@
       </li>
       <li>
         <div class="icon-link">
-          <p><a href="#Services?booking=true" onclick="menuClick(this)">
+          <p><a href="#Booking?classname=All&services=" onclick="menuClick(this)">
             <i class='bx bx-calendar'></i>
             <span class="link_name">Booking</span>
           </a></p>
           <i class='bx bxs-chevron-down arrow'></i>
         </div>
         <ul class="sub-menu">
-          <li onclick="menuClick(this)"><a class="link_name" href="#Services?booking=true"><span>Booking</span></a></li>
+          <li onclick="menuClick(this)"><a class="link_name" href="#Booking?classname=All&service="><span>Booking</span></a></li>
           <li onclick="menuClick(this)"><a href="#Booking?filter=Free_consultation"><span>Book appointment</span></a></li>
           <li onclick="menuClick(this)"><a href="#Booking?filter=My_appointments"><span>My appointments</span></a></li>
         </ul>
@@ -226,17 +226,15 @@
       </div>
       <div id="Services-List" class="brochure brochure-content">
         <div class="tabs">
-          <button class="tab-button" onclick="openTab(event, 'tab1')">Hair Options</button>
-          <button class="tab-button" onclick="openTab(event, 'tab2')">Laser Treatment</button>
-          <button class="tab-button" onclick="openTab(event, 'tab3')">Other Services</button>
+          <button class="tab-button" onclick="TabMgr.openTab(event, 'tab1')">Hair Option</button>
+          <button class="tab-button" onclick="TabMgr.openTab(event, 'tab2')">Laser Treatment</button>
+          <button class="tab-button" onclick="TabMgr.openTab(event, 'tab3')">Other Service</button>
         </div>
         <div id="${tabname}" class="template-tab tab-content">
           <div class="template-brochure brochure">
             <div class="neoserve">
               <div>
-                <h2><a id="a_${identifier}" href="#${hrefurl}?tab=${tabnumber}"
-                       onmouseover="mouseOverFunction('${identifier}')"
-                       onmouseout="mouseOutFunction('${identifier}')">${nicename}</a></h2>
+                <h2><a class="${classname}" id="a_${identifier}" href="#${hrefurl}?tab=${tabnumber}">${nicename}</a></h2>
               </div>
             </div>
           </div>
@@ -250,7 +248,18 @@
       </div>
     </section>
     <section id="Booking" class="neo-section">
-        <object id="calendar" type="text/html" data="https://neobook.neolation.com/index.html"></object>
+        <div class="control-container">
+          <div class="control-block" id="filter-state">
+            <div>
+              <div>Laser Treatment</div>
+              <div>Hair Option</div>
+              <div>Other Service</div>
+              <div>Phone Consult</div>
+              <div>All</div>
+            </div>
+          </div>
+        </div>
+        <object id="calendar" type="text/html" data="../neobook/index.html"></object>
     </section>
     <section id="Settings" class="neo-section">
       <div class="settings-label" id="TokenLabel">Current access token:</div>
@@ -262,23 +271,14 @@
       </div>
     </section>
     <object id="rightpanel" class="wideportal" type="text/html" data="side.html#Body_Contouring?nomenuflag=true"></object>
-    <object id="login" type="text/html" data="https://neonow.neolation.com/login-new.html"></object>
+    <object id="login" type="text/html" data="../neonow/login-new.html"></object>
     <div id="scrollButton">
       <i class="fas fa-chevron-up"></i>
     </div>
     <script>
-      const Manager = CustomManager()
+      const TabMgr = TabManager()
+      const Manager = CustomManager(TabMgr)
       Manager.neoOnloadLocal()
-      var acolour = ""
-      function mouseOverFunction(name) {
-          console.log("Over name=" + name)
-          acolour = document.getElementById("a_" + name).style.color
-          document.getElementById("a_" + name).style.color = "rgba(172,148,232,1)"
-      }
-      function mouseOutFunction(name) {
-          console.log("Out name=" + name)
-          document.getElementById("a_" + name).style.color = acolour
-      }
     </script>
 </div>
 </body>

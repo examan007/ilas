@@ -293,9 +293,12 @@
   color: #11101d;
   font-size: 35px;
 }
-.home-section .home-content .bx-menu{
+.home-section .home-content .bx-menu {
   margin: 0 15px;
   cursor: pointer;
+}
+.bx-menu {
+  transform: translate(-15px, -10px)
 }
 .home-section .home-content .text{
   font-size: 26px;

@@ -1,7 +1,7 @@
 {
   "tabs": [{
     "id": "tab1",
-    "name": "Hair Options",
+    "name": "Hair Option",
     "services": [
       {
         "id": "Short_and_quick_cut",
@@ -85,7 +85,7 @@
     },
     {
       "id": "tab3",
-      "name": "Other Services",
+      "name": "Other Service",
       "services": [
         {
           "id": "Eyelash_extensions",
