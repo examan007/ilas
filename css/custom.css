@@ -11,7 +11,7 @@
 #Booking {
     height: 100vh;
     background-repeat: repeat;
-    max-width: 700px;
+    max-width: 550px;
 }
 .bgbox {
     width: 50%;
@@ -71,4 +71,3 @@
 .content:nth-child(2) {
   left: -30px;
 }
-

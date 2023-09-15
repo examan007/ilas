@@ -39,6 +39,10 @@ section {
     top: 0;
     left: 0;
 }
+#Booking {
+    position: fixed;
+}
+
 .neo-section {
     display: none;
     width: 100%;
@@ -266,17 +270,31 @@ span {
 }
 .control-container {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     width: 100%;
-    position: fixed;
-    z-index: 1000;
+    height: 2em;
+    position: fixed
     gap: 0.5em;
     max-width: 550px;
-    padding-top: 0.5em;
+    padding-top: 0.1em;
+    z-index: 260;
+    margin-left: 100px;
+    margin-top: 10px;
 }
 .template-control-block {
     display: none;
 }
-.control-block {
-
+.control-block div {
+    background-color: rgba(255, 255, 255, 1); /* Set a background color */
+    font-family: Arial, sans-serif; /* Use a custom font */
+    font-size: 16px; /* Set the font size */
+}
+.control-block-border {
+    border: 0px solid #000;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Add a box shadow on focus */
+}
+.control-block div div {
+    padding-left: 10px;
+    padding-right: 10px;
+    min-width: 100px;
 }

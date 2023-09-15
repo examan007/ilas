@@ -1,5 +1,5 @@
 var CustomManager = function(TabMgr) {
-    var consolex = {
+    var console = {
         log: function(msg) {},
     }
     var SidebarState = "Minimized"
@@ -169,7 +169,13 @@ var CustomManager = function(TabMgr) {
             return value
          }
     }
+    const FilterState = {
+        current: null
+    }
     function getServicesObj() {
+        if (FilterState.current !== null) {
+            return FilterState.current
+        }
         const ret = {
             services: "",
             classname: ""
@@ -181,6 +187,13 @@ var CustomManager = function(TabMgr) {
             console.log(e.stack.toString())
         }
         return ret
+    }
+    function sendFilterMessage(inmessage) {
+        const message = getServicesObj()
+        if (message.classname !== inmessage.classname) {
+            message.operation = "filteravailable"
+            sendToChildWindow('calendar', message)
+        }
     }
     function createControlBlocks() {
         console.log("create control blocks.")
@@ -205,10 +218,98 @@ var CustomManager = function(TabMgr) {
         }
         const message = getServicesObj()
         createblock(message.classname)
-        createblock(message.services)
+        //createblock(message.services)
         message.operation = "filteravailable"
         sendToChildWindow('calendar', message)
     }
+    function createFilterSelect(inflag) {
+        function getFlag() {
+            if (typeof(inflag) === 'undefined') {
+                return false
+            }
+            return inflag
+        }
+        const flag = getFlag()
+        const select = document.querySelector("#filter-state div")
+        const options = select.querySelectorAll("div")
+        //const selectedIndex = select.selectedIndex
+        //const selectedOption = select.options[selectedIndex]
+        const message = getServicesObj()
+        console.log("create " + flag + " : " + select.outerHTML + "\n" + JSON.stringify(message))
+        message.operation = "filteravailable"
+        if (flag == false) {
+//            sendToChildWindow('calendar', message)
+        }
+        function testOption(index, flag, selected) {
+            if (index < options.length) {
+                const option = options[index]
+                const test = option.textContent
+                console.log("test=" + test)
+                if (test === message.classname) {
+                    option.setAttribute("style", "display: block;")
+                    return testOption(index + 1, flag, option)
+                } else
+                if ( flag === true) {
+                    option.setAttribute("style", "display: block;")
+                } else {
+                    option.setAttribute("style", "display: none;")
+                }
+                return testOption(index + 1, flag, selected)
+            }
+            return selected
+        }
+        if (flag) {
+            select.classList.add("control-block-border")
+        } else {
+            select.classList.remove("control-block-border")
+        }
+        const selected = testOption(0, flag, null)
+        if (selected !== null) {
+            const parent = selected.parentNode
+            parent.removeChild(selected);
+            parent.insertBefore(selected, parent.firstChild);
+        }
+        return flag ? false : true
+    }
+    var Gflag = true;
+    function initializeSelect() {
+        const optionElementList = document.querySelectorAll("#filter-state div div")
+        optionElementList.forEach((optionElement)=> {
+            optionElement.addEventListener('click', function() {
+                console.log("click" + Gflag.toString() + " " + this.textContent)
+                const testmessage = getServicesObj()
+                const newclassname = this.textContent
+                if (testmessage.classname === newclassname) {
+                    console.log("No change")
+                } else {
+                    testmessage.classname = newclassname
+                    FilterState.last = FilterState.current
+                    FilterState.current = testmessage
+                    const message = getServicesObj()
+                    message.services = ""
+                    message.operation = "filteravailable"
+                    sendToChildWindow('calendar', message)
+                }
+                Gflag = createFilterSelect(Gflag)
+            })
+            var moflag = false
+            optionElement.addEventListener('mouseover', function() {
+                moflag = true
+            })
+            optionElement.addEventListener('mouseout', function() {
+                console.log("click mo " + Gflag.toString() + " " + this.outerHTML)
+                const message = getServicesObj()
+                console.log(`You selected: ` + JSON.stringify(message))
+                if (Gflag === false && moflag === true) {
+                    moflag = false
+                    //Gflag = createFilterSelect(false)
+                }
+            })
+        })
+
+    }
+    initializeSelect()
+
     function changeSection(newsection) {
         function testDomobj(elementid) {
             return $('#' + elementid)
@@ -279,9 +380,7 @@ var CustomManager = function(TabMgr) {
          CurrentSection = getsectionname()
          if (newsection === "Booking") {
             console.log("testCookie for Booking.")
-            const message = getServicesObj()
-            message.operation = "filteravailable"
-            sendToChildWindow('calendar', message)
+            createFilterSelect(false)
             testCookie((token)=> {
                 function testThisToken() {
                     if (token == null) {
@@ -309,6 +408,13 @@ var CustomManager = function(TabMgr) {
                     sendToChildWindow('login', message)
                 }
             })
+            window.setTimeout(()=> {
+                Gflag = createFilterSelect(false)
+                sendFilterMessage({
+                    services: "",
+                    classname: ""
+                })
+                }, 1000)
         } else
         if (newsection === "Settings") {
             console.log("Settings")
@@ -326,8 +432,7 @@ var CustomManager = function(TabMgr) {
 //        resizeScreen();
 //        $('.sidebar').addClass('close')
 //        $('section').css("margin-left", "" + 78 + "px")
-         window.setTimeout(createControlBlocks, 1000)
-
+         //window.setTimeout(createControlBlocks, 1000)
     }
 
     function menuClick(obj) {
@@ -635,12 +740,11 @@ var CustomManager = function(TabMgr) {
                     getSectionName((sectionname) => {
                         var message = {
                           operation: 'showsection',
-
                           sectionname: sectionname,
                           datetime: jsonobj.datetime,
                           message: jsonobj,
-                          services: getServicesObj().classname + " " + getServicesObj().services,
-                          classname: getServicesObj().classname
+                          services: jsonobj.usermessage + " " + getServicesObj().services,
+                          classname: jsonobj.title
                         }
                         sendToChildWindow('login', message)
                         $('#login').css("display", "block")
