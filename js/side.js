@@ -414,7 +414,7 @@ var CustomManager = function(TabMgr) {
                     services: "",
                     classname: ""
                 })
-                }, 1000)
+                }, 2000)
         } else
         if (newsection === "Settings") {
             console.log("Settings")

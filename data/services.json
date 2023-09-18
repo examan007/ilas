@@ -100,6 +100,10 @@
           "name": "Facials"
         },
         {
+          "id": "Waxing",
+          "name": "Facial and body waxing"
+        },
+        {
           "id": "Relaxational_massage",
           "name": "Relaxational massage"
         },
