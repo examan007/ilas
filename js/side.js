@@ -1212,13 +1212,15 @@ var CustomManager = function(TabMgr) {
               event.preventDefault(); // Prevent the browser's context menu from appearing
             })
             anchor.addEventListener("click", function(event) {
-                console.log("Click: " + serviceid)
-                event.preventDefault()
-                changeSection("Booking")
-                const newState = { page: "newpage" }
-                const newTitle = "Book " + anchorid.substring(2)
-                const newUrl = "#Booking?services=" + serviceid + "&classname=" + classname
-                history.pushState(newState, newTitle, newUrl)
+                console.log("Click: " + serviceid + " href=" + window.location.href)
+               if (AppMan.getQueryValue("booking") === "true") {
+                    event.preventDefault()
+                    changeSection("Booking")
+                    const newState = { page: "newpage" }
+                    const newTitle = "Book " + anchorid.substring(2)
+                    const newUrl = "#Booking?services=" + serviceid + "&classname=" + classname
+                    history.pushState(newState, newTitle, newUrl)
+                }
             })
             anchor.addEventListener("mouseover", function(event) {
                 console.log("Over: " + anchorid )
