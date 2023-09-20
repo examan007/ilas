@@ -1,5 +1,5 @@
 var CustomManager = function(TabMgr) {
-    var console = {
+    var consolex = {
         log: function(msg) {},
     }
     var SidebarState = "Minimized"
@@ -91,7 +91,7 @@ var CustomManager = function(TabMgr) {
         $('.sidebar').css('width', '78px')
         $('.icon-link').css('display', 'inline-block');
         $('.logo-details').css('display', 'inline-block')
-        SidebarTimeoutObj = setTimeout(toggleSidebarAlone, 3000)
+        SidebarTimeoutObj = setTimeout(toggleSidebarAlone, 500)
         SidebarState = NewSidebarState
       }
       ret = ! $('.sidebar').hasClass('close')
@@ -245,14 +245,20 @@ var CustomManager = function(TabMgr) {
                 const option = options[index]
                 const test = option.textContent
                 console.log("test=" + test)
+                if ( flag === true) {
+                    option.classList.remove("control-block-small")
+                    option.classList.add("control-block-large")
+                    option.setAttribute("style", "display: block;")
+                } else
                 if (test === message.classname) {
+                    option.classList.remove("control-block-large")
+                    option.classList.add("control-block-small")
                     option.setAttribute("style", "display: block;")
                     return testOption(index + 1, flag, option)
-                } else
-                if ( flag === true) {
-                    option.setAttribute("style", "display: block;")
                 } else {
                     option.setAttribute("style", "display: none;")
+                    option.classList.remove("control-block-large")
+                    option.classList.add("control-block-small")
                 }
                 return testOption(index + 1, flag, selected)
             }
@@ -260,6 +266,7 @@ var CustomManager = function(TabMgr) {
         }
         if (flag) {
             select.classList.add("control-block-border")
+            //initializeUnselect()
         } else {
             select.classList.remove("control-block-border")
         }
@@ -269,12 +276,13 @@ var CustomManager = function(TabMgr) {
             parent.removeChild(selected);
             parent.insertBefore(selected, parent.firstChild);
         }
-        return flag ? false : true
+        Gflag = flag ? false : true
+        return Gflag
     }
     var Gflag = true;
     function initializeSelect() {
-        const optionElementList = document.querySelectorAll("#filter-state div div")
-        optionElementList.forEach((optionElement)=> {
+        document.querySelectorAll("#filter-state div div").
+          forEach((optionElement)=> {
             optionElement.addEventListener('click', function() {
                 console.log("click" + Gflag.toString() + " " + this.textContent)
                 const testmessage = getServicesObj()
@@ -292,23 +300,28 @@ var CustomManager = function(TabMgr) {
                 }
                 Gflag = createFilterSelect(Gflag)
             })
-            var moflag = false
-            optionElement.addEventListener('mouseover', function() {
-                moflag = true
-            })
+        })
+    }
+    initializeSelect()
+
+    function initializeUnselect() {
+        document.querySelectorAll("#filter-state div div").
+          forEach((optionElement)=> {
             optionElement.addEventListener('mouseout', function() {
                 console.log("click mo " + Gflag.toString() + " " + this.outerHTML)
                 const message = getServicesObj()
                 console.log(`You selected: ` + JSON.stringify(message))
-                if (Gflag === false && moflag === true) {
-                    moflag = false
-                    //Gflag = createFilterSelect(false)
-                }
+                createFilterSelect(false)
+            })
+            optionElement.addEventListener('mouseover', function() {
+                console.log("click mo " + Gflag.toString() + " " + this.outerHTML)
+                const message = getServicesObj()
+                console.log(`You selected: ` + JSON.stringify(message))
+                createFilterSelect(true)
             })
         })
-
     }
-    initializeSelect()
+    initializeUnselect()
 
     function changeSection(newsection) {
         function testDomobj(elementid) {
@@ -718,6 +731,7 @@ var CustomManager = function(TabMgr) {
               } else
                 if (jsonobj.operation === 'closesidebar') {
                     toggleSidebar(false)
+                    createFilterSelect(false)
                 } else
                 if (jsonobj.operation === 'showappointmentrequest') {
                     console.log("appointment request")
@@ -1231,6 +1245,17 @@ var CustomManager = function(TabMgr) {
             index = index + 1
         })
     }
+
+    function registerSectionClick() {
+        const sections = document.querySelectorAll('.neo-section')
+        sections.forEach((section)=> {
+            section.addEventListener('click', function() {
+                //toggleSidebar(false)
+                createFilterSelect(false)
+            })
+        })
+    }
+    //registerSectionClick()
 
     return {
         neoOnloadLocal: function () {

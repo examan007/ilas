@@ -286,8 +286,6 @@ span {
 }
 .control-block div {
     background-color: rgba(255, 255, 255, 1); /* Set a background color */
-    font-family: Arial, sans-serif; /* Use a custom font */
-    font-size: 16px; /* Set the font size */
 }
 .control-block-border {
     border: 0px solid #000;
@@ -297,4 +295,11 @@ span {
     padding-left: 10px;
     padding-right: 10px;
     min-width: 100px;
+    font-family: 'Poppins', sans-serif;
+}
+.control-block-small {
+    font-size: 1em;
+}
+.control-block-large {
+    font-size: 1.5em;
 }
