@@ -172,6 +172,7 @@ var CustomManager = function(TabMgr) {
     const FilterState = {
         current: null
     }
+
     function getServicesObj() {
         if (FilterState.current !== null) {
             return FilterState.current
@@ -407,16 +408,24 @@ var CustomManager = function(TabMgr) {
                 }
                 if (testThisToken() == false) {
                     console.log("$$$ Need a valid token.")
-                    window.setTimeout(()=> {
-                        console.log("Do NOT Show Login %%%%%%%%%%%%")
-                        //LoginFlag = true
-                        //getLoginWindow('tokenneeded')
-                    }, 2000)
+                    if (AppMan.getQueryValue("filter") === "My_appointments") {
+                        window.setTimeout(()=> {
+                            console.log("Do NOT Show Login %%%%%%%%%%%%")
+                            LoginFlag = true
+                            getLoginWindow('tokenneeded')
+                        }, 2000)
+                    }
+                    var message = {
+                      operation: 'readappointments',
+                      authentication: false
+                    }
+                    sendToChildWindow('login', message)
                 } else {
                     console.log("token is [" + token + "]")
                     $('#login').css("display", "none")
                     var message = {
                       operation: 'readappointments',
+                      authentication: true
                     }
                     sendToChildWindow('login', message)
                 }
@@ -1219,6 +1228,14 @@ var CustomManager = function(TabMgr) {
                     const newState = { page: "newpage" }
                     const newTitle = "Book " + anchorid.substring(2)
                     const newUrl = "#Booking?services=" + serviceid + "&classname=" + classname
+                    history.pushState(newState, newTitle, newUrl)
+                } else
+                if (AppMan.getQueryValue("booking") === "false") {
+                    event.preventDefault()
+                    changeSection(serviceid)
+                    const newState = { page: "newpage" }
+                    const newTitle = "classname" + ":" + serviceid
+                    const newUrl = "#" + serviceid
                     history.pushState(newState, newTitle, newUrl)
                 }
             })
