@@ -237,9 +237,9 @@
       </div>
       <div id="Services-List" class="brochure brochure-content">
         <div class="tabs">
-          <button class="tab-button" onclick="TabMgr.openTab(event, 'tab1')">Hair Option</button>
-          <button class="tab-button" onclick="TabMgr.openTab(event, 'tab2')">Laser Treatment</button>
-          <button class="tab-button" onclick="TabMgr.openTab(event, 'tab3')">Other Service</button>
+          <button class="tab-button" name="tab1">Hair Option</button>
+          <button class="tab-button" name="tab2">Laser Treatment</button>
+          <button class="tab-button" name="tab3">Other Service</button>
         </div>
         <div id="${tabname}" class="template-tab tab-content">
           <div class="template-brochure brochure">
@@ -287,8 +287,7 @@
       <i class="fas fa-chevron-up"></i>
     </div>
     <script>
-      const TabMgr = TabManager()
-      const Manager = CustomManager(TabMgr)
+      const Manager = CustomManager()
       Manager.neoOnloadLocal()
     </script>
 </div>

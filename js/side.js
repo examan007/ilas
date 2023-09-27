@@ -1,4 +1,4 @@
-var CustomManager = function(TabMgr) {
+var CustomManager = function() {
     var console = {
         log: function(msg) {},
     }
@@ -1277,6 +1277,7 @@ var CustomManager = function(TabMgr) {
         })
     }
     //registerSectionClick()
+    var TabMgr = null
 
     return {
         neoOnloadLocal: function () {
@@ -1285,6 +1286,7 @@ var CustomManager = function(TabMgr) {
             createPamplets()
             loadImagesLazyily()
             let appman = neoOnloadLocal()
+            TabMgr = TabManager(appman)
             neobookOnLoad()
             welcomeFunction(appman)
             $('#login').css('display','block')
