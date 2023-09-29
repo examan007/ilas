@@ -408,7 +408,7 @@ var CustomManager = function() {
                 }
                 if (testThisToken() == false) {
                     console.log("$$$ Need a valid token.")
-                    if (AppMan.getQueryValue("filter") === "My_appointments") {
+                    if (AppMan.getQueryValue("classname") === "My_Appointments") {
                         window.setTimeout(()=> {
                             console.log("Do NOT Show Login %%%%%%%%%%%%")
                             LoginFlag = true
