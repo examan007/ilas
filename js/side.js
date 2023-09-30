@@ -298,6 +298,14 @@ var CustomManager = function() {
                     message.services = ""
                     message.operation = "filteravailable"
                     sendToChildWindow('calendar', message)
+                    var updatehrefmessage = {
+                        operation: "seturistate",
+                        newhashcode: "Booking",
+                        newhref: "?" + AppMan.replaceQueryValue("classname",
+                         newclassname.replace(/ /g,"_")
+                         )
+                    }
+                    window.postMessage(JSON.stringify(updatehrefmessage), "*")
                 }
                 Gflag = createFilterSelect(Gflag)
             })
