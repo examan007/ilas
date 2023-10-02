@@ -43,6 +43,7 @@ var CustomManager = function() {
    var timeoutobj = null
    var timeoutflag = true
    var InitialMargin = 260
+   var SidebarTimeoutObj = null
    function toggleSidebar(flag) {
       var NewSidebarState = null
       if (typeof(flag) !== 'undefined') {
@@ -70,7 +71,10 @@ var CustomManager = function() {
       if (SidebarState === "Hidden") {
         NewSidebarState = "Maximized"
       }
-      clearTimeout(SidebarTimeoutObj)
+      if (SidebarTimeoutObj) {
+          clearTimeout(SidebarTimeoutObj)
+          SidebarTimeoutObj = null
+      }
       console.log("NewSidebarState=[" + NewSidebarState + "]")
       showStack()
       window.clearTimeout(timeoutobj)
@@ -417,6 +421,7 @@ var CustomManager = function() {
                 if (testThisToken() == false) {
                     console.log("$$$ Need a valid token.")
                     if (AppMan.getQueryValue("classname") === "My_Appointments") {
+                        $('#login').css('display','block')
                         window.setTimeout(()=> {
                             console.log("Do NOT Show Login %%%%%%%%%%%%")
                             LoginFlag = true
@@ -723,7 +728,6 @@ var CustomManager = function() {
     let AppMan = null
     function neoOnloadLocal() {
             console.log("neoOnloadLocal()")
-            $('#login').css("display", "none")
             AppMan = ApplicationManager((event, flag) => {
               const services = getServicesArray('.neo-service')
               function getJSONMsg() {
@@ -1297,7 +1301,6 @@ var CustomManager = function() {
             TabMgr = TabManager(appman)
             neobookOnLoad()
             welcomeFunction(appman)
-            $('#login').css('display','block')
             initializeMenu()
             registerForEvents()
             initSwipeScroll()
