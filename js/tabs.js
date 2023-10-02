@@ -6,7 +6,16 @@ var TabManager = function(AppMan) {
       const tabnumber = parseInt(tabName.match(/\d+/)[0])
       const newState = { page: "newpage" }
       const newTitle = "Services"
-      const newUrl = AppMan.getServerURL() + "?" + AppMan.replaceQueryValue("tab", tabnumber)
+      function getHashCode() {
+        const hash = AppMan.getHashValue()
+        if (hash.length > 0) {
+            return hash
+        } else {
+            return "#Services"
+        }
+      }
+      const newUrl = AppMan.getServer() + getHashCode() + "?" + AppMan.replaceQueryValue("tab", tabnumber)
+      console.log("newurl=[" + newUrl + "]")
       history.pushState(newState, newTitle, newUrl);
     }
     function selectTab(tabName) {
