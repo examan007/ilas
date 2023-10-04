@@ -1420,7 +1420,6 @@ var CustomManager = function() {
             let appman = neoOnloadLocal()
             TabMgr = TabManager(appman)
             neobookOnLoad()
-            initializeMenu()
             registerForEvents()
             neobookOnLoad()
             initializeMenu()
