@@ -871,6 +871,7 @@ var CustomManager = function() {
               } else
               if (jsonobj.operation === "createevent") {
                 sendToChildWindow('calendar', jsonobj)
+                changeSection("Booking")
               } else
               if (jsonobj.operation === "readappointments") {
                 sendToChildWindow('calendar', jsonobj)
