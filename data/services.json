@@ -2,6 +2,7 @@
   "tabs": [{
     "id": "tab1",
     "name": "Hair Care Option",
+    "color": "rgba(102, 227, 142, 0.5)",
     "services": [
       {
         "id": "Short_and_quick_cut",
@@ -32,6 +33,7 @@
     {
       "id": "tab2",
       "name": "Laser Treatment",
+      "color": "rgba(124, 90, 204, 0.5)",
       "services": [
         {
           "id": "Body_Contouring",
@@ -86,6 +88,7 @@
     {
       "id": "tab3",
       "name": "Other Service",
+      "color": "rgba(90, 130, 204, 0.5)",
       "services": [
         {
           "id": "Eyelash_extensions",
