@@ -257,6 +257,24 @@ var CustomManager = function() {
         if (flag == false) {
 //            sendToChildWindow('calendar', message)
         }
+        function getBackgroundColor(classname, callback) {
+            if (classname === "Phone Consult") {
+                callback("rgba(225, 227, 102, 0.5)")
+            } else
+            if (ServicesData) {
+                function getMatch(index) {
+                    if (index < ServicesData.tabs.length) {
+                        //console.log("index: " + index + " " + JSON.stringify(ServicesData.tabs[index]))
+                        if (ServicesData.tabs[index].name === classname) {
+                            callback(ServicesData.tabs[index].color)
+                        } else {
+                            getMatch(index + 1)
+                        }
+                    }
+                }
+                getMatch(0)
+            }
+        }
         function testOption(index, flag, selected) {
             if (index < options.length) {
                 const option = options[index]
@@ -266,6 +284,9 @@ var CustomManager = function() {
                     option.classList.remove("control-block-small")
                     option.classList.add("control-block-large")
                     option.setAttribute("style", "display: block;")
+                    getBackgroundColor(test, (color)=> {
+                        option.setAttribute("style", "background-color: " + color)
+                    })
                 } else
                 if (test === message.classname) {
                     option.classList.remove("control-block-large")
@@ -1338,6 +1359,7 @@ var CustomManager = function() {
     }
     //registerSectionClick()
     var TabMgr = null
+    var ServicesData = null
 
     function generateError() {
       try {
@@ -1395,6 +1417,7 @@ var CustomManager = function() {
         if (JSON.stringify(data) === "null") {
             generateError();
         } else {
+            ServicesData = data
             console.log("new data = " + JSON.stringify(data))
             createServiceOptions(data.tabs[0], data.tabs[0].services)
             createServiceOptions(data.tabs[1], data.tabs[1].services)
