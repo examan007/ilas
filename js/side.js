@@ -1464,7 +1464,8 @@ var CustomManager = function() {
     function getServicesTabs() {
         var message = {
             operation: 'readservices',
-            authentication: false
+            authentication: false,
+            resource: getResource()
         }
         function getResource() {
             const resource = "data/services.json"
