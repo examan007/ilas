@@ -492,7 +492,7 @@ var CustomManager = function() {
                             console.log("Do NOT Show Login %%%%%%%%%%%%")
                             LoginFlag = true
                             getLoginWindow('tokenneeded')
-                        }, 2000)
+                        }, 1000)
                     }
                     var message = {
                       operation: 'readappointments',
@@ -1463,9 +1463,22 @@ var CustomManager = function() {
     }
     function getServicesTabs() {
         var message = {
-          operation: 'readservices',
-          authentication: false
+            operation: 'readservices',
+            authentication: false
         }
+        function getResource() {
+            const resource = "data/services.json"
+            try {
+                const serverandpath = window.location.href.split("?")[0]
+                const lastslash = serverandpath.lastIndexOf('/')
+                const fullpath = serverandpath.substring(0, lastslash)
+                return fullpath + "/" + resource
+            } catch (e) {
+                console.log(e.toString())
+                return "" + resource
+            }
+        }
+        console.log("readservices: ", JSON.stringify(message))
         sendToChildWindow('login', message)
     }
 
