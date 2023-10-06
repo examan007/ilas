@@ -287,11 +287,13 @@ var CustomManager = function() {
                     getBackgroundColor(test, (color)=> {
                         option.setAttribute("style", "background-color: " + color)
                     })
+                    document.getElementById("dropDown").setAttribute("style", "display: none")
                 } else
                 if (test === message.classname) {
                     option.classList.remove("control-block-large")
                     option.classList.add("control-block-small")
                     option.setAttribute("style", "display: block;")
+                    document.getElementById("dropDown").setAttribute("style", "display: block")
                     return testOption(index + 1, flag, option)
                 } else {
                     option.setAttribute("style", "display: none;")
@@ -350,8 +352,8 @@ var CustomManager = function() {
     }
     initializeSelect()
 
-    function initializeUnselect() {
-        document.querySelectorAll("#filter-state div div").
+    function initializeUnselect(selector) {
+        document.querySelectorAll(selector).
           forEach((optionElement)=> {
             optionElement.addEventListener('mouseout', function() {
                 console.log("click mo " + Gflag.toString() + " " + this.outerHTML)
@@ -367,7 +369,8 @@ var CustomManager = function() {
             })
         })
     }
-    initializeUnselect()
+    initializeUnselect("#filter-state div div")
+    initializeUnselect("#dropDown i")
 
     function changeSection(newsection) {
         function testDomobj(elementid) {
@@ -1045,20 +1048,21 @@ var CustomManager = function() {
       });
     });
 
-    function runFadeInOut(flag) {
+    function runFadeInOut(flag, selector) {
         window.setTimeout(()=> {
             function toggle() {
                 if (flag) {
-                    document.querySelector('#scrollButton').classList.add('show');
+                    document.querySelector(selector).classList.add('show');
                 } else {
-                    document.querySelector('#scrollButton').classList.remove('show');
+                    document.querySelector(selector).classList.remove('show');
                 }
-                runFadeInOut(!flag)
+                runFadeInOut(!flag, selector)
             }
             toggle()
         }, 2000)
     }
-    runFadeInOut(true)
+    runFadeInOut(true, '#scrollButton')
+    runFadeInOut(true, '#dropDown')
 
     function switchToNextSection() {
         const newsection = getNextSection()

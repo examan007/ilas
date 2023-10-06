@@ -303,3 +303,16 @@ span {
 .control-block-large {
     font-size: 1.5em;
 }
+#dropDown {
+    opacity: 0.25;
+    transition: opacity 1s;
+}
+#dropDown > i {
+    transform: translateX(4em);
+    font-size: 1em;
+    color: black;
+}
+
+#dropDown.show {
+  opacity: 0.5;
+}
