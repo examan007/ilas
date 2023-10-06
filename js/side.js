@@ -239,6 +239,7 @@ var CustomManager = function() {
         message.operation = "filteravailable"
         sendToChildWindow('calendar', message)
     }
+    var Gflag = true;
     function createFilterSelect(inflag) {
         function getFlag() {
             if (typeof(inflag) === 'undefined') {
@@ -285,7 +286,7 @@ var CustomManager = function() {
                     option.classList.add("control-block-large")
                     option.setAttribute("style", "display: block;")
                     getBackgroundColor(test, (color)=> {
-                        option.setAttribute("style", "background-color: " + color)
+                        option.setAttribute("style", "display: block; background-color: " + color + ";")
                     })
                     document.getElementById("dropDown").setAttribute("style", "display: none")
                 } else
@@ -319,12 +320,59 @@ var CustomManager = function() {
         Gflag = flag ? false : true
         return Gflag
     }
-    var Gflag = true;
-    function initializeSelect() {
-        document.querySelectorAll("#filter-state div div").
+    function showFlags(label, text) {
+        console.log("click mo " + label + " gflag=" + Gflag.toString() + " swallow=" + SwallowClick.toString() + " " + text)
+    }
+    var SwallowClick = false
+    var SwallowMouseover = false
+     function initializeUnselect(selector) {
+        document.querySelectorAll(selector).
           forEach((optionElement)=> {
+            optionElement.addEventListener('mouseout', function() {
+                showFlags("mouseout", this.textContent)
+                if (Gflag) {
+                    return
+                }
+                SwallowMouseover = true
+                window.setTimeout(()=> {
+                    SwallowMouseover = false
+                }, 100)
+                const message = getServicesObj()
+                console.log(`You selected: ` + JSON.stringify(message))
+                createFilterSelect(false)
+                showFlags("mouseout", this.textContent)
+            })
+            optionElement.addEventListener('mouseover', function() {
+                showFlags("mouseover", this.textContent)
+                if (!Gflag) {
+                    return
+                }
+                if (SwallowMouseover) {
+                    SwallowMouseover = false
+                } else {
+                    SwallowClick = true
+                    window.setTimeout(()=> {
+                        SwallowClick = false
+                    }, 100)
+                }
+                const message = getServicesObj()
+                console.log(`You selected: ` + JSON.stringify(message))
+                createFilterSelect(true)
+                showFlags("mouseover", this.textContent)
+            })
             optionElement.addEventListener('click', function() {
-                console.log("click" + Gflag.toString() + " " + this.textContent)
+                showFlags("click", this.textContent)
+                if (SwallowClick) {
+                    SwallowClick = false
+                    return
+                } else
+                if (Gflag) {
+                    createFilterSelect(true)
+                    return
+                } else
+                if (this.textContent.length <= 0) {
+                    return
+                }
                 const testmessage = getServicesObj()
                 const newclassname = this.textContent
                 if (testmessage.classname === newclassname) {
@@ -346,26 +394,8 @@ var CustomManager = function() {
                     }
                     window.postMessage(JSON.stringify(updatehrefmessage), "*")
                 }
-                Gflag = createFilterSelect(Gflag)
-            })
-        })
-    }
-    initializeSelect()
-
-    function initializeUnselect(selector) {
-        document.querySelectorAll(selector).
-          forEach((optionElement)=> {
-            optionElement.addEventListener('mouseout', function() {
-                console.log("click mo " + Gflag.toString() + " " + this.outerHTML)
-                const message = getServicesObj()
-                console.log(`You selected: ` + JSON.stringify(message))
                 createFilterSelect(false)
-            })
-            optionElement.addEventListener('mouseover', function() {
-                console.log("click mo " + Gflag.toString() + " " + this.outerHTML)
-                const message = getServicesObj()
-                console.log(`You selected: ` + JSON.stringify(message))
-                createFilterSelect(true)
+                showFlags("click", this.textContent)
             })
         })
     }
@@ -485,7 +515,7 @@ var CustomManager = function() {
                     services: "",
                     classname: ""
                 })
-                }, 2000)
+                }, 1000)
         } else
         if (newsection === "Settings") {
             console.log("Settings")
@@ -1352,6 +1382,7 @@ var CustomManager = function() {
         })
     }
 
+/*
     function registerSectionClick() {
         const sections = document.querySelectorAll('.neo-section')
         sections.forEach((section)=> {
@@ -1361,6 +1392,7 @@ var CustomManager = function() {
             })
         })
     }
+*/
     //registerSectionClick()
     var TabMgr = null
     var ServicesData = null
