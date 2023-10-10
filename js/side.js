@@ -932,6 +932,9 @@ var CustomManager = function() {
               } else
               if (jsonobj.operation === "readservices") {
                 processServicesData(jsonobj.data)
+              } else
+              if (jsonobj.operation === "salonhours") {
+                sendToChildWindow('login', jsonobj)
               }
             })
             AppMan.
