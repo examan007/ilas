@@ -42,7 +42,12 @@ var CustomManager = function() {
 //                    token: ""
 //                }))
                 $.cookie('neotoken', "", { expires: 365 })
-                location.reload()
+                sendToChildWindow('login', {
+                    operation: "signoff"
+                })
+                window.setTimeout(()=> {
+                   location.reload()
+                }, 500)
             } else {
                 //button.textContent = "Sign Off"
                 signOn()
@@ -565,7 +570,7 @@ var CustomManager = function() {
             console.log("Settings")
             //getLoginWindow('showstatus')
         }
-        if (newsection === "Home" || newsection.length == 0 || newsection === "Services") {
+        if (newsection === "Home" || newsection.length == 0 || newsection === "Services" || newsection === "Settings") {
             $('#scrollButton').css('display', 'block')
         } else {
             $('#scrollButton').css('display', 'none')
