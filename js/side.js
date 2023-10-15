@@ -4,6 +4,51 @@ var CustomManager = function() {
     }
     var SidebarState = "Minimized"
     var LoginFlag = false
+    function setCurrentToken(token) {
+        const button = document.getElementById("signbutton")
+        if (typeof(token.email) === 'undefined') {
+        } else {
+            button.textContent = "Sign Off"
+            console.log("token: " + JSON.stringify(token))
+            const templateclass = 'template-settings-label'
+            const templates = document.querySelectorAll("." + templateclass)
+            templates.forEach((template)=> {
+                const parent = template.parent
+                while(template.nextElementSibling) {
+                    parent.removeChild(template.nextElementSibling)
+                }
+                for (const key in token) {
+                  if (token.hasOwnProperty(key)) {
+                    const name = key
+                    const value = token[key]
+                    console.log("token: name: " + name + " value: " + value)
+                    const cloneSection = template.cloneNode(true)
+                    cloneSection.setAttribute("style", "display: block;")
+                    cloneSection.classList.remove(templateclass)
+                    cloneSection.innerHTML = eval('`' + cloneSection.innerHTML + '`')
+                    template.parentNode.appendChild(cloneSection)
+                    template.setAttribute("style", "display: none;")
+                  }
+                }
+            })
+        }
+    }
+    function initializeSignButton(AppMan) {
+        const button = document.getElementById("signbutton")
+        button.addEventListener("click", ()=> {
+            const text = button.textContent
+            if (text === "Sign Off") {
+//                AppMan.setCookie(JSON.stringify({
+//                    token: ""
+//                }))
+                $.cookie('neotoken', "", { expires: 365 })
+                location.reload()
+            } else {
+                //button.textContent = "Sign Off"
+                signOn()
+            }
+        })
+    }
     function toggleSidebarAlone() {
         if (SidebarState === 'Minimized') {
           $('.sidebar').css('width', '0px')
@@ -401,16 +446,20 @@ var CustomManager = function() {
     }
     initializeUnselect("#filter-state div div")
     initializeUnselect("#dropDown i")
-
+    function signOn() {
+        $('#login').css('display','block')
+        window.setTimeout(()=> {
+            console.log("Do NOT Show Login %%%%%%%%%%%%")
+            LoginFlag = true
+            getLoginWindow('tokenneeded')
+        }, 1000)
+    }
     function changeSection(newsection) {
         function testDomobj(elementid) {
             return $('#' + elementid)
         }
         function getsectionobj() {
             try {
-                if ( newsection === "Settings" ) {
-                    return testDomobj(DefaultSection)
-                } else
                 if (newsection.length > 0) {
                     return testDomobj(newsection)
                 } else {
@@ -470,7 +519,7 @@ var CustomManager = function() {
             console.log(">>>>>>>>>>>>> Change section to [" + newsection + "]")
          }
          CurrentSection = getsectionname()
-         if (newsection === "Booking") {
+         if (newsection === "Booking" || newsection === "Settings") {
             console.log("testCookie for Booking.")
             createFilterSelect(false)
             testCookie((token)=> {
@@ -487,12 +536,7 @@ var CustomManager = function() {
                 if (testThisToken() == false) {
                     console.log("$$$ Need a valid token.")
                     if (AppMan.getQueryValue("classname") === "My_Appointments") {
-                        $('#login').css('display','block')
-                        window.setTimeout(()=> {
-                            console.log("Do NOT Show Login %%%%%%%%%%%%")
-                            LoginFlag = true
-                            getLoginWindow('tokenneeded')
-                        }, 1000)
+                        signOn()
                     }
                     var message = {
                       operation: 'readappointments',
@@ -519,7 +563,7 @@ var CustomManager = function() {
         } else
         if (newsection === "Settings") {
             console.log("Settings")
-            getLoginWindow('showstatus')
+            //getLoginWindow('showstatus')
         }
         if (newsection === "Home" || newsection.length == 0 || newsection === "Services") {
             $('#scrollButton').css('display', 'block')
@@ -929,6 +973,14 @@ var CustomManager = function() {
               } else
               if (jsonobj.operation === "readappointments") {
                 sendToChildWindow('calendar', jsonobj)
+                console.log("readappointments: " + JSON.stringify(jsonobj))
+                try {
+                    const token = jsonobj.data.token
+                    console.log("readappointments: ", JSON.stringify(token))
+                    setCurrentToken(token)
+                } catch (e) {
+                    console.log("readappointments: " + toString())
+                }
               } else
               if (jsonobj.operation === "readservices") {
                 processServicesData(jsonobj.data)
@@ -1502,6 +1554,7 @@ var CustomManager = function() {
             initializeMenu()
             initSwipeScroll()
             getServicesTabs()
+            initializeSignButton(appman)
             console.log("Done load.")
         }
     }

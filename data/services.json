@@ -6,19 +6,23 @@
     "services": [
       {
         "id": "Short_and_quick_cut",
-        "name": "Short and quick cut"
+        "name": "Short and quick cut",
+        "duration": 30
       },
       {
         "id":  "Long_and_enriching",
-        "name": "Long and enriching"
+        "name": "Long and enriching",
+        "duration": 60
       },
       {
         "id": "Full_and_colour",
-        "name": "Full and colour"
+        "name": "Full and colour",
+        "duration": 120
       },
       {
         "id": "Full_colour_and_highlights",
-        "name": "Full colour and highlights"
+        "name": "Full colour and highlights",
+        "duration": 180
       },
       {
         "id": "empty0",

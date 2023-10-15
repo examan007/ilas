@@ -128,7 +128,7 @@ a:-webkit-any-link {
 #Services {
     justify-content: flex-start;
 }
-#Home,#Services {
+#Home,#Services,#Settings {
     display: none;
     flex-direction: row;
     align-content: stretch;
@@ -172,12 +172,26 @@ span {
 }
 #rightpanel {
 }
+#signbutton {
+    margin:auto;
+    font-size: 1em;
+    padding: 0.25em;
+    border-radius: 0.5em;
+    display: flex;
+    align-items: center;
+}
 .neoflex {
   display: grid;
   grid-template-columns: 50px auto auto;
   margin: auto;
   justify-content: start;
   gap: 10px;
+}
+.neoflex div {
+    min-width: 3em;
+}
+.neoflex div:nth-child(2) {
+      font-weight: bold;
 }
 .neoserve {
   display: block;
