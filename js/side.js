@@ -921,7 +921,7 @@ var CustomManager = function() {
                     })
                 } else
                 if (jsonobj.operation === 'changeappointmentrequest') {
-                    if (jsonobj.event.title !== "Booked") {
+                    if (jsonobj.event.title.indexOf("Booked") < 0) {
                         console.log("appointment change")
                         console.log("Request object", JSON.stringify($('#login').children()))
                         var message = {
