@@ -65,25 +65,21 @@ section {
 .brochure {
     font-size: 16px;
     color: #7e7ea0;
-    min-height: 1.25em;
-    line-height: 1.25;
     width: 100%;
     padding-right: 0px;
-}
-.brochure {
     background-color: transparent;
     border: none;
-    min-height: 1.25em;
-    line-height: 1.25;
     align-items: flex-start;
     position: relative;
+    min-height: 1em;
+    line-height: 1em;
 }
 .brochure:first-child {
     left: 0;
 }
 .brochure a {
-    min-height: 1.25em;
-    line-height: 1.25;
+    min-height: 1em;
+    line-height: 1em;
     color: #7e7ea0;
     white-space: normal;
 }
